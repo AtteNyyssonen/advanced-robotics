@@ -1,0 +1,4 @@
+source;share/ex1_fk/local_setup.bash
+source;share/ex1_fk/local_setup.dsv
+source;share/ex1_fk/local_setup.sh
+source;share/ex1_fk/local_setup.zsh

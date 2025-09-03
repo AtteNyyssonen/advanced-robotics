@@ -1,0 +1,30 @@
+[35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[ 50%] Built target kdl
+[ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:164[m[K,
+                 from [01m[K/usr/include/kdl/jacobian.hpp:26[m[K,
+                 from [01m[K/usr/include/kdl/jntarray.hpp:26[m[K,
+                 from [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:12[m[K:
+/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h: In instantiation of ‘[01m[Kconst Eigen::Product<Derived, OtherDerived> Eigen::MatrixBase<Derived>::operator*(const Eigen::MatrixBase<OtherDerived>&) const [with OtherDerived = Eigen::Transpose<Eigen::Matrix<float, 4, 1> >; Derived = Eigen::Matrix<float, 4, 4>][m[K’:
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:60:50:[m[K   required from here
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:419:3:[m[K [01;31m[Kerror: [m[Kstatic assertion failed: INVALID_MATRIX_PRODUCT
+  419 |   [01;31m[KEIGEN_STATIC_ASSERT[m[K(ProductIsValid || SameSizes, INVALID_MATRIX_PRODUCT)
+      |   [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:419:3:[m[K [01;36m[Knote: [m[K‘[01m[K(false || false)[m[K’ evaluates to false
+/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h: In instantiation of ‘[01m[Kconst Eigen::Product<Derived, OtherDerived, 1> Eigen::MatrixBase<Derived>::lazyProduct(const Eigen::MatrixBase<OtherDerived>&) const [with OtherDerived = Eigen::Transpose<Eigen::Matrix<float, 4, 1> >; Derived = Eigen::Matrix<float, 4, 4>][m[K’:
+[01m[K/usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h:402:50:[m[K   required from ‘[01m[Kstatic void Eigen::internal::generic_product_impl<Lhs, Rhs, Eigen::DenseShape, Eigen::DenseShape, 3>::evalTo(Dst&, const Lhs&, const Rhs&) [with Dst = Eigen::Matrix<float, 4, 4>; Lhs = Eigen::Matrix<float, 4, 4>; Rhs = Eigen::Transpose<Eigen::Matrix<float, 4, 1> >][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/ProductEvaluators.h:148:43:[m[K   required from ‘[01m[Kstatic void Eigen::internal::Assignment<DstXprType, Eigen::Product<Lhs, Rhs, Options>, Eigen::internal::assign_op<Scalar, Scalar>, Eigen::internal::Dense2Dense, typename Eigen::internal::enable_if<((Options == Eigen::DefaultProduct) || (Options == Eigen::AliasFreeProduct))>::type>::run(DstXprType&, const SrcXprType&, const Eigen::internal::assign_op<Scalar, Scalar>&) [with DstXprType = Eigen::Matrix<float, 4, 4>; Lhs = Eigen::Matrix<float, 4, 4>; Rhs = Eigen::Transpose<Eigen::Matrix<float, 4, 1> >; int Options = 0; Scalar = float; Eigen::internal::Assignment<DstXprType, Eigen::Product<Lhs, Rhs, Options>, Eigen::internal::assign_op<Scalar, Scalar>, Eigen::internal::Dense2Dense, typename Eigen::internal::enable_if<((Options == Eigen::DefaultProduct) || (Options == Eigen::AliasFreeProduct))>::type>::SrcXprType = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/AssignEvaluator.h:890:49:[m[K   required from ‘[01m[Kvoid Eigen::internal::call_assignment_no_alias(Dst&, const Src&, const Func&) [with Dst = Eigen::Matrix<float, 4, 4>; Src = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; Func = Eigen::internal::assign_op<float, float>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:797:41:[m[K   required from ‘[01m[KDerived& Eigen::PlainObjectBase<Derived>::_set_noalias(const Eigen::DenseBase<OtherDerived>&) [with OtherDerived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; Derived = Eigen::Matrix<float, 4, 4>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/PlainObjectBase.h:883:25:[m[K   required from ‘[01m[Kvoid Eigen::PlainObjectBase<Derived>::_init1(const Eigen::DenseBase<ElseDerived>&) [with T = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; OtherDerived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; Derived = Eigen::Matrix<float, 4, 4>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/Matrix.h:332:31:[m[K   required from ‘[01m[KEigen::Matrix<_Scalar, _Rows, _Cols, _Options, _MaxRows, _MaxCols>::Matrix(const T&) [with T = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; _Scalar = float; int _Rows = 4; int _Cols = 4; int _Options = 0; int _MaxRows = 4; int _MaxCols = 4][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/DenseBase.h:412:48:[m[K   required from ‘[01m[KEigen::DenseBase<Derived>::EvalReturnType Eigen::DenseBase<Derived>::eval() const [with Derived = Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0>; Eigen::DenseBase<Derived>::EvalReturnType = const Eigen::Matrix<float, 4, 4>][m[K’
+[01m[K/usr/include/eigen3/Eigen/src/Core/IO.h:106:56:[m[K   required from ‘[01m[Kstd::ostream& Eigen::operator<<(std::ostream&, const Eigen::WithFormat<Eigen::Product<Eigen::Matrix<float, 4, 4>, Eigen::Transpose<Eigen::Matrix<float, 4, 1> >, 0> >&)[m[K’
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:63:47:[m[K   required from here
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:458:3:[m[K [01;31m[Kerror: [m[Kstatic assertion failed: INVALID_MATRIX_PRODUCT
+  458 |   [01;31m[KEIGEN_STATIC_ASSERT[m[K(ProductIsValid || SameSizes, INVALID_MATRIX_PRODUCT)
+      |   [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/usr/include/eigen3/Eigen/src/Core/GeneralProduct.h:458:3:[m[K [01;36m[Knote: [m[K‘[01m[K(false || false)[m[K’ evaluates to false
+gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

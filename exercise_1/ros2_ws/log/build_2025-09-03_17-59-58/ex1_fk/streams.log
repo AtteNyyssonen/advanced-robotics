@@ -1,0 +1,13 @@
+[0.011s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[0.060s] [35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[0.072s] [ 50%] Built target kdl
+[0.080s] [ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+[1.002s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[1.002s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:60:29:[m[K [01;31m[Kerror: [m[K‘[01m[KEigen::Vector4f[m[K’ {aka ‘[01m[Kclass Eigen::Matrix<float, 4, 1>[m[K’} has no member named ‘[01m[Ktranspoese[m[K’; did you mean ‘[01m[Ktranspose[m[K’?
+[1.002s]    60 |     eeFrame = eeFrame * vec.[01;31m[Ktranspoese[m[K();
+[1.002s]       |                             [01;31m[K^~~~~~~~~~[m[K
+[1.002s]       |                             [32m[Ktranspose[m[K
+[1.168s] gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+[1.168s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+[1.169s] gmake: *** [Makefile:146: all] Error 2
+[1.172s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12

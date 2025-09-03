@@ -1,0 +1,14 @@
+[0.013s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[0.056s] [35m[1mConsolidate compiler generated dependencies of target kdl[0m
+[0.072s] [ 50%] [32mBuilding CXX object CMakeFiles/kdl.dir/src/kdl.cpp.o[0m
+[0.807s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/kdl.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[0.807s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/kdl.cpp:66:9:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kint fk_status[m[K’
+[0.807s]    66 |     int [01;31m[Kfk_status[m[K = FKSolver.JntToCart(jointAngles, endEffectorPose);
+[0.807s]       |         [01;31m[K^~~~~~~~~[m[K
+[0.807s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/kdl.cpp:64:9:[m[K [01;36m[Knote: [m[K‘[01m[Kint fk_status[m[K’ previously declared here
+[0.807s]    64 |     int [01;36m[Kfk_status[m[K = FKSolver.JntToCart(jointAngles, endEffectorPose, kdlChain.getNrOfSegments()-1);
+[0.808s]       |         [01;36m[K^~~~~~~~~[m[K
+[0.899s] gmake[2]: *** [CMakeFiles/kdl.dir/build.make:76: CMakeFiles/kdl.dir/src/kdl.cpp.o] Error 1
+[0.899s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/kdl.dir/all] Error 2
+[0.900s] gmake: *** [Makefile:146: all] Error 2
+[0.903s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12

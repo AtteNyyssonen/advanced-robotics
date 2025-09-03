@@ -1,0 +1,13 @@
+[0.015s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[0.061s] [35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[0.075s] [ 50%] Built target kdl
+[0.080s] [ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+[1.000s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[1.000s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:42:8:[m[K [01;31m[Kerror: [m[K‘[01m[KA20[m[K’ was not declared in this scope; did you mean ‘[01m[KA2[m[K’?
+[1.000s]    42 |     A2([01;31m[KA20[m[K,0) = cos(theta1);
+[1.000s]       |        [01;31m[K^~~[m[K
+[1.000s]       |        [32m[KA2[m[K
+[1.193s] gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+[1.193s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+[1.194s] gmake: *** [Makefile:146: all] Error 2
+[1.197s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12

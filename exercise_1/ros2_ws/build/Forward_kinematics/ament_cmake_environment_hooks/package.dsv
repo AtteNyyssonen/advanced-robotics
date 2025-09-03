@@ -1,0 +1,4 @@
+source;share/Forward_kinematics/local_setup.bash
+source;share/Forward_kinematics/local_setup.dsv
+source;share/Forward_kinematics/local_setup.sh
+source;share/Forward_kinematics/local_setup.zsh

@@ -1,0 +1,50 @@
+[0.011s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[0.036s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.158s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[0.222s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[0.223s] -- Configured cppcheck include dirs: 
+[0.223s] -- Configured cppcheck exclude dirs and/or files: 
+[0.223s] -- Added test 'lint_cmake' to check CMake code style
+[0.224s] -- Added test 'uncrustify' to check C / C++ code style
+[0.224s] -- Configured uncrustify additional arguments: 
+[0.224s] -- Added test 'xmllint' to check XML markup files
+[0.225s] -- Configuring done
+[0.233s] -- Generating done
+[0.236s] -- Build files have been written to: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk
+[0.265s] [35m[1mConsolidate compiler generated dependencies of target kdl[0m
+[0.278s] [ 25%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+[0.281s] [ 75%] Built target kdl
+[1.192s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[KEigen::Matrix4f form_matrix(float, float, float)[m[K’:
+[1.192s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:35:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kx[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[1.192s]    24 | Eigen::Matrix4f form_matrix([01;35m[Kfloat x[m[K, float y, float angle) {
+[1.193s]       |                             [01;35m[K~~~~~~^[m[K
+[1.193s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Ky[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[1.193s]    24 | Eigen::Matrix4f form_matrix(float x, [01;35m[Kfloat y[m[K, float angle) {
+[1.193s]       |                                      [01;35m[K~~~~~~^[m[K
+[1.193s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:53:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kangle[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[1.193s]    24 | Eigen::Matrix4f form_matrix(float x, float y, [01;35m[Kfloat angle[m[K) {
+[1.193s]       |                                               [01;35m[K~~~~~~^~~~~[m[K
+[1.193s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[1.193s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:46:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K;[m[K’ before ‘[01m[Kfloat[m[K’
+[1.193s]    46 |     [01;31m[Kfloat[m[K theta2 = 0.0//-M_PI / 2; // Joint 2
+[1.193s]       |     [01;31m[K^~~~~[m[K
+[1.202s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:58:21:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[KEigen::Matrix4f A2[m[K’
+[1.202s]    58 |     Eigen::Matrix4f [01;31m[KA2[m[K = Eigen::Matrix4f::Identity();
+[1.202s]       |                     [01;31m[K^~[m[K
+[1.203s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:51:21:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::Matrix4f A2[m[K’ previously declared here
+[1.203s]    51 |     Eigen::Matrix4f [01;36m[KA2[m[K; // transformation matrix from joint 1 to joint 2
+[1.203s]       |                     [01;36m[K^~[m[K
+[1.203s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:65:21:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[KEigen::Matrix4f A3[m[K’
+[1.203s]    65 |     Eigen::Matrix4f [01;31m[KA3[m[K = Eigen::Matrix4f::Identity();
+[1.203s]       |                     [01;31m[K^~[m[K
+[1.203s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:52:21:[m[K [01;36m[Knote: [m[K‘[01m[KEigen::Matrix4f A3[m[K’ previously declared here
+[1.203s]    52 |     Eigen::Matrix4f [01;36m[KA3[m[K; // transformation matrix from joint 2 to
+[1.203s]       |                     [01;36m[K^~[m[K
+[1.205s] [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:67:19:[m[K [01;31m[Kerror: [m[K‘[01m[Ktheta2[m[K’ was not declared in this scope; did you mean ‘[01m[Ktheta1[m[K’?
+[1.205s]    67 |     A1(0,0) = cos([01;31m[Ktheta2[m[K);
+[1.206s]       |                   [01;31m[K^~~~~~[m[K
+[1.206s]       |                   [32m[Ktheta1[m[K
+[1.401s] gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+[1.401s] gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+[1.401s] gmake: *** [Makefile:146: all] Error 2
+[1.405s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12

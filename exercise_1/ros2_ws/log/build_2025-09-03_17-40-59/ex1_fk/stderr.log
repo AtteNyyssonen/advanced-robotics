@@ -1,0 +1,10 @@
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[KEigen::Matrix4f form_matrix(float, float, float)[m[K’:
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:35:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kx[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix([01;35m[Kfloat x[m[K, float y, float angle) {
+      |                             [01;35m[K~~~~~~^[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Ky[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix(float x, [01;35m[Kfloat y[m[K, float angle) {
+      |                                      [01;35m[K~~~~~~^[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:53:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kangle[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix(float x, float y, [01;35m[Kfloat angle[m[K) {
+      |                                               [01;35m[K~~~~~~^~~~~[m[K

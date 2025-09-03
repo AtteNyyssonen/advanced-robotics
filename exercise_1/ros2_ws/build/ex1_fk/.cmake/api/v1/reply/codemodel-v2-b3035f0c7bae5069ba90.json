@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-d26153e2ba551f0acfea.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ex1_fk",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "eigen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-eigen-df49131247549f88bc74.json",
+					"name" : "eigen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ex1_fk_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ex1_fk_uninstall-ff8121d9c09f0abd3d8c.json",
+					"name" : "ex1_fk_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kdl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kdl-59951ac26ffcba861df6.json",
+					"name" : "kdl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-e79f569ed0a347d588be.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk",
+		"source" : "/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

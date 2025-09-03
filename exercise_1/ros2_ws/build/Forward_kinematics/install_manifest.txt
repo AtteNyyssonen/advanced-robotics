@@ -1,0 +1,15 @@
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/ament_index/resource_index/package_run_dependencies/Forward_kinematics
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/ament_index/resource_index/parent_prefix_path/Forward_kinematics
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/environment/ament_prefix_path.sh
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/environment/ament_prefix_path.dsv
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/environment/path.sh
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/environment/path.dsv
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/local_setup.bash
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/local_setup.sh
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/local_setup.zsh
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/local_setup.dsv
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/package.dsv
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/ament_index/resource_index/packages/Forward_kinematics
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/cmake/Forward_kinematicsConfig.cmake
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/cmake/Forward_kinematicsConfig-version.cmake
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/Forward_kinematics/share/Forward_kinematics/package.xml

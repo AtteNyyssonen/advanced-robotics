@@ -1,0 +1,8 @@
+source;share/ex1_fk/hook/cmake_prefix_path.ps1
+source;share/ex1_fk/hook/cmake_prefix_path.dsv
+source;share/ex1_fk/hook/cmake_prefix_path.sh
+source;share/ex1_fk/local_setup.bash
+source;share/ex1_fk/local_setup.dsv
+source;share/ex1_fk/local_setup.ps1
+source;share/ex1_fk/local_setup.sh
+source;share/ex1_fk/local_setup.zsh

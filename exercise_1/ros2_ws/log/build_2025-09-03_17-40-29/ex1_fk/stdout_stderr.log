@@ -1,0 +1,28 @@
+[35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[ 50%] Built target kdl
+[ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[KEigen::Matrix4f form_matrix(float, float, float)[m[K’:
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:35:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kx[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix([01;35m[Kfloat x[m[K, float y, float angle) {
+      |                             [01;35m[K~~~~~~^[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:44:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Ky[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix(float x, [01;35m[Kfloat y[m[K, float angle) {
+      |                                      [01;35m[K~~~~~~^[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:24:53:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kangle[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+   24 | Eigen::Matrix4f form_matrix(float x, float y, [01;35m[Kfloat angle[m[K) {
+      |                                               [01;35m[K~~~~~~^~~~~[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:46:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K;[m[K’ before ‘[01m[Kfloat[m[K’
+   46 |     [01;31m[Kfloat[m[K theta2 = 0.0//-M_PI / 2; // Joint 2
+      |     [01;31m[K^~~~~[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:51:5:[m[K [01;31m[Kerror: [m[K‘[01m[KA1[m[K’ was not declared in this scope; did you mean ‘[01m[Kl1[m[K’?
+   51 |     [01;31m[KA1[m[K(0,3) = dx;
+      |     [01;31m[K^~[m[K
+      |     [32m[Kl1[m[K
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:63:19:[m[K [01;31m[Kerror: [m[K‘[01m[Ktheta2[m[K’ was not declared in this scope; did you mean ‘[01m[Ktheta1[m[K’?
+   63 |     A1(0,0) = cos([01;31m[Ktheta2[m[K);
+      |                   [01;31m[K^~~~~~[m[K
+      |                   [32m[Ktheta1[m[K
+gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

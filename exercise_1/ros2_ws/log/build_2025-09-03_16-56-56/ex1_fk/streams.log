@@ -1,0 +1,25 @@
+[0.012s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[0.057s] [35m[1mConsolidate compiler generated dependencies of target kdl[0m
+[0.074s] [ 50%] [32mBuilding CXX object CMakeFiles/kdl.dir/src/kdl.cpp.o[0m
+[0.982s] [100%] [32m[1mLinking CXX executable kdl[0m
+[1.092s] [100%] Built target kdl
+[1.105s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk -- -j12 -l12
+[1.116s] Invoking command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk
+[1.124s] -- Install configuration: ""
+[1.124s] -- Installing: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/lib/ex1_fk/kdl
+[1.125s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ament_index/resource_index/package_run_dependencies/ex1_fk
+[1.125s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ament_index/resource_index/parent_prefix_path/ex1_fk
+[1.125s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/environment/ament_prefix_path.sh
+[1.125s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/environment/ament_prefix_path.dsv
+[1.125s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/environment/path.sh
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/environment/path.dsv
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/local_setup.bash
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/local_setup.sh
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/local_setup.zsh
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/local_setup.dsv
+[1.126s] -- Installing: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/package.dsv
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ament_index/resource_index/packages/ex1_fk
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/cmake/ex1_fkConfig.cmake
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/cmake/ex1_fkConfig-version.cmake
+[1.126s] -- Up-to-date: /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/install/ex1_fk/share/ex1_fk/package.xml
+[1.128s] Invoked command in '/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/ex1_fk

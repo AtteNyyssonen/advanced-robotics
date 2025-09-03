@@ -1,0 +1,3 @@
+[35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[ 50%] Built target kdl
+[ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m

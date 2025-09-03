@@ -1,0 +1,9 @@
+In file included from [01m[K/usr/include/kdl/jntarray.hpp:26[m[K,
+                 from [01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/kdl.cpp:18[m[K:
+[01m[K/usr/include/kdl/jacobian.hpp:26:10:[m[K [01;31m[Kfatal error: [m[KEigen/Core: No such file or directory
+   26 | #include [01;31m[K<Eigen/Core>[m[K
+      |          [01;31m[K^~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/kdl.dir/build.make:76: CMakeFiles/kdl.dir/src/kdl.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/kdl.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

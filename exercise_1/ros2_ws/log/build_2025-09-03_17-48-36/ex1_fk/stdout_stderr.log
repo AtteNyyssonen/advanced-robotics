@@ -1,0 +1,11 @@
+[35m[1mConsolidate compiler generated dependencies of target eigen[0m
+[ 50%] Built target kdl
+[ 75%] [32mBuilding CXX object CMakeFiles/eigen.dir/src/eigen.cpp.o[0m
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:[m[K In function ‘[01m[Kint main()[m[K’:
+[01m[K/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/src/ex1_fk/src/eigen.cpp:42:8:[m[K [01;31m[Kerror: [m[K‘[01m[KA20[m[K’ was not declared in this scope; did you mean ‘[01m[KA2[m[K’?
+   42 |     A2([01;31m[KA20[m[K,0) = cos(theta1);
+      |        [01;31m[K^~~[m[K
+      |        [32m[KA2[m[K
+gmake[2]: *** [CMakeFiles/eigen.dir/build.make:76: CMakeFiles/eigen.dir/src/eigen.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:165: CMakeFiles/eigen.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

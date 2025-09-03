@@ -1,0 +1,9 @@
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/uninstall.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/Forward_kinematics_uninstall.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/test.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/edit_cache.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/rebuild_cache.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/list_install_components.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/install.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/install/local.dir
+/home/ilari/Documents/ROBO.720/Ex1/ros2_ws/build/Forward_kinematics/CMakeFiles/install/strip.dir
