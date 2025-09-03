@@ -23,14 +23,32 @@ To run these examples. First create ros2 package and then:
 ## Exercise 2: library 
 
 - What is the matrix order in Eigen ?
+- Matrixes are stored to memory either column by column (default) or row by row if defined.
+
 - What else KDL and Eigen library can do that you might use during the course ?
+- Calculations for forward and inverse kinematics. Jacobian calculations.
 
 ## Exercise 3: controllers
 You will be writing your own controllers during the courses. There are example controller available in sim environment repo ![edu_franka_simulation](https://github.com/tau-alma/edu-franka_simulation)
 
 - What controllers are available ?
+- Controllers based on computed torque, joint impedance, joint position, joint velocity and time delay
+
 - Where is the main controller loop and how does it work ?
+- The ros launch command launches all the necessary nodes, controller, publishers, simulation. Then the nodes go to work
+- based on the desired state of the simulated robot arm.
+
 - How kinematic chain of manipulator is parsed and utilized ?
+- The joint states from the kinematic chain are published and those are then read. Also the kinematic chain is the basis
+- for the gazebo simulator rendering.
+
 - How states are read from simulator ?
+- Controller node reads data published from nodes like the robot description node and joint state publishers.
+
 - How control commands are sent to simulator ?
+- The desired/future calculated position get published to the node robot_description that gazebo uses to simulate the 
+- robots pose.
+
 - How these controller files works together with ros2 control
+- The created controllers use/extend the controller_interface package from ros2. This means that they can be used
+- by any application that also uses the ros2 control packages.
