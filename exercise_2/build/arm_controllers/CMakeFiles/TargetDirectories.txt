@@ -1,0 +1,10 @@
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/uninstall.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/arm_controllers_uninstall.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/arm_controllers.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/test.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/edit_cache.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/rebuild_cache.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/list_install_components.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/install.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/install/local.dir
+/home/atte/advanced-robotics/exercise_2/build/arm_controllers/CMakeFiles/install/strip.dir

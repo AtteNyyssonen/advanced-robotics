@@ -1,0 +1,4 @@
+
+[submodule "exercise_2/src/edu-franka_simulation"]
+	path = exercise_2/src/edu-franka_simulation
+	url = https://github.com/tau-alma/edu-franka_simulation.git

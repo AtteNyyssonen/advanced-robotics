@@ -1,0 +1,80 @@
+[0.017s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description -DCMAKE_INSTALL_PREFIX=/home/atte/advanced-robotics/exercise_2/install/franka_description
+[0.207s] -- The C compiler identification is GNU 11.4.0
+[0.529s] -- The CXX compiler identification is GNU 11.4.0
+[0.734s] -- Detecting C compiler ABI info
+[0.845s] -- Detecting C compiler ABI info - done
+[0.850s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.850s] -- Detecting C compile features
+[0.851s] -- Detecting C compile features - done
+[0.853s] -- Detecting CXX compiler ABI info
+[0.963s] -- Detecting CXX compiler ABI info - done
+[0.968s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.968s] -- Detecting CXX compile features
+[0.968s] -- Detecting CXX compile features - done
+[0.977s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.085s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.170s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[2.418s] -- Found xacro: 2.0.8 (/opt/ros/humble/share/xacro/cmake)
+[2.463s] -- Configuring done
+[2.469s] -- Generating done
+[2.469s] -- Build files have been written to: /home/atte/advanced-robotics/exercise_2/build/franka_description
+[2.476s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description -DCMAKE_INSTALL_PREFIX=/home/atte/advanced-robotics/exercise_2/install/franka_description
+[2.476s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_description -- -j12 -l12
+[2.508s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_description -- -j12 -l12
+[2.534s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_description
+[2.539s] -- Install configuration: ""
+[2.539s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf
+[2.540s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/common
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/common/inertial.yaml
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/materials.xacro
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/panda_arm.urdf.xacro
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/effort_panda_arm.urdf.xacro
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ft_sensor.xacro
+[2.541s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control
+[2.542s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/utils.xacro
+[2.542s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/panda_arm.ros2_control.xacro
+[2.542s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/effort_panda_arm.ros2_control.xacro
+[2.542s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/hand.xacro
+[2.542s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/effort_panda_arm_ft_sensor.urdf.xacro
+[2.543s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/hand.urdf.xacro
+[2.543s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/box.urdf.xacro
+[2.543s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/panda_arm.xacro
+[2.543s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes
+[2.543s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision
+[2.544s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link1.stl
+[2.544s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link6.stl
+[2.544s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link0.stl
+[2.544s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link7.stl
+[2.545s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link3.stl
+[2.545s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link2.stl
+[2.545s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link5.stl
+[2.545s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link4.stl
+[2.545s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual
+[2.546s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link0.dae
+[2.547s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link6.dae
+[2.549s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link7.dae
+[2.550s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/finger.dae
+[2.551s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/hand.dae
+[2.551s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link4.dae
+[2.553s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link1.dae
+[2.554s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link3.dae
+[2.555s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link2.dae
+[2.556s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link5.dae
+[2.558s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//config
+[2.558s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//config/initial_positions.yaml
+[2.560s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/package_run_dependencies/franka_description
+[2.560s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/parent_prefix_path/franka_description
+[2.560s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/ament_prefix_path.sh
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/ament_prefix_path.dsv
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/path.sh
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/path.dsv
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.bash
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.sh
+[2.561s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.zsh
+[2.562s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.dsv
+[2.562s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.dsv
+[2.562s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/packages/franka_description
+[2.563s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/cmake/franka_descriptionConfig.cmake
+[2.563s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/cmake/franka_descriptionConfig-version.cmake
+[2.563s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.xml
+[2.565s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_description

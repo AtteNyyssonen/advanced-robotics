@@ -1,0 +1,27 @@
+-- Install configuration: ""
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/launch
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/launch/time_delay_controller.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/launch/computed_torque_controller.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/launch/compliance_environment.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/config
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/config/franka_controllers.yaml
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/config/ft_world.sdf
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/example_controllers_launch
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/example_controllers_launch/joint_impedance_example_controller.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/example_controllers_launch/joint_position_example_controller.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/example_controllers_launch/joint_velocity_example_controller.launch.py
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/ament_index/resource_index/package_run_dependencies/franka_gazebo
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/ament_index/resource_index/parent_prefix_path/franka_gazebo
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/environment/ament_prefix_path.sh
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/environment/ament_prefix_path.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/environment/path.sh
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/environment/path.dsv
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/local_setup.bash
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/local_setup.sh
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/local_setup.zsh
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/local_setup.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.dsv
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/ament_index/resource_index/packages/franka_gazebo
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/cmake/franka_gazeboConfig.cmake
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/cmake/franka_gazeboConfig-version.cmake
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.xml

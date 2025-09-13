@@ -1,0 +1,626 @@
+[0.000000] (-) TimerEvent: {}
+[0.000305] (arm_controllers) JobQueued: {'identifier': 'arm_controllers', 'dependencies': OrderedDict()}
+[0.000352] (franka_description) JobQueued: {'identifier': 'franka_description', 'dependencies': OrderedDict()}
+[0.000384] (franka_gazebo) JobQueued: {'identifier': 'franka_gazebo', 'dependencies': OrderedDict([('franka_description', '/home/atte/advanced-robotics/exercise_2/install/franka_description')])}
+[0.000729] (franka_description) JobStarted: {'identifier': 'franka_description'}
+[0.008347] (arm_controllers) JobStarted: {'identifier': 'arm_controllers'}
+[0.012724] (franka_description) JobProgress: {'identifier': 'franka_description', 'progress': 'cmake'}
+[0.013588] (franka_description) Command: {'cmd': ['/usr/bin/cmake', '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description', '-DCMAKE_INSTALL_PREFIX=/home/atte/advanced-robotics/exercise_2/install/franka_description'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/franka_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/franka_description'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[0.017954] (arm_controllers) JobProgress: {'identifier': 'arm_controllers', 'progress': 'cmake'}
+[0.018683] (arm_controllers) Command: {'cmd': ['/usr/bin/cmake', '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers', '-DCMAKE_INSTALL_PREFIX=/home/atte/advanced-robotics/exercise_2/install/arm_controllers'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/arm_controllers', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/arm_controllers'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[0.099802] (-) TimerEvent: {}
+[0.200105] (-) TimerEvent: {}
+[0.207605] (arm_controllers) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.207825] (franka_description) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.300182] (-) TimerEvent: {}
+[0.400418] (-) TimerEvent: {}
+[0.500675] (-) TimerEvent: {}
+[0.529328] (franka_description) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.529898] (arm_controllers) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.600776] (-) TimerEvent: {}
+[0.700994] (-) TimerEvent: {}
+[0.734876] (arm_controllers) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.735096] (franka_description) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.801101] (-) TimerEvent: {}
+[0.845571] (franka_description) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.845891] (arm_controllers) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.850279] (franka_description) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.850421] (arm_controllers) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.850824] (arm_controllers) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.851024] (franka_description) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.851326] (franka_description) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.851388] (arm_controllers) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.854109] (franka_description) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.854177] (arm_controllers) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.901199] (-) TimerEvent: {}
+[0.963678] (franka_description) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.964884] (arm_controllers) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.968440] (franka_description) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.968657] (franka_description) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.968961] (franka_description) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.969394] (arm_controllers) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.969607] (arm_controllers) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.969928] (arm_controllers) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.977280] (arm_controllers) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.977449] (franka_description) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.001273] (-) TimerEvent: {}
+[1.085819] (franka_description) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.085951] (arm_controllers) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.101347] (-) TimerEvent: {}
+[1.170346] (franka_description) StdoutLine: {'line': b'-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)\n'}
+[1.170547] (arm_controllers) StdoutLine: {'line': b'-- Found rclcpp: 16.0.10 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.201418] (-) TimerEvent: {}
+[1.301645] (-) TimerEvent: {}
+[1.317357] (arm_controllers) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.323161] (arm_controllers) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.333354] (arm_controllers) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.348469] (arm_controllers) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.365135] (arm_controllers) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.401697] (-) TimerEvent: {}
+[1.415410] (arm_controllers) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.419283] (arm_controllers) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.501793] (-) TimerEvent: {}
+[1.602035] (-) TimerEvent: {}
+[1.702311] (-) TimerEvent: {}
+[1.802581] (-) TimerEvent: {}
+[1.902843] (-) TimerEvent: {}
+[2.003132] (-) TimerEvent: {}
+[2.103395] (-) TimerEvent: {}
+[2.203665] (-) TimerEvent: {}
+[2.303934] (-) TimerEvent: {}
+[2.404230] (-) TimerEvent: {}
+[2.418379] (franka_description) StdoutLine: {'line': b'-- Found xacro: 2.0.8 (/opt/ros/humble/share/xacro/cmake)\n'}
+[2.463715] (franka_description) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.469245] (franka_description) StdoutLine: {'line': b'-- Generating done\n'}
+[2.470092] (franka_description) StdoutLine: {'line': b'-- Build files have been written to: /home/atte/advanced-robotics/exercise_2/build/franka_description\n'}
+[2.476218] (franka_description) CommandEnded: {'returncode': 0}
+[2.476610] (franka_description) JobProgress: {'identifier': 'franka_description', 'progress': 'build'}
+[2.477063] (franka_description) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atte/advanced-robotics/exercise_2/build/franka_description', '--', '-j12', '-l12'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/franka_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/franka_description'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[2.504334] (-) TimerEvent: {}
+[2.508861] (franka_description) CommandEnded: {'returncode': 0}
+[2.526957] (franka_description) JobProgress: {'identifier': 'franka_description', 'progress': 'install'}
+[2.532677] (arm_controllers) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[2.534139] (franka_description) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/atte/advanced-robotics/exercise_2/build/franka_description'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/franka_description', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/franka_description'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[2.539646] (franka_description) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[2.539803] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf\n'}
+[2.541137] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/common\n'}
+[2.541465] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/common/inertial.yaml\n'}
+[2.541621] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/materials.xacro\n'}
+[2.541763] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/panda_arm.urdf.xacro\n'}
+[2.541900] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/effort_panda_arm.urdf.xacro\n'}
+[2.542035] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ft_sensor.xacro\n'}
+[2.542164] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control\n'}
+[2.542513] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/utils.xacro\n'}
+[2.542654] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/panda_arm.ros2_control.xacro\n'}
+[2.542800] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/ros2_control/effort_panda_arm.ros2_control.xacro\n'}
+[2.542950] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/hand.xacro\n'}
+[2.543086] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/effort_panda_arm_ft_sensor.urdf.xacro\n'}
+[2.543252] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/hand.urdf.xacro\n'}
+[2.543376] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/box.urdf.xacro\n'}
+[2.543501] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//urdf/panda_arm.xacro\n'}
+[2.543641] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes\n'}
+[2.544053] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision\n'}
+[2.544664] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link1.stl\n'}
+[2.544817] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link6.stl\n'}
+[2.544969] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link0.stl\n'}
+[2.545134] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link7.stl\n'}
+[2.545273] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link3.stl\n'}
+[2.545436] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link2.stl\n'}
+[2.545589] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link5.stl\n'}
+[2.545718] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/collision/link4.stl\n'}
+[2.545884] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual\n'}
+[2.546231] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link0.dae\n'}
+[2.548091] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link6.dae\n'}
+[2.550041] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link7.dae\n'}
+[2.551158] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/finger.dae\n'}
+[2.551352] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/hand.dae\n'}
+[2.552091] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link4.dae\n'}
+[2.553418] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link1.dae\n'}
+[2.554563] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link3.dae\n'}
+[2.555878] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link2.dae\n'}
+[2.557104] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//meshes/visual/link5.dae\n'}
+[2.558749] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//config\n'}
+[2.559101] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description//config/initial_positions.yaml\n'}
+[2.560222] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/package_run_dependencies/franka_description\n'}
+[2.560690] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/parent_prefix_path/franka_description\n'}
+[2.561164] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/ament_prefix_path.sh\n'}
+[2.561323] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/ament_prefix_path.dsv\n'}
+[2.561475] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/path.sh\n'}
+[2.561634] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/environment/path.dsv\n'}
+[2.561781] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.bash\n'}
+[2.561938] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.sh\n'}
+[2.562084] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.zsh\n'}
+[2.562248] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/local_setup.dsv\n'}
+[2.562406] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.dsv\n'}
+[2.562856] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/ament_index/resource_index/packages/franka_description\n'}
+[2.563313] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/cmake/franka_descriptionConfig.cmake\n'}
+[2.563436] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/cmake/franka_descriptionConfig-version.cmake\n'}
+[2.563599] (franka_description) StdoutLine: {'line': b'-- Installing: /home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.xml\n'}
+[2.565320] (franka_description) CommandEnded: {'returncode': 0}
+[2.600341] (franka_description) JobEnded: {'identifier': 'franka_description', 'rc': 0}
+[2.600911] (franka_gazebo) JobStarted: {'identifier': 'franka_gazebo'}
+[2.604472] (-) TimerEvent: {}
+[2.640789] (franka_gazebo) JobProgress: {'identifier': 'franka_gazebo', 'progress': 'cmake'}
+[2.641023] (franka_gazebo) Command: {'cmd': ['/usr/bin/cmake', '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_gazebo', '-DCMAKE_INSTALL_PREFIX=/home/atte/advanced-robotics/exercise_2/install/franka_gazebo'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_description:/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[2.704545] (-) TimerEvent: {}
+[2.752069] (franka_gazebo) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[2.804614] (-) TimerEvent: {}
+[2.904888] (-) TimerEvent: {}
+[3.005163] (-) TimerEvent: {}
+[3.105477] (-) TimerEvent: {}
+[3.165187] (franka_gazebo) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[3.205568] (-) TimerEvent: {}
+[3.305814] (-) TimerEvent: {}
+[3.406063] (-) TimerEvent: {}
+[3.449107] (franka_gazebo) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[3.506178] (-) TimerEvent: {}
+[3.573615] (franka_gazebo) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[3.578245] (franka_gazebo) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[3.578422] (franka_gazebo) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[3.578706] (franka_gazebo) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[3.580836] (franka_gazebo) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[3.606266] (-) TimerEvent: {}
+[3.706521] (-) TimerEvent: {}
+[3.717370] (franka_gazebo) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[3.722168] (franka_gazebo) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[3.722386] (franka_gazebo) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[3.722736] (franka_gazebo) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[3.724842] (franka_gazebo) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[3.757440] (arm_controllers) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[3.806609] (-) TimerEvent: {}
+[3.839526] (franka_gazebo) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[3.906715] (-) TimerEvent: {}
+[3.909598] (franka_gazebo) StdoutLine: {'line': b'-- Found ros_gz: 0.244.20 (/opt/ros/humble/share/ros_gz/cmake)\n'}
+[3.912474] (franka_gazebo) StdoutLine: {'line': b'-- Found gazebo_ros: 3.7.0 (/opt/ros/humble/share/gazebo_ros/cmake)\n'}
+[4.006800] (-) TimerEvent: {}
+[4.066860] (franka_gazebo) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[4.070899] (franka_gazebo) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.077289] (franka_gazebo) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[4.086030] (franka_gazebo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.098915] (franka_gazebo) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.106850] (-) TimerEvent: {}
+[4.140814] (franka_gazebo) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[4.142910] (franka_gazebo) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[4.206925] (-) TimerEvent: {}
+[4.307162] (-) TimerEvent: {}
+[4.407410] (-) TimerEvent: {}
+[4.507646] (-) TimerEvent: {}
+[4.607907] (-) TimerEvent: {}
+[4.708224] (-) TimerEvent: {}
+[4.808478] (-) TimerEvent: {}
+[4.908741] (-) TimerEvent: {}
+[5.008991] (-) TimerEvent: {}
+[5.109239] (-) TimerEvent: {}
+[5.209481] (-) TimerEvent: {}
+[5.309733] (-) TimerEvent: {}
+[5.364060] (franka_gazebo) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[5.409826] (-) TimerEvent: {}
+[5.510067] (-) TimerEvent: {}
+[5.610330] (-) TimerEvent: {}
+[5.710602] (-) TimerEvent: {}
+[5.810879] (-) TimerEvent: {}
+[5.911169] (-) TimerEvent: {}
+[6.011447] (-) TimerEvent: {}
+[6.111703] (-) TimerEvent: {}
+[6.157824] (arm_controllers) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[6.169113] (arm_controllers) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[6.211799] (-) TimerEvent: {}
+[6.311564] (arm_controllers) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[6.311899] (-) TimerEvent: {}
+[6.312192] (arm_controllers) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[6.412002] (-) TimerEvent: {}
+[6.464328] (arm_controllers) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[6.465173] (arm_controllers) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[6.512112] (-) TimerEvent: {}
+[6.521781] (arm_controllers) StdoutLine: {'line': b'-- Found controller_interface: 2.43.1 (/opt/ros/humble/share/controller_interface/cmake)\n'}
+[6.612209] (-) TimerEvent: {}
+[6.710035] (franka_gazebo) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[6.712274] (-) TimerEvent: {}
+[6.812485] (-) TimerEvent: {}
+[6.912763] (-) TimerEvent: {}
+[7.013024] (-) TimerEvent: {}
+[7.113266] (-) TimerEvent: {}
+[7.213529] (-) TimerEvent: {}
+[7.313807] (-) TimerEvent: {}
+[7.414061] (-) TimerEvent: {}
+[7.514315] (-) TimerEvent: {}
+[7.614568] (-) TimerEvent: {}
+[7.661467] (arm_controllers) StdoutLine: {'line': b'-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)\n'}
+[7.669503] (arm_controllers) StdoutLine: {'line': b'-- Found kdl_parser: 2.6.4 (/opt/ros/humble/share/kdl_parser/cmake)\n'}
+[7.714655] (-) TimerEvent: {}
+[7.719395] (arm_controllers) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[7.720689] (arm_controllers) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[7.720903] (arm_controllers) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[7.724237] (arm_controllers) StdoutLine: {'line': b'-- Found realtime_tools: 2.7.0 (/opt/ros/humble/share/realtime_tools/cmake)\n'}
+[7.793554] (arm_controllers) StdoutLine: {'line': b'-- Configuring done\n'}
+[7.814750] (-) TimerEvent: {}
+[7.874140] (arm_controllers) StdoutLine: {'line': b'-- Generating done\n'}
+[7.875566] (arm_controllers) StdoutLine: {'line': b'-- Build files have been written to: /home/atte/advanced-robotics/exercise_2/build/arm_controllers\n'}
+[7.885562] (arm_controllers) CommandEnded: {'returncode': 0}
+[7.886030] (arm_controllers) JobProgress: {'identifier': 'arm_controllers', 'progress': 'build'}
+[7.886254] (arm_controllers) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/atte/advanced-robotics/exercise_2/build/arm_controllers', '--', '-j12', '-l12'], 'cwd': '/home/atte/advanced-robotics/exercise_2/build/arm_controllers', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'atte'), ('ROS_APT_SOURCE_VERSION', '1.1.0'), ('SHLVL', '1'), ('LIBGL_ALWAYS_SOFTWARE', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/atte'), ('OLDPWD', '/home/atte/advanced-robotics/exercise_2/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'atte'), ('NAME', 'DESKTOP-A1T23PQ'), ('WSL_INTEROP', '/run/WSL/432_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '1'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/TwinCAT/Common64:/mnt/c/TwinCAT/Common32:/mnt/c/Program Files (x86)/Razer Chroma SDK/bin:/mnt/c/Program Files/Razer Chroma SDK/bin:/mnt/c/Program Files (x86)/Razer/ChromaBroadcast/bin:/mnt/c/Program Files/Razer/ChromaBroadcast/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files (x86)/dotnet/:/mnt/c/Program Files/usbipd-win/:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA app/NvDLISR:/mnt/c/Python/Scripts/:/mnt/c/Users/omistaja:/mnt/c/Users/omistaja/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/omistaja/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/omistaja/AppData/Roaming/Python/Python310/Scripts:/mnt/c/users/omistaja/appdata/roaming/python/python310/:/mnt/c/Users/.../AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/omistaja/AppData/Local/Muse Hub/lib:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '30'), ('AMENT_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('PWD', '/home/atte/advanced-robotics/exercise_2/build/arm_controllers'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/home/atte/advanced-robotics/exercise_2/install/franka_description:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[7.914849] (-) TimerEvent: {}
+[7.931354] (arm_controllers) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/joint_velocity_example_controller.cpp.o\x1b[0m\n'}
+[7.931646] (arm_controllers) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/joint_position_example_controller.cpp.o\x1b[0m\n'}
+[7.931757] (arm_controllers) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/time_delay_controller.cpp.o\x1b[0m\n'}
+[7.931911] (arm_controllers) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o\x1b[0m\n'}
+[7.931982] (arm_controllers) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/joint_impedance_example_controller.cpp.o\x1b[0m\n'}
+[8.014971] (-) TimerEvent: {}
+[8.115286] (-) TimerEvent: {}
+[8.215636] (-) TimerEvent: {}
+[8.315966] (-) TimerEvent: {}
+[8.416363] (-) TimerEvent: {}
+[8.489408] (arm_controllers) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/src/computed_torque_controller.cpp:23\x1b[m\x1b[K:\n'}
+[8.489570] (arm_controllers) StderrLine: {'line': b'\x1b[01m\x1b[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/include/arm_controllers/computed_torque_controller.hpp:33:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Krealtime_tools/realtime_buffer.hpp: No such file or directory\n'}
+[8.489623] (arm_controllers) StderrLine: {'line': b'   33 | #include \x1b[01;31m\x1b[K<realtime_tools/realtime_buffer.hpp>\x1b[m\x1b[K\n'}
+[8.489668] (arm_controllers) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[8.489728] (arm_controllers) StderrLine: {'line': b'compilation terminated.\n'}
+[8.501486] (arm_controllers) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/arm_controllers.dir/build.make:132: CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o] Error 1\n'}
+[8.501640] (arm_controllers) StderrLine: {'line': b'gmake[2]: *** Waiting for unfinished jobs....\n'}
+[8.516444] (-) TimerEvent: {}
+[8.616798] (-) TimerEvent: {}
+[8.717063] (-) TimerEvent: {}
+[8.817392] (-) TimerEvent: {}
+[8.917687] (-) TimerEvent: {}
+[8.966102] (franka_gazebo) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[8.973210] (franka_gazebo) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[9.017786] (-) TimerEvent: {}
+[9.118069] (-) TimerEvent: {}
+[9.124859] (franka_gazebo) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[9.125102] (franka_gazebo) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[9.218160] (-) TimerEvent: {}
+[9.275963] (franka_gazebo) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[9.276923] (franka_gazebo) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[9.318274] (-) TimerEvent: {}
+[9.334461] (franka_gazebo) StdoutLine: {'line': b'-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") \n'}
+[9.335415] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'bullet>=2.82'\n"}
+[9.348458] (franka_gazebo) StdoutLine: {'line': b'--   Found bullet, version 3.05\n'}
+[9.418339] (-) TimerEvent: {}
+[9.497604] (franka_gazebo) StdoutLine: {'line': b'-- Found fcl: /usr/include (found suitable version "0.7.0", minimum required is "0.5.0") \n'}
+[9.518428] (-) TimerEvent: {}
+[9.546407] (franka_gazebo) StdoutLine: {'line': b'-- Found assimp: /usr/include (found version "5.2.0") \n'}
+[9.566608] (franka_gazebo) StdoutLine: {'line': b'-- Found DART: /usr/include (Required is at least version "6.6") found components: dart \n'}
+[9.597893] (franka_gazebo) StdoutLine: {'line': b'-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time \n'}
+[9.618518] (-) TimerEvent: {}
+[9.718795] (-) TimerEvent: {}
+[9.819084] (-) TimerEvent: {}
+[9.919379] (-) TimerEvent: {}
+[10.001652] (franka_gazebo) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.12.4") \n'}
+[10.007501] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[10.019443] (-) TimerEvent: {}
+[10.020070] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-math6\n'}
+[10.022568] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE...\n'}
+[10.022867] (franka_gazebo) StdoutLine: {'line': b'-- OGRE_PREFIX_WATCH changed.\n'}
+[10.027872] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'OGRE'\n"}
+[10.040947] (franka_gazebo) StdoutLine: {'line': b'--   Found OGRE, version 1.9.0\n'}
+[10.073746] (franka_gazebo) StdoutLine: {'line': b'-- Found Ogre Ghadamon (1.9.0)\n'}
+[10.119534] (-) TimerEvent: {}
+[10.219820] (-) TimerEvent: {}
+[10.320107] (-) TimerEvent: {}
+[10.420381] (-) TimerEvent: {}
+[10.492469] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE: optimized;/usr/lib/x86_64-linux-gnu/libOgreMain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreMain.so\n'}
+[10.499943] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_Paging...\n'}
+[10.520482] (-) TimerEvent: {}
+[10.620761] (-) TimerEvent: {}
+[10.721056] (-) TimerEvent: {}
+[10.821334] (-) TimerEvent: {}
+[10.884173] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_Paging: optimized;/usr/lib/x86_64-linux-gnu/libOgrePaging.so;debug;/usr/lib/x86_64-linux-gnu/libOgrePaging.so\n'}
+[10.884339] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_Terrain...\n'}
+[10.921455] (-) TimerEvent: {}
+[11.021753] (-) TimerEvent: {}
+[11.122057] (-) TimerEvent: {}
+[11.222363] (-) TimerEvent: {}
+[11.295334] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_Terrain: optimized;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/x86_64-linux-gnu/libOgreTerrain.so\n'}
+[11.295547] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_Property...\n'}
+[11.322430] (-) TimerEvent: {}
+[11.422760] (-) TimerEvent: {}
+[11.523076] (-) TimerEvent: {}
+[11.623360] (-) TimerEvent: {}
+[11.699931] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_Property: optimized;/usr/lib/x86_64-linux-gnu/libOgreProperty.so;debug;/usr/lib/x86_64-linux-gnu/libOgreProperty.so\n'}
+[11.700187] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_RTShaderSystem...\n'}
+[11.723473] (-) TimerEvent: {}
+[11.823778] (-) TimerEvent: {}
+[11.924095] (-) TimerEvent: {}
+[12.024384] (-) TimerEvent: {}
+[12.093761] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_RTShaderSystem: optimized;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/x86_64-linux-gnu/libOgreRTShaderSystem.so\n'}
+[12.093912] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_Volume...\n'}
+[12.124514] (-) TimerEvent: {}
+[12.224793] (-) TimerEvent: {}
+[12.325070] (-) TimerEvent: {}
+[12.425357] (-) TimerEvent: {}
+[12.472058] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_Volume: optimized;/usr/lib/x86_64-linux-gnu/libOgreVolume.so;debug;/usr/lib/x86_64-linux-gnu/libOgreVolume.so\n'}
+[12.472221] (franka_gazebo) StdoutLine: {'line': b'-- Looking for OGRE_Overlay...\n'}
+[12.525445] (-) TimerEvent: {}
+[12.625718] (-) TimerEvent: {}
+[12.726040] (-) TimerEvent: {}
+[12.826343] (-) TimerEvent: {}
+[12.850816] (franka_gazebo) StdoutLine: {'line': b'-- Found OGRE_Overlay: optimized;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/x86_64-linux-gnu/libOgreOverlay.so\n'}
+[12.896761] (arm_controllers) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/arm_controllers.dir/all] Error 2\n'}
+[12.897054] (arm_controllers) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[12.899696] (arm_controllers) CommandEnded: {'returncode': 2}
+[12.926465] (-) TimerEvent: {}
+[12.941429] (arm_controllers) JobEnded: {'identifier': 'arm_controllers', 'rc': 2}
+[13.026575] (-) TimerEvent: {}
+[13.126854] (-) TimerEvent: {}
+[13.227166] (-) TimerEvent: {}
+[13.327457] (-) TimerEvent: {}
+[13.427696] (-) TimerEvent: {}
+[13.528013] (-) TimerEvent: {}
+[13.628299] (-) TimerEvent: {}
+[13.728578] (-) TimerEvent: {}
+[13.828882] (-) TimerEvent: {}
+[13.929167] (-) TimerEvent: {}
+[14.029434] (-) TimerEvent: {}
+[14.129702] (-) TimerEvent: {}
+[14.229995] (-) TimerEvent: {}
+[14.330290] (-) TimerEvent: {}
+[14.430718] (-) TimerEvent: {}
+[14.531014] (-) TimerEvent: {}
+[14.631289] (-) TimerEvent: {}
+[14.731540] (-) TimerEvent: {}
+[14.831770] (-) TimerEvent: {}
+[14.932063] (-) TimerEvent: {}
+[15.032324] (-) TimerEvent: {}
+[15.132568] (-) TimerEvent: {}
+[15.232788] (-) TimerEvent: {}
+[15.333033] (-) TimerEvent: {}
+[15.433335] (-) TimerEvent: {}
+[15.533599] (-) TimerEvent: {}
+[15.633876] (-) TimerEvent: {}
+[15.734174] (-) TimerEvent: {}
+[15.834450] (-) TimerEvent: {}
+[15.934737] (-) TimerEvent: {}
+[16.034983] (-) TimerEvent: {}
+[16.135254] (-) TimerEvent: {}
+[16.235547] (-) TimerEvent: {}
+[16.335835] (-) TimerEvent: {}
+[16.436096] (-) TimerEvent: {}
+[16.536336] (-) TimerEvent: {}
+[16.636572] (-) TimerEvent: {}
+[16.736793] (-) TimerEvent: {}
+[16.837027] (-) TimerEvent: {}
+[16.937294] (-) TimerEvent: {}
+[17.037559] (-) TimerEvent: {}
+[17.137809] (-) TimerEvent: {}
+[17.238072] (-) TimerEvent: {}
+[17.338354] (-) TimerEvent: {}
+[17.438623] (-) TimerEvent: {}
+[17.538867] (-) TimerEvent: {}
+[17.639136] (-) TimerEvent: {}
+[17.739368] (-) TimerEvent: {}
+[17.839615] (-) TimerEvent: {}
+[17.939897] (-) TimerEvent: {}
+[18.040215] (-) TimerEvent: {}
+[18.140460] (-) TimerEvent: {}
+[18.240689] (-) TimerEvent: {}
+[18.340887] (-) TimerEvent: {}
+[18.441143] (-) TimerEvent: {}
+[18.541412] (-) TimerEvent: {}
+[18.641665] (-) TimerEvent: {}
+[18.741909] (-) TimerEvent: {}
+[18.842142] (-) TimerEvent: {}
+[18.942379] (-) TimerEvent: {}
+[19.042629] (-) TimerEvent: {}
+[19.142917] (-) TimerEvent: {}
+[19.243187] (-) TimerEvent: {}
+[19.343446] (-) TimerEvent: {}
+[19.443697] (-) TimerEvent: {}
+[19.543935] (-) TimerEvent: {}
+[19.644206] (-) TimerEvent: {}
+[19.744465] (-) TimerEvent: {}
+[19.844753] (-) TimerEvent: {}
+[19.945014] (-) TimerEvent: {}
+[20.045250] (-) TimerEvent: {}
+[20.145504] (-) TimerEvent: {}
+[20.245773] (-) TimerEvent: {}
+[20.346021] (-) TimerEvent: {}
+[20.446283] (-) TimerEvent: {}
+[20.546506] (-) TimerEvent: {}
+[20.646758] (-) TimerEvent: {}
+[20.747016] (-) TimerEvent: {}
+[20.847299] (-) TimerEvent: {}
+[20.947559] (-) TimerEvent: {}
+[21.047789] (-) TimerEvent: {}
+[21.148066] (-) TimerEvent: {}
+[21.248334] (-) TimerEvent: {}
+[21.348613] (-) TimerEvent: {}
+[21.448858] (-) TimerEvent: {}
+[21.549099] (-) TimerEvent: {}
+[21.649370] (-) TimerEvent: {}
+[21.749615] (-) TimerEvent: {}
+[21.849901] (-) TimerEvent: {}
+[21.950187] (-) TimerEvent: {}
+[22.050435] (-) TimerEvent: {}
+[22.150733] (-) TimerEvent: {}
+[22.251027] (-) TimerEvent: {}
+[22.351311] (-) TimerEvent: {}
+[22.451589] (-) TimerEvent: {}
+[22.551833] (-) TimerEvent: {}
+[22.652113] (-) TimerEvent: {}
+[22.752372] (-) TimerEvent: {}
+[22.852657] (-) TimerEvent: {}
+[22.952917] (-) TimerEvent: {}
+[23.053113] (-) TimerEvent: {}
+[23.153342] (-) TimerEvent: {}
+[23.253582] (-) TimerEvent: {}
+[23.353845] (-) TimerEvent: {}
+[23.454107] (-) TimerEvent: {}
+[23.554376] (-) TimerEvent: {}
+[23.654584] (-) TimerEvent: {}
+[23.754836] (-) TimerEvent: {}
+[23.855087] (-) TimerEvent: {}
+[23.955319] (-) TimerEvent: {}
+[24.055569] (-) TimerEvent: {}
+[24.155818] (-) TimerEvent: {}
+[24.256027] (-) TimerEvent: {}
+[24.356296] (-) TimerEvent: {}
+[24.456527] (-) TimerEvent: {}
+[24.556810] (-) TimerEvent: {}
+[24.657100] (-) TimerEvent: {}
+[24.757338] (-) TimerEvent: {}
+[24.857545] (-) TimerEvent: {}
+[24.957757] (-) TimerEvent: {}
+[25.058015] (-) TimerEvent: {}
+[25.158259] (-) TimerEvent: {}
+[25.258503] (-) TimerEvent: {}
+[25.358759] (-) TimerEvent: {}
+[25.458986] (-) TimerEvent: {}
+[25.559238] (-) TimerEvent: {}
+[25.659486] (-) TimerEvent: {}
+[25.759713] (-) TimerEvent: {}
+[25.859986] (-) TimerEvent: {}
+[25.960256] (-) TimerEvent: {}
+[26.060481] (-) TimerEvent: {}
+[26.160747] (-) TimerEvent: {}
+[26.261027] (-) TimerEvent: {}
+[26.361288] (-) TimerEvent: {}
+[26.461527] (-) TimerEvent: {}
+[26.561820] (-) TimerEvent: {}
+[26.662021] (-) TimerEvent: {}
+[26.762258] (-) TimerEvent: {}
+[26.862518] (-) TimerEvent: {}
+[26.962770] (-) TimerEvent: {}
+[27.063041] (-) TimerEvent: {}
+[27.163318] (-) TimerEvent: {}
+[27.263571] (-) TimerEvent: {}
+[27.363805] (-) TimerEvent: {}
+[27.464080] (-) TimerEvent: {}
+[27.564285] (-) TimerEvent: {}
+[27.664492] (-) TimerEvent: {}
+[27.764725] (-) TimerEvent: {}
+[27.864947] (-) TimerEvent: {}
+[27.965215] (-) TimerEvent: {}
+[28.065441] (-) TimerEvent: {}
+[28.165699] (-) TimerEvent: {}
+[28.265968] (-) TimerEvent: {}
+[28.366171] (-) TimerEvent: {}
+[28.466400] (-) TimerEvent: {}
+[28.566636] (-) TimerEvent: {}
+[28.666859] (-) TimerEvent: {}
+[28.767099] (-) TimerEvent: {}
+[28.867332] (-) TimerEvent: {}
+[28.967583] (-) TimerEvent: {}
+[29.067868] (-) TimerEvent: {}
+[29.168125] (-) TimerEvent: {}
+[29.268343] (-) TimerEvent: {}
+[29.368609] (-) TimerEvent: {}
+[29.468879] (-) TimerEvent: {}
+[29.569072] (-) TimerEvent: {}
+[29.669328] (-) TimerEvent: {}
+[29.769553] (-) TimerEvent: {}
+[29.869821] (-) TimerEvent: {}
+[29.970052] (-) TimerEvent: {}
+[30.070293] (-) TimerEvent: {}
+[30.170535] (-) TimerEvent: {}
+[30.252635] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[30.254890] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-transport8 -- found version 8.2.1\n'}
+[30.255215] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-transport8\n'}
+[30.270587] (-) TimerEvent: {}
+[30.370778] (-) TimerEvent: {}
+[30.471024] (-) TimerEvent: {}
+[30.571252] (-) TimerEvent: {}
+[30.671472] (-) TimerEvent: {}
+[30.771704] (-) TimerEvent: {}
+[30.871928] (-) TimerEvent: {}
+[30.972206] (-) TimerEvent: {}
+[31.072417] (-) TimerEvent: {}
+[31.172611] (-) TimerEvent: {}
+[31.234114] (franka_gazebo) StdoutLine: {'line': b'-- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found suitable version "3.12.4", minimum required is "3") \n'}
+[31.272687] (-) TimerEvent: {}
+[31.372922] (-) TimerEvent: {}
+[31.473182] (-) TimerEvent: {}
+[31.573435] (-) TimerEvent: {}
+[31.673653] (-) TimerEvent: {}
+[31.773918] (-) TimerEvent: {}
+[31.874145] (-) TimerEvent: {}
+[31.974386] (-) TimerEvent: {}
+[32.074596] (-) TimerEvent: {}
+[32.174833] (-) TimerEvent: {}
+[32.214310] (franka_gazebo) StdoutLine: {'line': b'-- Config-file not installed for ZeroMQ -- checking for pkg-config\n'}
+[32.218634] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'libzmq >= 4'\n"}
+[32.232266] (franka_gazebo) StdoutLine: {'line': b'--   Found libzmq , version 4.3.4\n'}
+[32.264100] (franka_gazebo) StdoutLine: {'line': b'-- Found ZeroMQ: TRUE (Required is at least version "4") \n'}
+[32.274888] (-) TimerEvent: {}
+[32.299497] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'uuid'\n"}
+[32.310399] (franka_gazebo) StdoutLine: {'line': b'--   Found uuid, version 2.37.2\n'}
+[32.338855] (franka_gazebo) StdoutLine: {'line': b'-- Found UUID: TRUE  \n'}
+[32.341109] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.8.1\n'}
+[32.341434] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-msgs5\n'}
+[32.374957] (-) TimerEvent: {}
+[32.475147] (-) TimerEvent: {}
+[32.575363] (-) TimerEvent: {}
+[32.675594] (-) TimerEvent: {}
+[32.775814] (-) TimerEvent: {}
+[32.876037] (-) TimerEvent: {}
+[32.976255] (-) TimerEvent: {}
+[33.076497] (-) TimerEvent: {}
+[33.176750] (-) TimerEvent: {}
+[33.277015] (-) TimerEvent: {}
+[33.360055] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[33.364542] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'tinyxml2'\n"}
+[33.375739] (franka_gazebo) StdoutLine: {'line': b'--   Found tinyxml2, version 9.0.0\n'}
+[33.377068] (-) TimerEvent: {}
+[33.406735] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.8.1\n'}
+[33.408831] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-common3 -- found version 3.14.0\n'}
+[33.409168] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common3\n'}
+[33.442398] (franka_gazebo) StdoutLine: {'line': b'-- Looking for dlfcn.h - found\n'}
+[33.475891] (franka_gazebo) StdoutLine: {'line': b'-- Looking for libdl - found\n'}
+[33.477007] (franka_gazebo) StdoutLine: {'line': b'-- Found DL: TRUE  \n'}
+[33.477110] (-) TimerEvent: {}
+[33.554193] (franka_gazebo) StdoutLine: {'line': b'-- Found tinyobjloader: /usr/lib/x86_64-linux-gnu/cmake/tinyobjloader/tinyobjloader-config.cmake (found version "2.0.0") \n'}
+[33.554945] (franka_gazebo) StdoutLine: {'line': b'-- Searching for <ignition-common3> component [graphics]\n'}
+[33.557308] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-common3-graphics -- found version 3.14.0\n'}
+[33.557680] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-common3-graphics\n'}
+[33.557946] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[33.561190] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-fuel_tools4 -- found version 4.4.0\n'}
+[33.561522] (franka_gazebo) StdoutLine: {'line': b'-- Searching for dependencies of ignition-fuel_tools4\n'}
+[33.577210] (-) TimerEvent: {}
+[33.677452] (-) TimerEvent: {}
+[33.777792] (-) TimerEvent: {}
+[33.878067] (-) TimerEvent: {}
+[33.978328] (-) TimerEvent: {}
+[34.078559] (-) TimerEvent: {}
+[34.178842] (-) TimerEvent: {}
+[34.279213] (-) TimerEvent: {}
+[34.379497] (-) TimerEvent: {}
+[34.479747] (-) TimerEvent: {}
+[34.580147] (-) TimerEvent: {}
+[34.680466] (-) TimerEvent: {}
+[34.780725] (-) TimerEvent: {}
+[34.880973] (-) TimerEvent: {}
+[34.892910] (franka_gazebo) StdoutLine: {'line': b'-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.81.0")  \n'}
+[34.902132] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'jsoncpp'\n"}
+[34.915480] (franka_gazebo) StdoutLine: {'line': b'--   Found jsoncpp, version 1.9.5\n'}
+[34.946663] (franka_gazebo) StdoutLine: {'line': b'-- Found JSONCPP: TRUE  \n'}
+[34.952690] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'libzip'\n"}
+[34.965880] (franka_gazebo) StdoutLine: {'line': b'--   Found libzip, version 1.7.3\n'}
+[34.981084] (-) TimerEvent: {}
+[34.998200] (franka_gazebo) StdoutLine: {'line': b'-- Found ZIP: TRUE  \n'}
+[34.998524] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-common3 -- found version 3.14.0\n'}
+[34.998832] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-math6 -- found version 6.15.1\n'}
+[34.999106] (franka_gazebo) StdoutLine: {'line': b'-- Looking for ignition-msgs5 -- found version 5.8.1\n'}
+[35.003573] (franka_gazebo) StdoutLine: {'line': b'-- Gazebo version: 11.10\n'}
+[35.003904] (franka_gazebo) StdoutLine: {'line': b"-- Checking for module 'tbb'\n"}
+[35.016761] (franka_gazebo) StdoutLine: {'line': b'--   Found tbb, version 2021.5.0\n'}
+[35.050221] (franka_gazebo) StdoutLine: {'line': b'-- Found gazebo_ros2_control: 0.4.10 (/opt/ros/humble/share/gazebo_ros2_control/cmake)\n'}
+[35.081159] (-) TimerEvent: {}
+[35.181422] (-) TimerEvent: {}
+[35.281707] (-) TimerEvent: {}
+[35.381997] (-) TimerEvent: {}
+[35.482246] (-) TimerEvent: {}
+[35.582537] (-) TimerEvent: {}
+[35.682809] (-) TimerEvent: {}
+[35.783045] (-) TimerEvent: {}
+[35.883309] (-) TimerEvent: {}
+[35.983607] (-) TimerEvent: {}
+[36.083931] (-) TimerEvent: {}
+[36.184308] (-) TimerEvent: {}
+[36.284546] (-) TimerEvent: {}
+[36.384824] (-) TimerEvent: {}
+[36.463648] (franka_gazebo) StdoutLine: {'line': b'-- Found franka_description: 0.1.0 (/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/cmake)\n'}
+[36.484916] (-) TimerEvent: {}
+[36.509970] (franka_gazebo) StdoutLine: {'line': b'-- Configuring done\n'}
+[36.519043] (franka_gazebo) StdoutLine: {'line': b'-- Generating done\n'}
+[36.520848] (franka_gazebo) StdoutLine: {'line': b'-- Build files have been written to: /home/atte/advanced-robotics/exercise_2/build/franka_gazebo\n'}
+[36.532779] (franka_gazebo) JobEnded: {'identifier': 'franka_gazebo', 'rc': 'SIGINT'}
+[36.543366] (-) EventReactorShutdown: {}

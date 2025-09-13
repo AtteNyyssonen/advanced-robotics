@@ -1,0 +1,36 @@
+[ 16%] [32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o[0m
+[ 33%] [32m[1mLinking CXX shared library libarm_controllers.so[0m
+[100%] Built target arm_controllers
+-- Install configuration: ""
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/libarm_controllers.so
+-- Set runtime path of "/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/libarm_controllers.so" to ""
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_impedance_example_controller.hpp
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/time_delay_controller.hpp
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_velocity_example_controller.hpp
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_position_example_controller.hpp
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/computed_torque_controller.hpp
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/controllers_plugin.xml
+-- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/controllers_plugin.xml
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/library_path.sh
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/library_path.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/package_run_dependencies/arm_controllers
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/parent_prefix_path/arm_controllers
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/ament_prefix_path.sh
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/ament_prefix_path.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/path.sh
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/path.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.bash
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.sh
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.zsh
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.dsv
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/packages/arm_controllers
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/controller_interface__pluginlib__plugin/arm_controllers
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/arm_controllersConfig.cmake
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/arm_controllersConfig-version.cmake
+-- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.xml

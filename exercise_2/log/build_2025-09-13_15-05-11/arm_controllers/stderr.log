@@ -1,0 +1,8 @@
+In file included from [01m[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/src/computed_torque_controller.cpp:23[m[K:
+[01m[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/include/arm_controllers/computed_torque_controller.hpp:33:10:[m[K [01;31m[Kfatal error: [m[Krealtime_tools/realtime_buffer.hpp: No such file or directory
+   33 | #include [01;31m[K<realtime_tools/realtime_buffer.hpp>[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/arm_controllers.dir/build.make:132: CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/arm_controllers.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

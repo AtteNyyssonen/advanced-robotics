@@ -1,0 +1,40 @@
+[0.010s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12
+[0.058s] [ 16%] [32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o[0m
+[4.746s] [ 33%] [32m[1mLinking CXX shared library libarm_controllers.so[0m
+[5.108s] [100%] Built target arm_controllers
+[5.118s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12
+[5.149s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/arm_controllers
+[5.155s] -- Install configuration: ""
+[5.156s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/libarm_controllers.so
+[5.159s] -- Set runtime path of "/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/libarm_controllers.so" to ""
+[5.159s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include
+[5.160s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers
+[5.160s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_impedance_example_controller.hpp
+[5.160s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/time_delay_controller.hpp
+[5.161s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_velocity_example_controller.hpp
+[5.161s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/joint_position_example_controller.hpp
+[5.161s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/include/arm_controllers/computed_torque_controller.hpp
+[5.162s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/controllers_plugin.xml
+[5.162s] -- Up-to-date: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/controllers_plugin.xml
+[5.162s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/library_path.sh
+[5.163s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/library_path.dsv
+[5.164s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/package_run_dependencies/arm_controllers
+[5.164s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/parent_prefix_path/arm_controllers
+[5.165s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/ament_prefix_path.sh
+[5.165s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/ament_prefix_path.dsv
+[5.165s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/path.sh
+[5.166s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/environment/path.dsv
+[5.166s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.bash
+[5.166s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.sh
+[5.167s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.zsh
+[5.167s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/local_setup.dsv
+[5.167s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.dsv
+[5.168s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/packages/arm_controllers
+[5.169s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/ament_index/resource_index/controller_interface__pluginlib__plugin/arm_controllers
+[5.169s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_dependencies-extras.cmake
+[5.169s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_include_directories-extras.cmake
+[5.170s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/ament_cmake_export_libraries-extras.cmake
+[5.170s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/arm_controllersConfig.cmake
+[5.170s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/cmake/arm_controllersConfig-version.cmake
+[5.171s] -- Installing: /home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.xml
+[5.173s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/arm_controllers

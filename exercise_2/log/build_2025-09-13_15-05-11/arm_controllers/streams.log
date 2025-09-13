@@ -1,0 +1,12 @@
+[0.012s] Invoking command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12
+[0.083s] [35m[1mConsolidate compiler generated dependencies of target arm_controllers[0m
+[0.107s] [ 16%] [32mBuilding CXX object CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o[0m
+[0.713s] In file included from [01m[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/src/computed_torque_controller.cpp:23[m[K:
+[0.713s] [01m[K/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers/include/arm_controllers/computed_torque_controller.hpp:33:10:[m[K [01;31m[Kfatal error: [m[Krealtime_tools/realtime_buffer.hpp: No such file or directory
+[0.713s]    33 | #include [01;31m[K<realtime_tools/realtime_buffer.hpp>[m[K
+[0.713s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[0.713s] compilation terminated.
+[0.721s] gmake[2]: *** [CMakeFiles/arm_controllers.dir/build.make:132: CMakeFiles/arm_controllers.dir/src/computed_torque_controller.cpp.o] Error 1
+[0.721s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/arm_controllers.dir/all] Error 2
+[0.722s] gmake: *** [Makefile:146: all] Error 2
+[0.724s] Invoked command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12

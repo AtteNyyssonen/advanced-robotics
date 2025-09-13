@@ -1,0 +1,289 @@
+[0.140s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.141s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7bea0ff518a0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7bea0ff51300>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7bea0ff51300>>, mixin_verb=('build',))
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.251s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.251s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/atte/advanced-robotics/exercise_2'
+[0.251s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.252s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.258s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['ignore', 'ignore_ament_install']
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'ignore'
+[0.259s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'ignore_ament_install'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['colcon_pkg']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'colcon_pkg'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['colcon_meta']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'colcon_meta'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['ros']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'ros'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['cmake', 'python']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'cmake'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'python'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extensions ['python_setup_py']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation) by extension 'python_setup_py'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extensions ['ignore', 'ignore_ament_install']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extension 'ignore'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extension 'ignore_ament_install'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extensions ['colcon_pkg']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extension 'colcon_pkg'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extensions ['colcon_meta']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extension 'colcon_meta'
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extensions ['ros']
+[0.260s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/arm_controllers) by extension 'ros'
+[0.262s] DEBUG:colcon.colcon_core.package_identification:Package 'src/edu-franka_simulation/arm_controllers' with type 'ros.ament_cmake' and name 'arm_controllers'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extensions ['ignore', 'ignore_ament_install']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extension 'ignore'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extension 'ignore_ament_install'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extensions ['colcon_pkg']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extension 'colcon_pkg'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extensions ['colcon_meta']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extension 'colcon_meta'
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extensions ['ros']
+[0.262s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_description) by extension 'ros'
+[0.263s] DEBUG:colcon.colcon_core.package_identification:Package 'src/edu-franka_simulation/franka_description' with type 'ros.ament_cmake' and name 'franka_description'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extension 'ignore'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extension 'ignore_ament_install'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extensions ['colcon_pkg']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extension 'colcon_pkg'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extensions ['colcon_meta']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extension 'colcon_meta'
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extensions ['ros']
+[0.263s] Level 1:colcon.colcon_core.package_identification:_identify(src/edu-franka_simulation/franka_gazebo) by extension 'ros'
+[0.264s] DEBUG:colcon.colcon_core.package_identification:Package 'src/edu-franka_simulation/franka_gazebo' with type 'ros.ament_cmake' and name 'franka_gazebo'
+[0.264s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.264s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.264s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.264s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.264s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.282s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.282s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.283s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 3 installed packages in /home/atte/advanced-robotics/exercise_2/install
+[0.284s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 424 installed packages in /opt/ros/humble
+[0.285s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_target' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_clean_cache' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_clean_first' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'cmake_force_configure' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'ament_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'catkin_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'arm_controllers' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.319s] DEBUG:colcon.colcon_core.verb:Building package 'arm_controllers' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atte/advanced-robotics/exercise_2/build/arm_controllers', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atte/advanced-robotics/exercise_2/install/arm_controllers', 'merge_install': False, 'path': '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers', 'symlink_install': False, 'test_result_base': None}
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_target' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.319s] DEBUG:colcon.colcon_core.verb:Building package 'franka_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atte/advanced-robotics/exercise_2/build/franka_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atte/advanced-robotics/exercise_2/install/franka_description', 'merge_install': False, 'path': '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description', 'symlink_install': False, 'test_result_base': None}
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_target' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_clean_cache' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_clean_first' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'cmake_force_configure' from command line to 'False'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'ament_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'catkin_cmake_args' from command line to 'None'
+[0.319s] Level 5:colcon.colcon_core.verb:set package 'franka_gazebo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.319s] DEBUG:colcon.colcon_core.verb:Building package 'franka_gazebo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo', 'merge_install': False, 'path': '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_gazebo', 'symlink_install': False, 'test_result_base': None}
+[0.320s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.320s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.321s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description' with build type 'ament_cmake'
+[0.321s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_description'
+[0.322s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.322s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.322s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.325s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers' with build type 'ament_cmake'
+[0.325s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/arm_controllers'
+[0.326s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.326s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.333s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_description -- -j12 -l12
+[0.335s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12
+[0.363s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_description -- -j12 -l12
+[0.387s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_description
+[0.398s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_description)
+[0.398s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_description
+[0.399s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description' for CMake module files
+[0.400s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description' for CMake config files
+[0.400s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_description', 'cmake_prefix_path')
+[0.400s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.ps1'
+[0.401s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.dsv'
+[0.401s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.sh'
+[0.402s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/bin'
+[0.402s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/lib/pkgconfig/franka_description.pc'
+[0.402s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/lib/python3.10/site-packages'
+[0.402s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/bin'
+[0.402s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.ps1'
+[0.403s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.dsv'
+[0.403s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.sh'
+[0.403s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.bash'
+[0.404s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.zsh'
+[0.405s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/franka_description/share/colcon-core/packages/franka_description)
+[0.424s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_description)
+[0.425s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description' for CMake module files
+[0.425s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description' for CMake config files
+[0.425s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_description', 'cmake_prefix_path')
+[0.425s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.ps1'
+[0.426s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.dsv'
+[0.426s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/hook/cmake_prefix_path.sh'
+[0.426s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/bin'
+[0.426s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/lib/pkgconfig/franka_description.pc'
+[0.427s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/lib/python3.10/site-packages'
+[0.427s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_description/bin'
+[0.427s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.ps1'
+[0.427s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.dsv'
+[0.427s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.sh'
+[0.428s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.bash'
+[0.428s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_description/share/franka_description/package.zsh'
+[0.428s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/franka_description/share/colcon-core/packages/franka_description)
+[0.429s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_gazebo' with build type 'ament_cmake'
+[0.429s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/atte/advanced-robotics/exercise_2/src/edu-franka_simulation/franka_gazebo'
+[0.429s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.429s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.469s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo': CMAKE_PREFIX_PATH=/home/atte/advanced-robotics/exercise_2/install/franka_description:/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_gazebo -- -j12 -l12
+[0.505s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo' returned '0': CMAKE_PREFIX_PATH=/home/atte/advanced-robotics/exercise_2/install/franka_description:/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/franka_gazebo -- -j12 -l12
+[0.526s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo': CMAKE_PREFIX_PATH=/home/atte/advanced-robotics/exercise_2/install/franka_description:/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_gazebo
+[0.535s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_gazebo)
+[0.535s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo' for CMake module files
+[0.536s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/franka_gazebo' returned '0': CMAKE_PREFIX_PATH=/home/atte/advanced-robotics/exercise_2/install/franka_description:/home/atte/advanced-robotics/exercise_2/install/franka_gazebo:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/franka_gazebo
+[0.536s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo' for CMake config files
+[0.536s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_gazebo', 'cmake_prefix_path')
+[0.536s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.ps1'
+[0.537s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.dsv'
+[0.537s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.sh'
+[0.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/bin'
+[0.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/lib/pkgconfig/franka_gazebo.pc'
+[0.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/lib/python3.10/site-packages'
+[0.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/bin'
+[0.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.ps1'
+[0.538s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.dsv'
+[0.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.sh'
+[0.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.bash'
+[0.539s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.zsh'
+[0.539s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/colcon-core/packages/franka_gazebo)
+[0.559s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(franka_gazebo)
+[0.559s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo' for CMake module files
+[0.559s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo' for CMake config files
+[0.559s] Level 1:colcon.colcon_core.shell:create_environment_hook('franka_gazebo', 'cmake_prefix_path')
+[0.559s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.ps1'
+[0.560s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.dsv'
+[0.560s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/hook/cmake_prefix_path.sh'
+[0.560s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/bin'
+[0.561s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/lib/pkgconfig/franka_gazebo.pc'
+[0.561s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/lib/python3.10/site-packages'
+[0.561s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/bin'
+[0.561s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.ps1'
+[0.561s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.dsv'
+[0.562s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.sh'
+[0.562s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.bash'
+[0.562s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/franka_gazebo/package.zsh'
+[0.562s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/franka_gazebo/share/colcon-core/packages/franka_gazebo)
+[5.443s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/atte/advanced-robotics/exercise_2/build/arm_controllers -- -j12 -l12
+[5.474s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/arm_controllers
+[5.498s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(arm_controllers)
+[5.498s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers' for CMake module files
+[5.498s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/atte/advanced-robotics/exercise_2/build/arm_controllers' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/atte/advanced-robotics/exercise_2/build/arm_controllers
+[5.499s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers' for CMake config files
+[5.499s] Level 1:colcon.colcon_core.shell:create_environment_hook('arm_controllers', 'cmake_prefix_path')
+[5.499s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.ps1'
+[5.500s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.dsv'
+[5.500s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.sh'
+[5.500s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib'
+[5.500s] Level 1:colcon.colcon_core.shell:create_environment_hook('arm_controllers', 'ld_library_path_lib')
+[5.501s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.ps1'
+[5.501s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.dsv'
+[5.501s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.sh'
+[5.501s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/bin'
+[5.501s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/pkgconfig/arm_controllers.pc'
+[5.501s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/python3.10/site-packages'
+[5.502s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/bin'
+[5.502s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.ps1'
+[5.502s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.dsv'
+[5.502s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.sh'
+[5.503s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.bash'
+[5.503s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.zsh'
+[5.503s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/colcon-core/packages/arm_controllers)
+[5.534s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(arm_controllers)
+[5.534s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers' for CMake module files
+[5.535s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers' for CMake config files
+[5.535s] Level 1:colcon.colcon_core.shell:create_environment_hook('arm_controllers', 'cmake_prefix_path')
+[5.535s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.ps1'
+[5.535s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.dsv'
+[5.536s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/cmake_prefix_path.sh'
+[5.536s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib'
+[5.536s] Level 1:colcon.colcon_core.shell:create_environment_hook('arm_controllers', 'ld_library_path_lib')
+[5.536s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.ps1'
+[5.536s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.dsv'
+[5.537s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/hook/ld_library_path_lib.sh'
+[5.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/bin'
+[5.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/pkgconfig/arm_controllers.pc'
+[5.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/lib/python3.10/site-packages'
+[5.537s] Level 1:colcon.colcon_core.environment:checking '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/bin'
+[5.537s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.ps1'
+[5.538s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.dsv'
+[5.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.sh'
+[5.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.bash'
+[5.538s] INFO:colcon.colcon_core.shell:Creating package script '/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/arm_controllers/package.zsh'
+[5.539s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/atte/advanced-robotics/exercise_2/install/arm_controllers/share/colcon-core/packages/arm_controllers)
+[5.539s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[5.539s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[5.539s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[5.539s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[5.575s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[5.575s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[5.575s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[5.576s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[5.576s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[5.576s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[5.577s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atte/advanced-robotics/exercise_2/install/local_setup.ps1'
+[5.577s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/atte/advanced-robotics/exercise_2/install/_local_setup_util_ps1.py'
+[5.578s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atte/advanced-robotics/exercise_2/install/setup.ps1'
+[5.579s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atte/advanced-robotics/exercise_2/install/local_setup.sh'
+[5.579s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/atte/advanced-robotics/exercise_2/install/_local_setup_util_sh.py'
+[5.580s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atte/advanced-robotics/exercise_2/install/setup.sh'
+[5.580s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atte/advanced-robotics/exercise_2/install/local_setup.bash'
+[5.581s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atte/advanced-robotics/exercise_2/install/setup.bash'
+[5.581s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/atte/advanced-robotics/exercise_2/install/local_setup.zsh'
+[5.582s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/atte/advanced-robotics/exercise_2/install/setup.zsh'
