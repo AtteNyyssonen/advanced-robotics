@@ -13,7 +13,10 @@ def launch_setup(context, *args, **kwargs):
     controllers_file = LaunchConfiguration("controllers_file")
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
-    joint_position_example_controller_spawner = LaunchConfiguration("joint_position_example_controller")
+    movement_controller_spawner = LaunchConfiguration("movement_controller")
+    first_movement_controller_spawner = LaunchConfiguration("first_movement_controller")
+    second_movement_controller_spawner = LaunchConfiguration("second_movement_controller")
+    third_movement_controller_spawner = LaunchConfiguration("third_movement_controller")
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
@@ -54,10 +57,28 @@ def launch_setup(context, *args, **kwargs):
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    joint_position_example_controller_spawner = Node(
+    movement_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_position_example_controller", "--controller-manager", "/controller_manager"],
+        arguments=["movement_controller", "--controller-manager", "/controller_manager"],
+    )
+
+    first_movement_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["first_movement_controller", "--controller-manager", "/controller_manager"],
+    )
+
+    second_movement_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["second_movement_controller", "--controller-manager", "/controller_manager"],
+    )
+
+    third_movement_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["third_movement_controller", "--controller-manager", "/controller_manager"],
     )
 
     # GZ nodes
@@ -90,10 +111,31 @@ def launch_setup(context, *args, **kwargs):
         )
     )
 
-    delay_joint_position_example_controller_spawner = RegisterEventHandler(
+    delay_movement_controller_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=controller_manager_node,
-            on_exit=[joint_position_example_controller_spawner],
+            on_exit=[movement_controller_spawner],
+        )
+    )
+
+    delay_first_movement_controller_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=controller_manager_node,
+            on_exit=[first_movement_controller_spawner],
+        )
+    )
+
+    delay_second_movement_controller_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=controller_manager_node,
+            on_exit=[second_movement_controller_spawner],
+        )
+    )
+
+    delay_third_movement_controller_spawner = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=controller_manager_node,
+            on_exit=[third_movement_controller_spawner],
         )
     )
 
@@ -101,7 +143,10 @@ def launch_setup(context, *args, **kwargs):
         robot_state_publisher_node,
         controller_manager_node,
         delay_joint_state_broadcaster_spawner,
-        delay_joint_position_example_controller_spawner,
+        delay_movement_controller_spawner,
+        delay_first_movement_controller_spawner,
+        delay_second_movement_controller_spawner,
+        delay_third_movement_controller_spawner,
         gz_spawn_entity,
         gz_launch_description,
     ]
@@ -148,7 +193,7 @@ def generate_launch_description():
             description="Robot controller",
         ),
         DeclareLaunchArgument(
-            "third_movememnt_controller",
+            "third_movement_controller",
             default_value="third_movement_controller",
             description="Robot controller",
         ),

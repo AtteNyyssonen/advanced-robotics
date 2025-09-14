@@ -42,6 +42,18 @@ controller_manager:
 
     computed_torque_controller:
       type: arm_controllers/ComputedTorqueController
+    
+    movement_controller:
+      type: arm_controllers/MovementController
+
+    first_movement_controller:
+      type: arm_controllers/FirstMovementController
+
+    second_movement_controller:
+      type: arm_controllers/SecondMovementController
+
+    third_movement_controller:
+      type: arm_controllers/ThirdMovementController
 
 time_delay_controller:
   ros__parameters:
@@ -123,3 +135,19 @@ computed_torque_controller:
       - 20.0
     tip_link: panda_link7
     root_link: base
+
+movement_controller:
+  ros__parameters:
+    gazebo: true
+
+first_movement_controller:
+  ros__parameters:
+    gazebo: true
+
+second_movement_controller:
+  ros__parameters:
+    gazebo: true
+
+third_movement_controller:
+  ros__parameters:
+    gazebo: true
