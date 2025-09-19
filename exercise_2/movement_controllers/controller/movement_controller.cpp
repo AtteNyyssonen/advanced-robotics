@@ -4,8 +4,7 @@
 namespace arm_controllers
 {
 
-MovementController::MovementController()
-: controller_interface::ControllerInterface() {}
+MovementController::MovementController(): controller_interface::ControllerInterface() {}
 
 controller_interface::CallbackReturn MovementController::on_init()
 {
@@ -14,25 +13,51 @@ controller_interface::CallbackReturn MovementController::on_init()
 }
 
 controller_interface::CallbackReturn MovementController::on_configure(
-    const rclcpp_lifecycle::State & /*previous_state*/)
+  const rclcpp_lifecycle::State & /*previous_state*/)
 {
   auto node = get_node();
 
   command_sub_ = node->create_subscription<std_msgs::msg::String>(
-      "~/select_controller", 10,
-      std::bind(&MovementController::command_callback, this, std::placeholders::_1));
+    "~/select_controller", 10,
+    std::bind(&MovementController::command_callback, this, std::placeholders::_1));
 
   switch_client_ = node->create_client<controller_manager_msgs::srv::SwitchController>(
-      "/controller_manager/switch_controller");
+    "/controller_manager/switch_controller");
 
   RCLCPP_INFO(node->get_logger(), "MovementController configured");
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn MovementController::on_activate(
-    const rclcpp_lifecycle::State & /*previous_state*/)
+  const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  RCLCPP_INFO(get_node()->get_logger(), "MovementController activated");
+  auto node = get_node();
+  RCLCPP_INFO(node->get_logger(), "MovementController activated");
+
+  if (!switch_client_->wait_for_service(std::chrono::seconds(5))) {
+    RCLCPP_ERROR(node->get_logger(), "Switch service not available in on_activate()");
+    return controller_interface::CallbackReturn::FAILURE;
+  }
+
+  // Start first movement controller as the default one
+  auto request = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
+  request->strictness = 2;
+  request->start_controllers = {"first_movement_controller"};
+
+  auto future = switch_client_->async_send_request(request);
+  try {
+    auto response = future.get();
+    if (response->ok) {
+      active_controller_ = "first";
+      RCLCPP_INFO(node->get_logger(), "Started first_movement_controller by default!");
+    } else {
+      RCLCPP_ERROR(node->get_logger(), "Failed to start first_movement_controller");
+      return controller_interface::CallbackReturn::FAILURE;
+    }
+  } catch (const std::exception &e) {
+    RCLCPP_ERROR(node->get_logger(), "Exception while switching: %s", e.what());
+    return controller_interface::CallbackReturn::FAILURE;
+  }
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
@@ -69,7 +94,7 @@ void MovementController::command_callback(const std_msgs::msg::String::SharedPtr
   auto node = get_node();
   const std::string &requested = msg->data;
 
-  if (requested != "first" && requested != "second" && requested != "third")
+  if (requested != "first" && requested != "second")
   {
     RCLCPP_WARN(node->get_logger(), "Invalid controller request: %s", requested.c_str());
     return;
