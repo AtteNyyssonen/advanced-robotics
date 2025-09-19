@@ -66,19 +66,13 @@ def launch_setup(context, *args, **kwargs):
     first_movement_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["first_movement_controller", "--controller-manager", "/controller_manager"],
+        arguments=["first_movement_controller", "--controller-manager", "/controller_manager",  "--inactive"],
     )
 
     second_movement_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["second_movement_controller", "--controller-manager", "/controller_manager"],
-    )
-
-    third_movement_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["third_movement_controller", "--controller-manager", "/controller_manager"],
+        arguments=["second_movement_controller", "--controller-manager", "/controller_manager",  "--inactive"],
     )
 
     # GZ nodes
@@ -132,13 +126,6 @@ def launch_setup(context, *args, **kwargs):
         )
     )
 
-    delay_third_movement_controller_spawner = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=controller_manager_node,
-            on_exit=[third_movement_controller_spawner],
-        )
-    )
-
     nodes_to_start = [
         robot_state_publisher_node,
         controller_manager_node,
@@ -146,7 +133,6 @@ def launch_setup(context, *args, **kwargs):
         delay_movement_controller_spawner,
         delay_first_movement_controller_spawner,
         delay_second_movement_controller_spawner,
-        delay_third_movement_controller_spawner,
         gz_spawn_entity,
         gz_launch_description,
     ]
@@ -180,22 +166,17 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "movement_controller",
             default_value="movement_controller",
-            description="Robot controller",
+            description="Main robot controller",
         ),
         DeclareLaunchArgument(
             "first_movement_controller",
             default_value="first_movement_controller",
-            description="Robot controller",
+            description="First custom robot controller",
         ),
         DeclareLaunchArgument(
             "second_movement_controller",
             default_value="second_movement_controller",
-            description="Robot controller",
-        ),
-        DeclareLaunchArgument(
-            "third_movement_controller",
-            default_value="third_movement_controller",
-            description="Robot controller",
+            description="Second custom robot controller",
         ),
         DeclareLaunchArgument(
             "sim_ignition",
