@@ -9,6 +9,7 @@ MovementController::MovementController(): controller_interface::ControllerInterf
 controller_interface::CallbackReturn MovementController::on_init()
 {
   active_controller_.clear();
+  implemented_controllers_ = {"first", "second"};
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
@@ -39,32 +40,53 @@ controller_interface::CallbackReturn MovementController::on_activate(
     return controller_interface::CallbackReturn::FAILURE;
   }
 
-  // Start first movement controller as the default one
   auto request = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
   request->strictness = 2;
   request->start_controllers = {"first_movement_controller"};
 
-  auto future = switch_client_->async_send_request(request);
-  try {
-    auto response = future.get();
-    if (response->ok) {
-      active_controller_ = "first";
-      RCLCPP_INFO(node->get_logger(), "Started first_movement_controller by default!");
-    } else {
-      RCLCPP_ERROR(node->get_logger(), "Failed to start first_movement_controller");
-      return controller_interface::CallbackReturn::FAILURE;
-    }
-  } catch (const std::exception &e) {
-    RCLCPP_ERROR(node->get_logger(), "Exception while switching: %s", e.what());
-    return controller_interface::CallbackReturn::FAILURE;
-  }
+  auto future = switch_client_->async_send_request(
+    request,
+    [this, node](rclcpp::Client<controller_manager_msgs::srv::SwitchController>::SharedFuture response)
+    {
+      if (response.get()->ok) {
+        active_controller_ = "first";
+        RCLCPP_INFO(node->get_logger(), "Default controller activated: first_movement_controller");
+      } else {
+        RCLCPP_ERROR(node->get_logger(), "Failed to activate first_movement_controller as default controller");
+      }
+    });
+
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn MovementController::on_deactivate(
     const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  RCLCPP_INFO(get_node()->get_logger(), "MovementController deactivated");
+  auto node = get_node();
+  RCLCPP_INFO(node->get_logger(), "MovementController deactivated");
+  if (!active_controller_.empty())
+  {
+    auto request = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
+    request->strictness = 2;
+    request->stop_controllers = {active_controller_ + "_movement_controller"};
+
+    switch_client_->async_send_request(
+      request,
+      [this, node](rclcpp::Client<controller_manager_msgs::srv::SwitchController>::SharedFuture response)
+      {
+        if (response.get()->ok) {
+          RCLCPP_INFO(node->get_logger(),
+                      "Stopped %s controller on deactivation",
+                      (active_controller_ + "_movement_controller").c_str());
+          active_controller_.clear();
+        } else {
+          RCLCPP_WARN(node->get_logger(),
+                      "Failed to stop %s on deactivation",
+                      (active_controller_ + "_movement_controller").c_str());
+        }
+      }
+    );
+  }
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
@@ -94,9 +116,23 @@ void MovementController::command_callback(const std_msgs::msg::String::SharedPtr
   auto node = get_node();
   const std::string &requested = msg->data;
 
-  if (requested != "first" && requested != "second")
+  if (std::find(implemented_controllers_.begin(), implemented_controllers_.end(), requested) == implemented_controllers_.end())
   {
-    RCLCPP_WARN(node->get_logger(), "Invalid controller request: %s", requested.c_str());
+    std::stringstream ss;
+    for (auto &c : implemented_controllers_) {
+      ss << c << " ";
+    }
+    RCLCPP_WARN(node->get_logger(),
+                "Invalid controller request: %s. Implemented controllers are: [%s]",
+                requested.c_str(), ss.str().c_str());
+    return;
+  }
+
+  if (requested == active_controller_)
+  {
+    RCLCPP_INFO(node->get_logger(),
+                "%s_movement_controller is already active. No switch performed.",
+                requested.c_str());
     return;
   }
 
@@ -106,7 +142,7 @@ void MovementController::command_callback(const std_msgs::msg::String::SharedPtr
   request->strictness = 2;
   request->start_controllers = {requested_controller};
 
-  if (!active_controller_.empty() && active_controller_ != requested)
+  if (!active_controller_.empty())
   {
     request->stop_controllers = {active_controller_ + "_movement_controller"};
   }
@@ -117,27 +153,24 @@ void MovementController::command_callback(const std_msgs::msg::String::SharedPtr
     return;
   }
 
-  auto future = switch_client_->async_send_request(request);
-
-  try
-  {
-    auto response = future.get();
-    if (response->ok)
+  switch_client_->async_send_request(
+    request,
+    [this, node, requested, requested_controller](
+      rclcpp::Client<controller_manager_msgs::srv::SwitchController>::SharedFuture response)
     {
-      active_controller_ = requested;
-      RCLCPP_INFO(node->get_logger(),
-                  "Switched to %s controller", requested_controller.c_str());
+      if (response.get()->ok)
+      {
+        active_controller_ = requested;
+        RCLCPP_INFO(node->get_logger(),
+                    "Switched to %s", requested_controller.c_str());
+      }
+      else
+      {
+        RCLCPP_ERROR(node->get_logger(),
+                     "Failed to switch to %s", requested_controller.c_str());
+      }
     }
-    else
-    {
-      RCLCPP_ERROR(node->get_logger(),
-                   "Failed to switch to %s", requested_controller.c_str());
-    }
-  }
-  catch (const std::exception &e)
-  {
-    RCLCPP_ERROR(node->get_logger(), "Exception while calling switch service: %s", e.what());
-  }
+  );
 }
 
 }

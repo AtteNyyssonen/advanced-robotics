@@ -52,9 +52,6 @@ controller_manager:
     second_movement_controller:
       type: arm_controllers/SecondMovementController
 
-    third_movement_controller:
-      type: arm_controllers/ThirdMovementController
-
 time_delay_controller:
   ros__parameters:
     joints:
@@ -145,9 +142,5 @@ first_movement_controller:
     gazebo: true
 
 second_movement_controller:
-  ros__parameters:
-    gazebo: true
-
-third_movement_controller:
   ros__parameters:
     gazebo: true

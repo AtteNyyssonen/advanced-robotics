@@ -13,7 +13,6 @@
 
 namespace arm_controllers
 {
-
 class MovementController : public controller_interface::ControllerInterface
 {
 public:
@@ -37,9 +36,10 @@ private:
   void command_callback(const std_msgs::msg::String::SharedPtr msg);
 
   std::string active_controller_;
+  std::vector<std::string> implemented_controllers_;
+
 
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr command_sub_;
   rclcpp::Client<controller_manager_msgs::srv::SwitchController>::SharedPtr switch_client_;
 };
-
 }

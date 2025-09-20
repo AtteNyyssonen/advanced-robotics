@@ -16,7 +16,6 @@ def launch_setup(context, *args, **kwargs):
     movement_controller_spawner = LaunchConfiguration("movement_controller")
     first_movement_controller_spawner = LaunchConfiguration("first_movement_controller")
     second_movement_controller_spawner = LaunchConfiguration("second_movement_controller")
-    third_movement_controller_spawner = LaunchConfiguration("third_movement_controller")
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
@@ -54,7 +53,7 @@ def launch_setup(context, *args, **kwargs):
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager", "--inactive"],
     )
 
     movement_controller_spawner = Node(
