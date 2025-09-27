@@ -123,3 +123,22 @@ computed_torque_controller:
       - 20.0
     tip_link: panda_link7
     root_link: base
+
+gravity_pd_controller:
+  type: "gravity_pd_controller/GravityPDController"
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+
+    kp: 50.0   # proportional gain
+    kd: 5.0    # derivative gain
+
+    urdf_param: "robot_description"
+    root_link: "panda_link0"
+    tip_link: "panda_link7"

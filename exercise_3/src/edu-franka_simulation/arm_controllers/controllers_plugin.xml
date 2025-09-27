@@ -35,4 +35,11 @@
           The joint position example controller moves in a periodic movement.
       </description>
   </class>
+  <class name="arm_controllers/PDGravityController"
+        type="arm_controllers::PDGravityController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          The gravity PD controller compensates for gravity and applies a PD control law to the joints.
+      </description>
+  </class>
 </library>
