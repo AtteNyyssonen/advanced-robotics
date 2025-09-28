@@ -1,310 +1,196 @@
-#include <arm_controllers/gravity_pd_controller.hpp>
+#include "arm_controllers/gravity_pd_controller.hpp"
 
-#include <cassert>
-#include <cmath>
-#include <exception>
-#include <string>
+#include <pluginlib/class_list_macros.hpp>
 
-#include "rclcpp/qos.hpp"
-#include "rclcpp/time.hpp"
-#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
-#include "rclcpp_lifecycle/state.hpp"
+namespace arm_controllers
+{
 
-#include <Eigen/Eigen>
+GravityPDController::GravityPDController()
+: gravity_vec_(0.0, 0.0, -9.81)
+{
+}
 
-namespace arm_controllers {
+controller_interface::CallbackReturn GravityPDController::on_init()
+{
+  auto node = get_node();
 
-controller_interface::InterfaceConfiguration
-GravityPDController::command_interface_configuration() const {
-  controller_interface::InterfaceConfiguration config;
-  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+  return controller_interface::CallbackReturn::SUCCESS;
+}
 
-  // Add the effort control interfaces for the joints
-  for (int i = 1; i <= num_joints; ++i) {
-    config.names.push_back("panda_joint" + std::to_string(i) + "/effort");
+controller_interface::CallbackReturn GravityPDController::on_configure(
+  const rclcpp_lifecycle::State & /*previous_state*/)
+{
+  auto node = get_node();
+
+  joint_names_ = node->get_parameter("joints").as_string_array();
+  urdf_param_ = node->get_parameter("urdf_param").as_string();
+  root_link_  = node->get_parameter("root_link").as_string();
+  tip_link_   = node->get_parameter("tip_link").as_string();
+
+  // Build KDL chain from URDF
+  urdf::Model urdf_model;
+  std::string urdf_string;
+
+  if (!node->get_parameter(urdf_param_, urdf_string)) {
+    RCLCPP_ERROR(node->get_logger(),
+                "Failed to get URDF from parameter [%s]", urdf_param_.c_str());
+    return controller_interface::CallbackReturn::ERROR;
   }
 
+  if (!urdf_model.initString(urdf_string)) {
+    RCLCPP_ERROR(node->get_logger(),
+                "Failed to parse URDF from string in parameter [%s]", urdf_param_.c_str());
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  KDL::Tree tree;
+  if (!kdl_parser::treeFromUrdfModel(urdf_model, tree)) {
+    RCLCPP_ERROR(node->get_logger(), "Failed to extract KDL tree from URDF");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  if (!tree.getChain(root_link_, tip_link_, chain_)) {
+    RCLCPP_ERROR(node->get_logger(), "Failed to extract KDL chain from %s to %s",
+                 root_link_.c_str(), tip_link_.c_str());
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  const auto kdl_n = chain_.getNrOfJoints();
+  // Validate that joint names were provided and match KDL chain size
+  if (joint_names_.empty()) {
+    RCLCPP_ERROR(node->get_logger(), "Parameter 'joints' is empty. Set joint names in controller parameters.");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+  if (static_cast<size_t>(kdl_n) != joint_names_.size()) {
+    RCLCPP_ERROR(node->get_logger(),
+      "Mismatch between KDL chain joints (%d) and provided joint names (%zu).",
+      kdl_n, joint_names_.size());
+    return controller_interface::CallbackReturn::ERROR;
+  }
+
+  // KDL arrays already resized above:
+  q_kdl_.resize(kdl_n);
+  qdot_kdl_.resize(kdl_n);
+  g_kdl_.resize(kdl_n);
+
+  // Gains
+  double kp = node->get_parameter("kp").as_double();
+  double kd = node->get_parameter("kd").as_double();
+  Kp_ = Eigen::VectorXd::Constant(kdl_n, kp);
+  Kd_ = Eigen::VectorXd::Constant(kdl_n, kd);
+
+  // Desired q (initialize to zero)
+  q_desired_ = Eigen::VectorXd::Zero(kdl_n);
+
+  dyn_solver_ = std::make_unique<KDL::ChainDynParam>(chain_, gravity_vec_);
+
+
+  RCLCPP_INFO(node->get_logger(),
+            "Configured PD+Gravity controller with %zu joints",
+            static_cast<size_t>(chain_.getNrOfJoints()));
+
+  return controller_interface::CallbackReturn::SUCCESS;
+}
+
+controller_interface::CallbackReturn GravityPDController::on_activate(
+  const rclcpp_lifecycle::State & /*previous_state*/)
+{
+  return controller_interface::CallbackReturn::SUCCESS;
+}
+
+controller_interface::CallbackReturn GravityPDController::on_deactivate(
+  const rclcpp_lifecycle::State & /*previous_state*/)
+{
+  return controller_interface::CallbackReturn::SUCCESS;
+}
+
+controller_interface::InterfaceConfiguration GravityPDController::command_interface_configuration() const
+{
+  controller_interface::InterfaceConfiguration config;
+  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+  for (const auto & joint_name : joint_names_) {
+    config.names.push_back(joint_name + "/effort");
+  }
   return config;
 }
 
-controller_interface::InterfaceConfiguration
-GravityPDController::state_interface_configuration() const {
+controller_interface::InterfaceConfiguration GravityPDController::state_interface_configuration() const
+{
   controller_interface::InterfaceConfiguration config;
   config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-  
-  // Add the position and velocity state interfaces for the joints
-  for (int i = 1; i <= num_joints; ++i) {
-    config.names.push_back("panda_joint" + std::to_string(i) + "/position");
-    config.names.push_back("panda_joint" + std::to_string(i) + "/velocity");
+  for (const auto & joint_name : joint_names_) {
+    config.names.push_back(joint_name + "/position");
+    config.names.push_back(joint_name + "/velocity");
   }
-
   return config;
 }
 
 controller_interface::return_type GravityPDController::update(
-    const rclcpp::Time& /*time*/,
-    const rclcpp::Duration& /*period*/) {
+  const rclcpp::Time & time, const rclcpp::Duration & period)
+{
+  (void)time;  // quiet warning of unused variable
+  (void)period; // quiet warning of unused variable
+
+  // Read current joint states
+  for (size_t i = 0; i < joint_names_.size(); i++) {
+    q_kdl_(i) = state_interfaces_[2*i].get_value();       // position
+    qdot_kdl_(i) = state_interfaces_[2*i + 1].get_value(); // velocity
+  }
+
+  // Initialize desired joint positions once
+   if (!q_desired_initialized_) {
+    const size_t nj = joint_names_.size();
+    if (nj == 0) {
+      RCLCPP_ERROR(get_node()->get_logger(), "No joint names available when initializing q_desired_. Aborting update.");
+      return controller_interface::return_type::ERROR;
+    }
+    q_desired_.resize(nj);
+    // assign element-wise (safe regardless of vector size)
+    if (nj == 7) {
+      q_desired_(0) = 0.1;
+      q_desired_(1) = -0.5;
+      q_desired_(2) = 0.3;
+      q_desired_(3) = -1.2;
+      q_desired_(4) = 0.8;
+      q_desired_(5) = 1.0;
+      q_desired_(6) = -0.6;
+    } else {
+      for (size_t i = 0; i < nj; ++i) q_desired_(i) = 0.0;
+      RCLCPP_WARN(get_node()->get_logger(), "q_desired_ initialized to zeros because joint count != 7 (%zu)", nj);
+    }
+    q_desired_initialized_ = true;
+    RCLCPP_INFO(get_node()->get_logger(), "q_desired initialized to hardcoded pose");
+  }
+
+  // Compute PD term: tau_PD = Kp*(q_des - q) - Kd*q_dot
+  Eigen::VectorXd q_eigen = Eigen::Map<Eigen::VectorXd>(q_kdl_.data.data(), q_kdl_.rows());
+  Eigen::VectorXd qdot_eigen = Eigen::Map<Eigen::VectorXd>(qdot_kdl_.data.data(), qdot_kdl_.rows());
+
+  Eigen::VectorXd pd_term = Kp_.cwiseProduct(q_desired_ - q_eigen) - Kd_.cwiseProduct(qdot_eigen);
+
+  // Compute gravity compensation
+  g_kdl_.data.setZero();
+  int ret = dyn_solver_->JntToGravity(q_kdl_, g_kdl_);
+  if (ret < 0) {
+    RCLCPP_ERROR(get_node()->get_logger(), "Failed to compute gravity torques.");
+    return controller_interface::return_type::ERROR;
+  }
+  Eigen::VectorXd gravity_torques = Eigen::Map<Eigen::VectorXd>(g_kdl_.data.data(), g_kdl_.rows());
+
+  // Final torque command
+  tau_ = pd_term + gravity_torques;
+
+  // Send torque commands to each joint
+  for (size_t i = 0; i < command_interfaces_.size(); i++) {
+    command_interfaces_[i].set_value(tau_(i));
+  }
+
 
   return controller_interface::return_type::OK;
 }
 
-CallbackReturn GravityPDController::on_init() {
-
-  RCLCPP_INFO(get_node()->get_logger(), "Robot Initialization (on_init) started");
-
-  // Initialize the joint names, gains, and the number of joints
-  try {
-    auto_declare<std::vector<std::string>>("joints", {});
-    auto_declare<std::vector<double>>("p_gains", {});
-    auto_declare<std::vector<double>>("d_gains", {});
-  } catch (const std::exception& e) {
-    fprintf(stderr, "Exception thrown during init stage (on_init) with message: %s \n", e.what());
-    return CallbackReturn::ERROR;
-  }
-
-  G_.resize(num_joints);
-  
-  // Set the gravity vector
-  gravity_ = KDL::Vector::Zero(); 
-  gravity_(2) = -9.81;            
-
-  // Initialize the KDL variables
-  qd_.data = Eigen::VectorXd::Zero(num_joints);
-  q_.data = Eigen::VectorXd::Zero(num_joints);
-  qdot_.data = Eigen::VectorXd::Zero(num_joints);
-  e_.data = Eigen::VectorXd::Zero(num_joints);
-  e_dot_.data = Eigen::VectorXd::Zero(num_joints);
-
-  // Create publishers for the desired and current joint positions, velocities, and accelerations
-  pub_qd_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("qd", 1000);
-  pub_q_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("q", 1000);
-  pub_e_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("e", 1000);
-
-  RCLCPP_INFO(get_node()->get_logger(), "Robot Initialization (on_init) done");
-
-  return CallbackReturn::SUCCESS;
 }
 
-CallbackReturn ComputedTorqueController::on_configure(
-    const rclcpp_lifecycle::State& /*previous_state*/) {
-
-  RCLCPP_INFO(get_node()->get_logger(), "Robot Configuration (on_configure) started");
-
-  // Get the robot description parameter
-  auto parameters_client =
-      std::make_shared<rclcpp::AsyncParametersClient>(get_node(), "/robot_state_publisher");
-  parameters_client->wait_for_service();
-  auto future = parameters_client->get_parameters({"robot_description"});
-  auto result = future.get();
-
-  // Check if the robot description was retrieved successfully
-  if (!result.empty()) {
-    robot_description_ = result[0].value_to_string();
-  } else {
-    RCLCPP_ERROR(get_node()->get_logger(), "Failed to get robot_description parameter.");
-    return CallbackReturn::FAILURE;
-  }
-
-  // Get the joint names from the parameter server
-  joint_names_ = auto_declare<std::vector<std::string>>("joints", joint_names_);
-  if (joint_names_.empty()) {
-    RCLCPP_FATAL(get_node()->get_logger(), "joint_names_ not set");
-    return CallbackReturn::FAILURE;
-  }
-  // Check if there are the correct number of joint names
-  if (joint_names_.size() != static_cast<uint>(num_joints)) {
-    RCLCPP_FATAL(get_node()->get_logger(), "joint_names_ should be of size %d but is of size %ld",
-                 num_joints, joint_names_.size());
-    return CallbackReturn::FAILURE;
-  }
-
-  // Get the node's namespace
-  Kp_.resize(num_joints);
-  Kd_.resize(num_joints);
-
-  // Get the gains from the parameter server
-  std::vector<double> Kp(num_joints), Kd(num_joints);
-  auto p_gains = get_node()->get_parameter("p_gains").as_double_array();
-  auto d_gains = get_node()->get_parameter("d_gains").as_double_array();
-
-  // Check if the gains were retrieved successfully
-  if (p_gains.empty()) {
-    RCLCPP_FATAL(get_node()->get_logger(), "p_gains parameter not set");
-    return CallbackReturn::FAILURE;
-  }
-  if (p_gains.size() != static_cast<uint>(num_joints)) {
-    RCLCPP_FATAL(get_node()->get_logger(), "p_gains should be of size %d but is of size %ld",
-                 num_joints, p_gains.size());
-    return CallbackReturn::FAILURE;
-  }
-  if (d_gains.empty()) {
-    RCLCPP_FATAL(get_node()->get_logger(), "d_gains parameter not set");
-    return CallbackReturn::FAILURE;
-  }
-  if (d_gains.size() != static_cast<uint>(num_joints)) {
-    RCLCPP_FATAL(get_node()->get_logger(), "d_gains should be of size %d but is of size %ld",
-                 num_joints, d_gains.size());
-    return CallbackReturn::FAILURE;
-  }
-
-  // Set the gains for the controller
-  for (int i = 0; i < num_joints; ++i) {
-    Kp_(i) = p_gains.at(i);
-    Kp[i] = p_gains.at(i);
-    Kd_(i) = d_gains.at(i);
-    Kd[i] = d_gains.at(i);
-  }
-
-  // Get the URDF model and the joint URDF objects
-  urdf::Model urdf;
-  if (!urdf.initString(robot_description_))
-  {
-      RCLCPP_ERROR(get_node()->get_logger(), "Failed to parse urdf file");
-      return CallbackReturn::ERROR;
-  }
-  else
-  {
-      RCLCPP_INFO(get_node()->get_logger(), "Found robot_description");
-  }
-
-  // Get the joint URDF objects
-  for (int i = 0; i < num_joints; i++)
-  {
-    urdf::JointConstSharedPtr joint_urdf = urdf.getJoint(joint_names_[i]);
-    if (!joint_urdf)
-    {
-        RCLCPP_ERROR(get_node()->get_logger(), "Could not find joint '%s' in urdf", joint_names_[i].c_str());
-        return CallbackReturn::ERROR;
-    }
-    joint_urdfs_.push_back(joint_urdf);
-  }
-
-  // Get the KDL tree from the robot description
-  if (!kdl_parser::treeFromUrdfModel(urdf, kdl_tree_))
-  {
-    RCLCPP_ERROR(get_node()->get_logger(), "Failed to construct kdl tree");
-    return CallbackReturn::ERROR;
-  }
-  else
-  {
-    RCLCPP_INFO(get_node()->get_logger(), "Constructed kdl tree");
-  }
-
-  // Get the root and tip link names from the parameter server
-  // If the parameter is not found, return an error
-  std::string root_name, tip_name;
-  if (get_node()->has_parameter("root_link"))
-  {
-    root_name = get_node()->get_parameter("root_link").as_string();
-    RCLCPP_INFO(get_node()->get_logger(), "Found root link name form yaml: %s", root_name.c_str());
-  }
-  else
-  {
-    RCLCPP_ERROR(get_node()->get_logger(), "Could not find root link name");
-    return CallbackReturn::ERROR;
-  }
-  if (get_node()->has_parameter("tip_link"))
-  {
-    tip_name = get_node()->get_parameter("tip_link").as_string();
-    RCLCPP_INFO(get_node()->get_logger(), "Found tip link name form yaml: %s", tip_name.c_str());
-  }
-  else
-  {
-    RCLCPP_ERROR(get_node()->get_logger(), "Could not find tip link name");
-    return CallbackReturn::ERROR;
-  }
-
-  // Get the KDL chain from the KDL tree
-  // if kdl tree has no chain from root to tip, return error
-  if (!kdl_tree_.getChain(root_name, tip_name, kdl_chain_))
-  {
-    RCLCPP_ERROR_STREAM(get_node()->get_logger(), "Failed to get KDL chain from tree: ");
-    RCLCPP_ERROR_STREAM(get_node()->get_logger(), "  " << root_name << " --> " << tip_name);
-    RCLCPP_ERROR_STREAM(get_node()->get_logger(), "  Tree has " << kdl_tree_.getNrOfJoints() << " joints");
-    RCLCPP_ERROR_STREAM(get_node()->get_logger(), "  Tree has " << kdl_tree_.getNrOfSegments() << " segments");
-    RCLCPP_ERROR_STREAM(get_node()->get_logger(), "  The segments are:");
-
-    KDL::SegmentMap segment_map = kdl_tree_.getSegments();
-    KDL::SegmentMap::iterator it;
-
-    for (it = segment_map.begin(); it != segment_map.end(); it++)
-    {
-      RCLCPP_ERROR(get_node()->get_logger(), "    %s", std::string((*it).first).c_str());
-    }
-
-    return CallbackReturn::ERROR;
-  }
-  else
-  {
-    RCLCPP_INFO(get_node()->get_logger(), "Got kdl chain");
-
-    // debug: print kdl tree and kdl chain
-    RCLCPP_INFO(get_node()->get_logger(), "  %s --> %s", root_name.c_str(), tip_name.c_str());
-    RCLCPP_INFO(get_node()->get_logger(), "  Tree has %d joints", kdl_tree_.getNrOfJoints());
-    RCLCPP_INFO(get_node()->get_logger(), "  Tree has %d segments", kdl_tree_.getNrOfSegments());
-    RCLCPP_INFO(get_node()->get_logger(), "  The kdl_tree_ segments are:");
-
-    // Print the segments of the KDL tree
-    KDL::SegmentMap segment_map = kdl_tree_.getSegments();
-    KDL::SegmentMap::iterator it;
-    for (it = segment_map.begin(); it != segment_map.end(); it++)
-    {
-      RCLCPP_INFO(get_node()->get_logger(), "    %s", std::string((*it).first).c_str());
-    }
-    RCLCPP_INFO(get_node()->get_logger(), "  Chain has %d joints", kdl_chain_.getNrOfJoints());
-    RCLCPP_INFO(get_node()->get_logger(), "  Chain has %d segments", kdl_chain_.getNrOfSegments());
-    RCLCPP_INFO(get_node()->get_logger(), "  The kdl_chain_ segments are:");
-    for (unsigned int i = 0; i < kdl_chain_.getNrOfSegments(); i++) {
-        const KDL::Segment& segment = kdl_chain_.getSegment(i);
-        RCLCPP_INFO(get_node()->get_logger(), "    %s", segment.getName().c_str());
-    }
-  }
-
-  // Create the KDL chain dyn param solver
-  id_solver_.reset(new KDL::ChainDynParam(kdl_chain_, gravity_));
-  G_.resize(kdl_chain_.getNrOfJoints());
-
-  // print kdltree, kdlchain, jointnames, jointurdfs for learning purposes
-  fprintf(stderr, "Number of segments in kdl_tree_: %d\n", kdl_tree_.getNrOfSegments());
-  fprintf(stderr, "Number of joints in kdl_chain_: %d\n", kdl_chain_.getNrOfJoints());
-  fprintf(stderr, "Joint names in joint_names_: ");
-  for (int i = 0; i < num_joints; i++)
-  {
-    fprintf(stderr, "%s ", joint_names_[i].c_str());
-  }
-  fprintf(stderr, "\n");
-
-  RCLCPP_INFO(get_node()->get_logger(), "Robot Configuration (on_configure) done");
-
-  return CallbackReturn::SUCCESS;
-}
-
-CallbackReturn GravityPDController::on_activate(
-    const rclcpp_lifecycle::State& /*previous_state*/) {
-
-  G_.data.setZero();
-
-  t = 0.0;  // Initialize the simulation time variable
-
-  // Initialize the variables
-  qd_.resize(num_joints);
-  q_.resize(num_joints);
-  qdot_.resize(num_joints);
-  e_.resize(num_joints);
-  e_dot_.resize(num_joints);
-
-  Kp_.resize(num_joints);
-  Kd_.resize(num_joints);
-
-  // Activate the publishers
-  pub_qd_->on_activate();
-  pub_q_->on_activate();
-  pub_e_->on_activate();
-
-  return CallbackReturn::SUCCESS;
-}
-
-}
-#include "pluginlib/class_list_macros.hpp"
-PLUGINLIB_EXPORT_CLASS(arm_controllers::GravityPDController,
-                       controller_interface::ControllerInterface)
+PLUGINLIB_EXPORT_CLASS(
+  arm_controllers::GravityPDController,
+  controller_interface::ControllerInterface)

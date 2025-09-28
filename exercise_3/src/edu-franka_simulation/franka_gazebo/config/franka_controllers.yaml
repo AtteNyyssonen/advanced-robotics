@@ -42,6 +42,9 @@ controller_manager:
 
     computed_torque_controller:
       type: arm_controllers/ComputedTorqueController
+    
+    gravity_pd_controller:
+      type: "arm_controllers/GravityPDController"
 
 time_delay_controller:
   ros__parameters:
@@ -125,7 +128,6 @@ computed_torque_controller:
     root_link: base
 
 gravity_pd_controller:
-  type: "gravity_pd_controller/GravityPDController"
   ros__parameters:
     joints:
       - panda_joint1
@@ -135,10 +137,8 @@ gravity_pd_controller:
       - panda_joint5
       - panda_joint6
       - panda_joint7
-
     kp: 50.0   # proportional gain
     kd: 5.0    # derivative gain
-
     urdf_param: "robot_description"
     root_link: "panda_link0"
     tip_link: "panda_link7"

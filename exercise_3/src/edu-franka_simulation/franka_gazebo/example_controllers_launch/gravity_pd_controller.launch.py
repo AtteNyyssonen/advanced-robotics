@@ -35,7 +35,7 @@ def launch_setup(context, *args, **kwargs):
     controllers_file = LaunchConfiguration("controllers_file")
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
-    joint_position_example_controller_spawner = LaunchConfiguration("gravity_pd_controller")
+    gravity_pd_controller_spawner = LaunchConfiguration("gravity_pd_controller")
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
