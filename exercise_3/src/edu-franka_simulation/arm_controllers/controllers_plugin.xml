@@ -42,4 +42,11 @@
           The gravity PD controller compensates for gravity and applies a PD control law to the joints.
       </description>
   </class>
+  <class name="arm_controllers/VelocityController"
+        type="arm_controllers::VelocityController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          Velocity controller in joint space.
+      </description>
+  </class>
 </library>

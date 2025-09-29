@@ -22,6 +22,7 @@ add_library(${PROJECT_NAME} SHARED
   src/time_delay_controller.cpp
   src/computed_torque_controller.cpp
   src/gravity_pd_controller.cpp
+  src/velocity_controller.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
