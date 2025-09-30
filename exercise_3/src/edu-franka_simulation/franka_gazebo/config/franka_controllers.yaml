@@ -49,6 +49,9 @@ controller_manager:
     velocity_controller:
       type: arm_controllers/VelocityController
 
+    kinematic_controller:
+      type: arm_controllers/KinematicController
+
 time_delay_controller:
   ros__parameters:
     joints:
@@ -164,6 +167,33 @@ velocity_controller:
       - 5.0
       - 2.0
       - 1.0
+    urdf_param: "robot_description"
+    root_link: "panda_link0"
+    tip_link: "panda_link7"
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+
+kinematic_controller:
+  ros__parameters:
+    joints:
+      - panda_joint1
+      - panda_joint2
+      - panda_joint3
+      - panda_joint4
+      - panda_joint5
+      - panda_joint6
+      - panda_joint7
+    kp_gains:
+      - 5.0
+      - 5.0
+      - 5.0
+      - 5.0
+      - 5.0
+      - 5.0
+      - 5.0
     urdf_param: "robot_description"
     root_link: "panda_link0"
     tip_link: "panda_link7"

@@ -49,4 +49,11 @@
           Velocity controller in joint space.
       </description>
   </class>
+  <class name="arm_controllers/KinematicController"
+        type="arm_controllers::KinematicController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          Kinematic controller in joint space. Based on the velocity controller in joint space.
+      </description>
+  </class>
 </library>

@@ -23,6 +23,7 @@ add_library(${PROJECT_NAME} SHARED
   src/computed_torque_controller.cpp
   src/gravity_pd_controller.cpp
   src/velocity_controller.cpp
+  src/kinematic_controller_joint_space.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE

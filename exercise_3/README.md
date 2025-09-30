@@ -13,5 +13,13 @@ ros2 topic pub /cartesian_goal geometry_msgs/Point "{x: x.x, y: x.x
 
 Plotjuggler use is a bit hard.
 
+4. Start with 
+ros2 launch franka_gazebo kinematic_joint_controller.launch.py
+Send goal, this will be interpolated into a S-curve trajectory
+ros2 topic pub /cartesian_goal geometry_msgs/Point "{x: x.x, y: x.x
+, z: x.x}"
+
+The controllers were implemented based on the note diagrams and googling. There is no reassurance that the controllers function as intended due to limited time spent on testing. The calculations should be ok. The kinematic controller was built on top of the velocity controller so if velocity is bad so is the kinematic.
+
 6. Behaviour discussion on kinematic controllers joint space vs task space.
 
