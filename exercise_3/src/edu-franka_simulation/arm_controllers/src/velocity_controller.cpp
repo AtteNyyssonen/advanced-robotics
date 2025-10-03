@@ -80,6 +80,7 @@ controller_interface::CallbackReturn VelocityController::on_configure(const rclc
   pub_desired_vel_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_velocities_desired", rclcpp::SystemDefaultsQoS());
   pub_error_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_velocity_error", rclcpp::SystemDefaultsQoS());
   pub_control_out_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("control_output", rclcpp::SystemDefaultsQoS());
+  pub_end_effector_ = get_node()->create_publisher<geometry_msgs::msg::Point>("end_effector_position", 10);
 
   ee_goal_subscriber_ = get_node()->create_subscription<geometry_msgs::msg::Point>(
     "cartesian_goal", rclcpp::SystemDefaultsQoS(),
@@ -91,6 +92,8 @@ controller_interface::CallbackReturn VelocityController::on_configure(const rclc
       goal_active_ = true;
       RCLCPP_INFO(get_node()->get_logger(), "Received cartesian_goal: x=%.3f y=%.3f z=%.3f",
                   msg->x, msg->y, msg->z);
+      RCLCPP_INFO(get_node()->get_logger(), "debug message: ee_start: x=%.3f y=%.3f z=%.3f",
+                  ee_start_.p.x(), ee_start_.p.y(), ee_start_.p.z());
     });
 
   return controller_interface::CallbackReturn::SUCCESS;
@@ -164,7 +167,7 @@ controller_interface::return_type VelocityController::update(const rclcpp::Time 
 
   if (goal_active_) {
     elapsed_time_ += period.seconds();
-    double s = std::min(elapsed_time_ / traj_duration_, 1.0);
+    double s = std::min(elapsed_time_ / (traj_duration_), 1.0);
 
     KDL::Vector start = ee_start_.p;
     KDL::Vector goal  = ee_goal_.p;
@@ -219,6 +222,8 @@ controller_interface::return_type VelocityController::update(const rclcpp::Time 
     if (s >= 1.0) {
       goal_active_ = false;
       RCLCPP_INFO(get_node()->get_logger(), "Cartesian goal reached");
+      RCLCPP_INFO(get_node()->get_logger(), "debug message : ee_current: x=%.3f y=%.3f z=%.3f",
+                  ee_current_.p.x(), ee_current_.p.y(), ee_current_.p.z());
     }
   } else {
     for (size_t i=0;i<n;++i) {
@@ -240,6 +245,16 @@ controller_interface::return_type VelocityController::update(const rclcpp::Time 
   pub_arr(pub_desired_vel_, desired_vel_vec);
   pub_arr(pub_error_, err_vec);
   pub_arr(pub_control_out_, out_vec);
+
+  // Publish end-effector position to plotjuggler
+  KDL::ChainFkSolverPos_recursive fk_solver(kdl_chain_);
+  fk_solver.JntToCart(kdl_q_, ee_current_);
+  geometry_msgs::msg::Point p_msg;
+  p_msg.x = ee_current_.p.x();
+  p_msg.y = ee_current_.p.y();
+  p_msg.z = ee_current_.p.z();
+  pub_end_effector_->publish(p_msg);
+
 
   return controller_interface::return_type::OK;
 }

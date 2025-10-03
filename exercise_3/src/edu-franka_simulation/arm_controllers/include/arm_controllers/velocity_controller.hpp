@@ -63,6 +63,7 @@ private:
   bool goal_active_;
   KDL::Frame ee_start_;
   KDL::Frame ee_goal_;
+  KDL::Frame ee_current_;
 
   rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr ee_goal_subscriber_;
 
@@ -72,6 +73,7 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_desired_vel_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_error_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_control_out_;
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_end_effector_;
 
   bool init_kdl_from_urdf(const std::string & urdf_param);
 };

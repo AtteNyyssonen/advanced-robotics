@@ -8,8 +8,10 @@ Every cycle new values are calculated state is printed and the data saved.
 ros2 launch franka_gazebo velocity_controller.launch.py
 
 Send goal, this will be interpolated into a linear trajectory
-ros2 topic pub /cartesian_goal geometry_msgs/Point "{x: x.x, y: x.x
-, z: x.x}"
+ros2 topic pub /cartesian_goal geometry_msgs/Point "{x: x.x, y: x.x, z: x.x}"
+
+If you only want to send one message:
+ros2 topic pub --once /cartesian_goal geometry_msgs/msg/Point "{x: x.x, y: x.x, z: x.x}"
 
 Plotjuggler use is a bit hard.
 
