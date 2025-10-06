@@ -23,7 +23,7 @@
 # controller_manager provides the necessary infrastructure to manage multiple controllers efficiently and robustly using ROS 2 Control.
 controller_manager:
   ros__parameters:
-    update_rate: 1000 # Hz
+    update_rate: 100 # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -143,8 +143,9 @@ gravity_pd_controller:
       - panda_joint5
       - panda_joint6
       - panda_joint7
-    kp: 50.0   # proportional gain
-    kd: 5.0    # derivative gain
+    kp_cartesian_gains: [150.0, 150.0, 150.0, 50.0, 50.0, 50.0]
+    kd_cartesian_gains: [25.0, 25.0, 25.0, 15.0, 15.0, 15.0]
+    goal_tolerance: 0.01
     urdf_param: "robot_description"
     root_link: "panda_link0"
     tip_link: "panda_link7"
