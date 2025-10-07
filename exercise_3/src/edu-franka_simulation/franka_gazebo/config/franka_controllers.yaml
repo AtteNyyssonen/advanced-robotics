@@ -143,8 +143,8 @@ gravity_pd_controller:
       - panda_joint5
       - panda_joint6
       - panda_joint7
-    kp_cartesian_gains: [150.0, 150.0, 150.0, 50.0, 50.0, 50.0]
-    kd_cartesian_gains: [25.0, 25.0, 25.0, 15.0, 15.0, 15.0]
+    kp_cartesian_gains: [40.0, 40.0, 40.0, 8.0, 8.0, 8.0]
+    kd_cartesian_gains: [20.0, 20.0, 20.0, 4.0, 4.0, 4.0]
     goal_tolerance: 0.01
     urdf_param: "robot_description"
     root_link: "panda_link0"

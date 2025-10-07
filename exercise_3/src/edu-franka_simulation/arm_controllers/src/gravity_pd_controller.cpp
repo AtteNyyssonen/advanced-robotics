@@ -118,6 +118,10 @@ controller_interface::CallbackReturn GravityPDController::on_configure(
                   msg->x, msg->y, msg->z);
     });
 
+  // plotjuggler
+  pub_end_effector_ = get_node()->create_publisher<geometry_msgs::msg::Point>("end_effector_position", 10);
+
+
   RCLCPP_INFO(node->get_logger(), "Configured Cartesian PD controller with %d joints", kdl_n);
   return controller_interface::CallbackReturn::SUCCESS;
 }
@@ -150,10 +154,12 @@ controller_interface::return_type GravityPDController::update(
   }
 
   Eigen::VectorXd tau_cmd = Eigen::VectorXd::Zero(n_joints);
+  
+  KDL::Frame x_current;
 
   if (goal_active_) {
     // Forward Kinematics to get current end-effector pose
-    KDL::Frame x_current;
+    
     fk_solver_->JntToCart(q_kdl_, x_current);
 
     KDL::Vector pos_error = ee_goal_.p - x_current.p;
@@ -205,6 +211,14 @@ controller_interface::return_type GravityPDController::update(
   for (size_t i = 0; i < n_joints; i++) {
     command_interfaces_[i].set_value(tau_cmd(i));
   }
+
+
+  // Publish end-effector position to plotjuggler
+  geometry_msgs::msg::Point p_msg;
+  p_msg.x = x_current.p.x();
+  p_msg.y = x_current.p.y();
+  p_msg.z = x_current.p.z();
+  pub_end_effector_->publish(p_msg);
 
   return controller_interface::return_type::OK;
 }

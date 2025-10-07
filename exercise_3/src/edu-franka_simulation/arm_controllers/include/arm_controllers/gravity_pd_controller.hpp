@@ -71,6 +71,10 @@ private:
 
 
   const KDL::Vector gravity_vec_;
+
+  // plotjuggler
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_end_effector_;
+
 };
 
 }
