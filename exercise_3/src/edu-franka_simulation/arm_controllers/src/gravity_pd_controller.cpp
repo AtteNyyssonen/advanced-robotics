@@ -6,10 +6,33 @@
 namespace arm_controllers
 {
 
-GravityPDController::GravityPDController()
-: controller_interface::ControllerInterface(),
-  gravity_vec_(0.0, 0.0, -9.81)
+controller_interface::InterfaceConfiguration 
+GravityPDController::command_interface_configuration() const
 {
+  controller_interface::InterfaceConfiguration config;
+  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+
+    // Add the effort control interfaces for the joints
+    for (int i = 1; i <= num_joints; ++i) {
+      config.names.push_back("panda_joint" + std::to_string(i) + "/effort");
+    }
+
+    return config;
+  }
+
+controller_interface::InterfaceConfiguration
+GravityPDController::state_interface_configuration() const
+{
+  controller_interface::InterfaceConfiguration config;
+  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+  
+  // Add the position and velocity state interfaces for the joints
+  for (int i = 1; i <= num_joints; ++i) {
+    config.names.push_back("panda_joint" + std::to_string(i) + "/position");
+    config.names.push_back("panda_joint" + std::to_string(i) + "/velocity");
+  }
+
+  return config;
 }
 
 controller_interface::CallbackReturn GravityPDController::on_init()
@@ -20,40 +43,18 @@ controller_interface::CallbackReturn GravityPDController::on_init()
   auto_declare<std::string>("tip_link", "");
   auto_declare<std::vector<double>>("kp_cartesian_gains", std::vector<double>{});
   auto_declare<std::vector<double>>("kd_cartesian_gains", std::vector<double>{});
-  auto_declare<double>("goal_tolerance", 0.01);
 
   return controller_interface::CallbackReturn::SUCCESS;
-}
-
-controller_interface::InterfaceConfiguration GravityPDController::command_interface_configuration() const
-{
-  controller_interface::InterfaceConfiguration config;
-  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-  for (const auto & joint_name : joint_names_) {
-    config.names.push_back(joint_name + "/velocity");
-  }
-  return config;
-}
-
-controller_interface::InterfaceConfiguration GravityPDController::state_interface_configuration() const
-{
-  controller_interface::InterfaceConfiguration config;
-  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-  for (const auto & joint_name : joint_names_) {
-    config.names.push_back(joint_name + "/position");
-    config.names.push_back(joint_name + "/velocity");
-  }
-  return config;
 }
 
 controller_interface::CallbackReturn GravityPDController::on_configure(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
   auto node = get_node();
-  joint_names_ = node->get_parameter("joints").as_string_array();
   urdf_param_ = node->get_parameter("urdf_param").as_string();
   root_link_  = node->get_parameter("root_link").as_string();
   tip_link_   = node->get_parameter("tip_link").as_string();
+  joint_names_ = node->get_parameter("joints").as_string_array(); 
   
   std::string urdf_string;
   if (!node->get_parameter(urdf_param_, urdf_string)) {
@@ -89,6 +90,7 @@ controller_interface::CallbackReturn GravityPDController::on_configure(
 
   fk_solver_ = std::make_unique<KDL::ChainFkSolverPos_recursive>(chain_);
   jac_solver_ = std::make_unique<KDL::ChainJntToJacSolver>(chain_);
+  KDL::Vector gravity_vec_ = KDL::Vector(0.0, 0.0, -9.81);
   dyn_solver_ = std::make_unique<KDL::ChainDynParam>(chain_, gravity_vec_);
 
   auto kp_gains = node->get_parameter("kp_cartesian_gains").as_double_array();
@@ -106,13 +108,13 @@ controller_interface::CallbackReturn GravityPDController::on_configure(
   }
   Kd_cartesian_.resize(6);
   for (size_t i = 0; i < 6; ++i) Kd_cartesian_(i) = kd_gains[i];
-  
-  goal_tolerance_ = node->get_parameter("goal_tolerance").as_double();
 
   goal_subscriber_ = node->create_subscription<geometry_msgs::msg::Point>(
     "/cartesian_goal", rclcpp::SystemDefaultsQoS(),
     [this](const geometry_msgs::msg::Point::SharedPtr msg) {
-      ee_goal_ = KDL::Frame(KDL::Vector(msg->x, msg->y, msg->z));
+      KDL::Frame new_goal(KDL::Vector(msg->x, msg->y, msg->z));
+      new_goal.M = ee_goal_.M; 
+      ee_goal_ = new_goal;
       goal_active_ = true;
       RCLCPP_INFO(get_node()->get_logger(), "Received new Cartesian goal: [x: %.2f, y: %.2f, z: %.2f]",
                   msg->x, msg->y, msg->z);
@@ -129,7 +131,21 @@ controller_interface::CallbackReturn GravityPDController::on_configure(
 controller_interface::CallbackReturn GravityPDController::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  goal_active_ = false;
+  const size_t n_joints = joint_names_.size();
+  for (size_t i = 0; i < n_joints; i++) {
+    q_kdl_(i) = state_interfaces_[2 * i].get_value();
+    qdot_kdl_(i) = 0.0; 
+  }
+
+  KDL::Frame x_current;
+  fk_solver_->JntToCart(q_kdl_, x_current);
+
+  ee_goal_ = x_current;
+  goal_active_ = true;
+  
+  RCLCPP_INFO(get_node()->get_logger(), "Activated. Initial goal set to current EE position: [x: %.2f, y: %.2f, z: %.2f]",
+      ee_goal_.p.x(), ee_goal_.p.y(), ee_goal_.p.z());
+
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
@@ -154,23 +170,25 @@ controller_interface::return_type GravityPDController::update(
   }
 
   Eigen::VectorXd tau_cmd = Eigen::VectorXd::Zero(n_joints);
-  
   KDL::Frame x_current;
+
+  fk_solver_->JntToCart(q_kdl_, x_current);
+
+  dyn_solver_->JntToGravity(q_kdl_, G_kdl_);
+  Eigen::VectorXd tau_gravity = G_kdl_.data;
 
   if (goal_active_) {
     // Forward Kinematics to get current end-effector pose
-    
-    fk_solver_->JntToCart(q_kdl_, x_current);
-
     KDL::Vector pos_error = ee_goal_.p - x_current.p;
-    
-    if (pos_error.Norm() < goal_tolerance_) {
-      goal_active_ = false;
-      RCLCPP_INFO(get_node()->get_logger(), "Goal reached. Holding position.");
+    KDL::Rotation R_err = ee_goal_.M * x_current.M.Inverse();
+    KDL::Vector rot_error_kdl = R_err.GetRot(); 
+    if (pos_error.Norm() <= 0.01 && rot_error_kdl.Norm() <= 0.01) {
+      RCLCPP_INFO_THROTTLE(get_node()->get_logger(), *get_node()->get_clock(), 1000, "Goal reached. Holding pose.");
+      ee_goal_.M = x_current.M;
     }
-    
     Eigen::VectorXd x_error(6);
-    x_error << pos_error.x(), pos_error.y(), pos_error.z(), 0, 0, 0;
+    x_error << pos_error.x(), pos_error.y(), pos_error.z(), 
+                   rot_error_kdl.x(), rot_error_kdl.y(), rot_error_kdl.z();
     KDL::JntArrayVel q_kdl_vel(q_kdl_, qdot_kdl_);
     KDL::Jacobian J_kdl(chain_.getNrOfJoints());
     // Calculate Jacobian and current Cartesian velocity (x_dot = J * q_dot)
@@ -184,7 +202,7 @@ controller_interface::return_type GravityPDController::update(
     KDL::Twist x_dot_current_kdl(
       KDL::Vector(xdot_vec(0), xdot_vec(1), xdot_vec(2)),
       KDL::Vector(xdot_vec(3), xdot_vec(4), xdot_vec(5))
-);
+    );
     
     Eigen::VectorXd x_dot_current_eigen(6);
     x_dot_current_eigen << x_dot_current_kdl.vel.x(), x_dot_current_kdl.vel.y(), x_dot_current_kdl.vel.z(),
@@ -197,16 +215,8 @@ controller_interface::return_type GravityPDController::update(
     Eigen::MatrixXd J_eigen = J_kdl_.data;
     Eigen::VectorXd tau_pd = J_eigen.transpose() * F_cartesian;
 
-    // Add gravity compensation torque
-    dyn_solver_->JntToGravity(q_kdl_, G_kdl_);
-    tau_cmd = tau_pd + G_kdl_.data;
-
-  } else {
-    // No active goal: command only gravity compensation torque to hold position
-    dyn_solver_->JntToGravity(q_kdl_, G_kdl_);
-    tau_cmd = G_kdl_.data;
+    tau_cmd = tau_pd + tau_gravity;
   }
-
 
   for (size_t i = 0; i < n_joints; i++) {
     command_interfaces_[i].set_value(tau_cmd(i));

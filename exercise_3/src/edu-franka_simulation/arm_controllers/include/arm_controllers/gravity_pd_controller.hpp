@@ -17,13 +17,17 @@
 #include <kdl/jacobian.hpp>
 #include <kdl_parser/kdl_parser.hpp>
 
+#define num_joints 7
+
 namespace arm_controllers
 {
 class GravityPDController : public controller_interface::ControllerInterface
 {
 public:
-  GravityPDController();
-
+  [[nodiscard]] controller_interface::InterfaceConfiguration command_interface_configuration()
+      const override;
+  [[nodiscard]] controller_interface::InterfaceConfiguration state_interface_configuration()
+      const override;
   controller_interface::CallbackReturn on_init() override;
 
   controller_interface::CallbackReturn on_configure(
@@ -34,10 +38,6 @@ public:
 
   controller_interface::CallbackReturn on_deactivate(
     const rclcpp_lifecycle::State & previous_state) override;
-
-  controller_interface::InterfaceConfiguration command_interface_configuration() const override;
-
-  controller_interface::InterfaceConfiguration state_interface_configuration() const override;
 
   controller_interface::return_type update(
     const rclcpp::Time & time,
@@ -68,9 +68,6 @@ private:
   bool goal_active_{false};
   double goal_tolerance_;
   double max_cartesian_velocity_;
-
-
-  const KDL::Vector gravity_vec_;
 
   // plotjuggler
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_end_effector_;
