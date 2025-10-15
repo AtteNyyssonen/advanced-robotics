@@ -159,22 +159,13 @@ velocity_controller:
       - panda_joint5
       - panda_joint6
       - panda_joint7
-    kd_gains:
-      - 10.0
-      - 10.0
-      - 10.0
-      - 10.0
-      - 5.0
-      - 2.0
-      - 1.0
+    kp_cartesian_gains: [5.0, 5.0, 5.0, 0.0, 0.0, 0.0]
+    kp_joint_gains: [50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0]
+    kd_joint_gains: [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
     urdf_param: "robot_description"
     root_link: "panda_link0"
     tip_link: "panda_link7"
-    command_interfaces:
-      - velocity
-    state_interfaces:
-      - position
-      - velocity
+
 
 kinematic_controller:
   ros__parameters:

@@ -1,81 +1,77 @@
-#pragma once
+#include <memory>
+#include <string>
+#include <vector>
 
-#include <rclcpp/rclcpp.hpp>
-#include <controller_interface/controller_interface.hpp>
-#include <hardware_interface/types/hardware_interface_return_values.hpp>
-#include <pluginlib/class_list_macros.hpp>
-#include <rclcpp_lifecycle/state.hpp>
-#include <realtime_tools/realtime_buffer.hpp>
+#include "controller_interface/controller_interface.hpp"
+#include "rclcpp/subscription.hpp"
+#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
+#include "rclcpp_lifecycle/state.hpp"
+#include "geometry_msgs/msg/point.hpp"
+#include <Eigen/Dense>
 
-#include <std_msgs/msg/float64_multi_array.hpp>
-#include <geometry_msgs/msg/point.hpp>
-
-#include <kdl/tree.hpp>
 #include <kdl/chain.hpp>
-#include <kdl/jntarray.hpp>
+#include <kdl/chainfksolverpos_recursive.hpp>
+#include <kdl/chainjnttojacsolver.hpp>
 #include <kdl/chaindynparam.hpp>
-#include <kdl/frames.hpp>
+#include <kdl/jntarray.hpp>
+#include <kdl/jacobian.hpp>
 #include <kdl_parser/kdl_parser.hpp>
 
-#include <vector>
-#include <string>
-#include <memory>
+#define num_joints 7
 
 namespace arm_controllers
 {
-
 class VelocityController : public controller_interface::ControllerInterface
 {
 public:
-  VelocityController();
+  [[nodiscard]] controller_interface::InterfaceConfiguration command_interface_configuration()
+      const override;
+  [[nodiscard]] controller_interface::InterfaceConfiguration state_interface_configuration()
+      const override;
   controller_interface::CallbackReturn on_init() override;
 
-  controller_interface::InterfaceConfiguration command_interface_configuration() const override;
-  controller_interface::InterfaceConfiguration state_interface_configuration() const override;
+  controller_interface::CallbackReturn on_configure(
+    const rclcpp_lifecycle::State & previous_state) override;
 
-  controller_interface::CallbackReturn on_configure(const rclcpp_lifecycle::State & previous_state) override;
-  controller_interface::CallbackReturn on_activate(const rclcpp_lifecycle::State & previous_state) override;
-  controller_interface::CallbackReturn on_deactivate(const rclcpp_lifecycle::State & previous_state) override;
+  controller_interface::CallbackReturn on_activate(
+    const rclcpp_lifecycle::State & previous_state) override;
 
-  controller_interface::return_type update(const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  controller_interface::CallbackReturn on_deactivate(
+    const rclcpp_lifecycle::State & previous_state) override;
+
+  controller_interface::return_type update(
+    const rclcpp::Time & time,
+    const rclcpp::Duration & period) override;
 
 private:
-  std::vector<std::string> joints_;
-  std::vector<double> kd_gains_;
+  std::vector<std::string> joint_names_;
   std::string urdf_param_;
   std::string root_link_;
   std::string tip_link_;
 
-  KDL::Tree kdl_tree_;
   KDL::Chain kdl_chain_;
-  std::unique_ptr<KDL::ChainDynParam> kdl_dyn_;
-  KDL::JntArray kdl_q_;
-  KDL::JntArray kdl_qdot_;
-  KDL::JntArray coriolis_;
-  KDL::JntSpaceInertiaMatrix mass_matrix_;
+  std::unique_ptr<KDL::ChainFkSolverPos_recursive> fk_solver_;
+  std::unique_ptr<KDL::ChainJntToJacSolver> jac_solver_;
+  std::unique_ptr<KDL::ChainDynParam> dyn_solver_;
+  KDL::JntArray q_kdl_;
+  KDL::JntArray qdot_kdl_;
+  KDL::JntSpaceInertiaMatrix M_kdl_;
+  KDL::JntArray C_kdl_; // Coriolis & Centrifugal
+  KDL::JntArray G_kdl_; // Gravity
 
-  std::vector<hardware_interface::LoanedCommandInterface> velocity_command_handles_;
-  std::vector<hardware_interface::LoanedStateInterface> position_state_handles_;
-  std::vector<hardware_interface::LoanedStateInterface> velocity_state_handles_;
-
-  double elapsed_time_;
-  double traj_duration_;
-  bool goal_active_;
-  KDL::Frame ee_start_;
+  Eigen::VectorXd Kp_joint_; 
+  Eigen::VectorXd Kd_joint_; 
+  Eigen::VectorXd Kp_cartesian_;
+  
+  rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr goal_subscriber_;
   KDL::Frame ee_goal_;
-  KDL::Frame ee_current_;
+  bool goal_active_{false};
+  double goal_tolerance_;
+  double max_cartesian_velocity_;
 
-  rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr ee_goal_subscriber_;
-
-  // PlotJuggler
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_pos_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_vel_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_desired_vel_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_error_;
-  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_control_out_;
+  // plotjuggler
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr pub_end_effector_;
 
-  bool init_kdl_from_urdf(const std::string & urdf_param);
 };
 
 }

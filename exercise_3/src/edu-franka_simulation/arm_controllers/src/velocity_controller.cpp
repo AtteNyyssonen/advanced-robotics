@@ -4,293 +4,204 @@
 #include <rclcpp/qos.hpp>
 #include <kdl/chainfksolverpos_recursive.hpp>
 #include <kdl/chainjnttojacsolver.hpp>
+#include <kdl/chaindynparam.hpp>
+#include <kdl_parser/kdl_parser.hpp>
 
 #include <Eigen/Dense>
 #include <algorithm>
 #include <memory>
+#include <string>
+#include <vector>
 
 namespace arm_controllers
 {
 
-VelocityController::VelocityController()
-: ControllerInterface(),
-  elapsed_time_(0.0),
-  traj_duration_(5.0),
-  goal_active_(false)
-{
-}
-
-controller_interface::CallbackReturn VelocityController::on_init()
-{
-  // declare parameters (use auto_declare recommended by controller_interface)
-  auto_declare<std::string>("urdf_param", "robot_description");
-  auto_declare<std::string>("root_link", "panda_link0");
-  auto_declare<std::string>("tip_link", "panda_link7");
-  auto_declare<std::vector<std::string>>("joints", std::vector<std::string>{});
-  auto_declare<std::vector<double>>("kd_gains", std::vector<double>{});
-  auto_declare<double>("traj_duration", 5.0);
-
-  return controller_interface::CallbackReturn::SUCCESS;
-}
-
 controller_interface::InterfaceConfiguration VelocityController::command_interface_configuration() const
 {
-  controller_interface::InterfaceConfiguration cfg;
-  cfg.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-  for (const auto & j : joints_) {
-    cfg.names.push_back(j + "/velocity");
-  }
-  return cfg;
+  controller_interface::InterfaceConfiguration config;
+  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+    for (int i = 1; i <= num_joints; ++i) {
+      config.names.push_back("panda_joint" + std::to_string(i) + "/effort");
+    }
+
+    return config;
 }
 
 controller_interface::InterfaceConfiguration VelocityController::state_interface_configuration() const
 {
-  controller_interface::InterfaceConfiguration cfg;
-  cfg.type = controller_interface::interface_configuration_type::INDIVIDUAL;
-  for (const auto & j : joints_) {
-    cfg.names.push_back(j + "/position");
-    cfg.names.push_back(j + "/velocity");
+  controller_interface::InterfaceConfiguration config;
+  config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
+  for (int i = 1; i <= num_joints; ++i) {
+    config.names.push_back("panda_joint" + std::to_string(i) + "/position");
+    config.names.push_back("panda_joint" + std::to_string(i) + "/velocity");
   }
-  return cfg;
+
+  return config;
+}
+
+controller_interface::CallbackReturn VelocityController::on_init()
+{
+  auto_declare<std::string>("urdf_param", "robot_description");
+  auto_declare<std::string>("root_link", "panda_link0");
+  auto_declare<std::string>("tip_link", "panda_link8");
+  auto_declare<std::vector<std::string>>("joints", std::vector<std::string>{});
+  auto_declare<std::vector<double>>("kp_cartesian_gains", std::vector<double>{});
+  auto_declare<std::vector<double>>("kp_joint_gains", std::vector<double>{});
+  auto_declare<std::vector<double>>("kd_joint_gains", std::vector<double>{});
+  
+  return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn VelocityController::on_configure(const rclcpp_lifecycle::State &)
 {
   RCLCPP_INFO(get_node()->get_logger(), "Configuring VelocityController");
+  auto node = get_node();
 
-  urdf_param_ = get_node()->get_parameter("urdf_param").as_string();
-  root_link_ = get_node()->get_parameter("root_link").as_string();
-  tip_link_ = get_node()->get_parameter("tip_link").as_string();
-  joints_ = get_node()->get_parameter("joints").as_string_array();
+  urdf_param_ = node->get_parameter("urdf_param").as_string();
+  root_link_ = node->get_parameter("root_link").as_string();
+  tip_link_ = node->get_parameter("tip_link").as_string();
+  joint_names_ = node->get_parameter("joints").as_string_array();
 
-  kd_gains_ = get_node()->get_parameter("kd_gains").as_double_array();
-  if (kd_gains_.size() != joints_.size()) {
-    kd_gains_.assign(joints_.size(), 10.0);
+  std::string urdf_string;
+  if (!node->get_parameter(urdf_param_, urdf_string)) {
+      RCLCPP_ERROR(node->get_logger(), "Failed to get URDF from parameter '%s'", urdf_param_.c_str());
+      return controller_interface::CallbackReturn::ERROR;
+  }
+  KDL::Tree tree;
+  if (!kdl_parser::treeFromString(urdf_string, tree)) {
+      RCLCPP_ERROR(node->get_logger(), "Failed to extract KDL tree from URDF");
+      return controller_interface::CallbackReturn::ERROR;
+  }
+  if (!tree.getChain(root_link_, tip_link_, kdl_chain_)) {
+      RCLCPP_ERROR(node->get_logger(), "Failed to extract KDL chain from '%s' to '%s'", root_link_.c_str(), tip_link_.c_str());
+      return controller_interface::CallbackReturn::ERROR;
   }
 
-  traj_duration_ = get_node()->get_parameter("traj_duration").as_double();
-
-  if (!init_kdl_from_urdf(urdf_param_)) {
-    RCLCPP_ERROR(get_node()->get_logger(), "Failed to init KDL from URDF");
-    return controller_interface::CallbackReturn::ERROR;
+  const auto n_joints = kdl_chain_.getNrOfJoints();
+  if (n_joints == 0 || n_joints != joint_names_.size()) {
+      RCLCPP_ERROR(node->get_logger(), "KDL chain joints mismatch with provided joint names.");
+      return controller_interface::CallbackReturn::ERROR;
   }
+    
+  q_kdl_.resize(n_joints);
+  qdot_kdl_.resize(n_joints);
+  M_kdl_.resize(n_joints);
+  C_kdl_.resize(n_joints);
+  G_kdl_.resize(n_joints);
 
-  pub_pos_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_positions", rclcpp::SystemDefaultsQoS());
-  pub_vel_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_velocities", rclcpp::SystemDefaultsQoS());
-  pub_desired_vel_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_velocities_desired", rclcpp::SystemDefaultsQoS());
-  pub_error_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("joint_velocity_error", rclcpp::SystemDefaultsQoS());
-  pub_control_out_ = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("control_output", rclcpp::SystemDefaultsQoS());
-  pub_end_effector_ = get_node()->create_publisher<geometry_msgs::msg::Point>("end_effector_position", 10);
+  fk_solver_ = std::make_unique<KDL::ChainFkSolverPos_recursive>(kdl_chain_);
+  jac_solver_ = std::make_unique<KDL::ChainJntToJacSolver>(kdl_chain_);
+  dyn_solver_ = std::make_unique<KDL::ChainDynParam>(kdl_chain_, KDL::Vector(0.0, 0.0, -9.81));
 
-  ee_goal_subscriber_ = get_node()->create_subscription<geometry_msgs::msg::Point>(
-    "cartesian_goal", rclcpp::SystemDefaultsQoS(),
-    [this](const geometry_msgs::msg::Point::SharedPtr msg) {
-      KDL::ChainFkSolverPos_recursive fk_solver(kdl_chain_);
-      fk_solver.JntToCart(kdl_q_, ee_start_);
-      ee_goal_ = KDL::Frame(KDL::Vector(msg->x, msg->y, msg->z));
-      elapsed_time_ = 0.0;
-      goal_active_ = true;
-      RCLCPP_INFO(get_node()->get_logger(), "Received cartesian_goal: x=%.3f y=%.3f z=%.3f",
-                  msg->x, msg->y, msg->z);
-      RCLCPP_INFO(get_node()->get_logger(), "debug message: ee_start: x=%.3f y=%.3f z=%.3f",
-                  ee_start_.p.x(), ee_start_.p.y(), ee_start_.p.z());
-    });
+  auto kp_cartesian = node->get_parameter("kp_cartesian_gains").as_double_array();
+  Kp_cartesian_.resize(6);
+  for (size_t i = 0; i < 6; ++i) Kp_cartesian_(i) = kp_cartesian.at(i);
 
+  auto kp_joint = node->get_parameter("kp_joint_gains").as_double_array();
+  Kp_joint_.resize(n_joints);
+  for (size_t i = 0; i < n_joints; ++i) Kp_joint_(i) = kp_joint.at(i);
+
+  auto kd_joint = node->get_parameter("kd_joint_gains").as_double_array();
+  Kd_joint_.resize(n_joints);
+  for (size_t i = 0; i < n_joints; ++i) Kd_joint_(i) = kd_joint.at(i);
+
+  goal_subscriber_ = node->create_subscription<geometry_msgs::msg::Point>(
+      "/cartesian_goal", rclcpp::SystemDefaultsQoS(),
+      [this](const geometry_msgs::msg::Point::SharedPtr msg) {
+          KDL::Frame new_goal(KDL::Vector(msg->x, msg->y, msg->z));
+          new_goal.M = ee_goal_.M; // Keep current orientation
+          ee_goal_ = new_goal;
+          goal_active_ = true;
+          RCLCPP_INFO(get_node()->get_logger(), "Received new Cartesian goal: [x: %.2f, y: %.2f, z: %.2f]", msg->x, msg->y, msg->z);
+      });
+
+  pub_end_effector_ = node->create_publisher<geometry_msgs::msg::Point>("end_effector_position", 10);
+    
+  RCLCPP_INFO(node->get_logger(), "Successfully configured VelocityController with %u joints", n_joints);
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn VelocityController::on_activate(const rclcpp_lifecycle::State &)
 {
-  RCLCPP_INFO(get_node()->get_logger(), "Activating VelocityController");
-
-  velocity_command_handles_.clear();
-  position_state_handles_.clear();
-  velocity_state_handles_.clear();
-
-  for (const auto & joint : joints_) {
-    auto cmd_iface = std::find_if(
-      command_interfaces_.begin(), command_interfaces_.end(),
-      [&](const auto & ci){ return ci.get_name() == (joint + "/velocity"); });
-    if (cmd_iface == command_interfaces_.end()) {
-      RCLCPP_ERROR(get_node()->get_logger(), "Missing velocity command interface for joint '%s'", joint.c_str());
-      return controller_interface::CallbackReturn::ERROR;
-    }
-    velocity_command_handles_.emplace_back(std::move(*cmd_iface));
-
-    auto pos_iface = std::find_if(
-      state_interfaces_.begin(), state_interfaces_.end(),
-      [&](const auto & si){ return si.get_name() == (joint + "/position"); });
-    auto vel_iface = std::find_if(
-      state_interfaces_.begin(), state_interfaces_.end(),
-      [&](const auto & si){ return si.get_name() == (joint + "/velocity"); });
-
-    if (pos_iface == state_interfaces_.end() || vel_iface == state_interfaces_.end()) {
-      RCLCPP_ERROR(get_node()->get_logger(), "Missing state interfaces for %s", joint.c_str());
-      return controller_interface::CallbackReturn::ERROR;
-    }
-    position_state_handles_.emplace_back(std::move(*pos_iface));
-    velocity_state_handles_.emplace_back(std::move(*vel_iface));
+  for (size_t i = 0; i < joint_names_.size(); i++) {
+    q_kdl_(i) = state_interfaces_[2 * i].get_value();
   }
-
+  fk_solver_->JntToCart(q_kdl_, ee_goal_);
+  goal_active_ = true;
+  RCLCPP_INFO(get_node()->get_logger(), "Activated. Initial goal set to current EE position: [x: %.2f, y: %.2f, z: %.2f]",
+              ee_goal_.p.x(), ee_goal_.p.y(), ee_goal_.p.z());
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 controller_interface::CallbackReturn VelocityController::on_deactivate(const rclcpp_lifecycle::State &)
 {
-  for (auto & h : velocity_command_handles_) {
-    h.set_value(0.0);
+  for (auto & command_interface : command_interfaces_) {
+    command_interface.set_value(0.0);
   }
   goal_active_ = false;
+  RCLCPP_INFO(get_node()->get_logger(), "Deactivated.");
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
-controller_interface::return_type VelocityController::update(const rclcpp::Time & /*time*/, const rclcpp::Duration & period)
+controller_interface::return_type VelocityController::update(const rclcpp::Time &, const rclcpp::Duration &)
 {
-  const size_t n = joints_.size();
-  if (n == 0) return controller_interface::return_type::OK;
-
-  if ((size_t)kdl_q_.rows() != n) {
-    kdl_q_ = KDL::JntArray(n);
-    kdl_qdot_ = KDL::JntArray(n);
-    coriolis_ = KDL::JntArray(n);
-    mass_matrix_ = KDL::JntSpaceInertiaMatrix(n);
+  const size_t n_joints = joint_names_.size();
+  for (size_t i = 0; i < n_joints; i++) {
+    q_kdl_(i) = state_interfaces_[2 * i].get_value();
+    qdot_kdl_(i) = state_interfaces_[2 * i + 1].get_value();
   }
-  for (size_t i = 0; i < n; ++i) {
-    kdl_q_(i) = position_state_handles_[i].get_value();
-    kdl_qdot_(i) = velocity_state_handles_[i].get_value();
-  }
+  KDL::Frame x_current;
+  fk_solver_->JntToCart(q_kdl_, x_current);
 
-  std::vector<double> pos_vec(n), vel_vec(n), desired_vel_vec(n), err_vec(n), out_vec(n, 0.0);
-  for (size_t i=0;i<n;++i){ pos_vec[i] = kdl_q_(i); vel_vec[i] = kdl_qdot_(i); }
-
-  std::vector<double> qdot_d_vec(n, 0.0);
+  Eigen::VectorXd tau_cmd = Eigen::VectorXd::Zero(n_joints);
 
   if (goal_active_) {
-    elapsed_time_ += period.seconds();
-    double s = std::min(elapsed_time_ / (traj_duration_), 1.0);
+    KDL::Vector pos_error = ee_goal_.p - x_current.p;
+    Eigen::VectorXd x_dot_desired(6);
+    x_dot_desired << pos_error.x() * Kp_cartesian_(0), pos_error.y() * Kp_cartesian_(1), pos_error.z() * Kp_cartesian_(2), 0, 0, 0;
 
-    KDL::Vector start = ee_start_.p;
-    KDL::Vector goal  = ee_goal_.p;
-    KDL::Vector xdot_d = (goal - start) / traj_duration_;
+    KDL::Jacobian J_kdl(n_joints);
+    jac_solver_->JntToJac(q_kdl_, J_kdl);
+    Eigen::MatrixXd J_eigen = J_kdl.data;
 
-    KDL::Jacobian J(n);
-    KDL::ChainJntToJacSolver jac_solver(kdl_chain_);
-    jac_solver.JntToJac(kdl_q_, J);
-
-    Eigen::MatrixXd J_eig(6, (int)n);
-    for (unsigned r=0;r<6;++r)
-      for (unsigned c=0;c<(int)n;++c)
-        J_eig(r,c) = J(r,c);
-
-    Eigen::JacobiSVD<Eigen::MatrixXd> svd(J_eig, Eigen::ComputeThinU | Eigen::ComputeThinV);
+    Eigen::JacobiSVD<Eigen::MatrixXd> svd(J_eigen, Eigen::ComputeThinU | Eigen::ComputeThinV);
     Eigen::VectorXd S = svd.singularValues();
     Eigen::VectorXd Sinv = S;
-    for (int i=0;i<S.size();++i) Sinv(i) = (S(i) > 1e-6) ? 1.0 / S(i) : 0.0;
+    for (int i = 0; i < S.size(); ++i) Sinv(i) = (S(i) > 1e-6) ? 1.0 / S(i) : 0.0;
     Eigen::MatrixXd J_pinv = svd.matrixV() * Sinv.asDiagonal() * svd.matrixU().transpose();
+    Eigen::VectorXd q_dot_desired = J_pinv * x_dot_desired;
 
-    Eigen::VectorXd dx(6);
-    dx << xdot_d.x(), xdot_d.y(), xdot_d.z(), 0,0,0;
+    // Joint Velocities -> Joint Torques
 
-    Eigen::VectorXd qdot_d = J_pinv * dx;
+    dyn_solver_->JntToMass(q_kdl_, M_kdl_);
+    dyn_solver_->JntToCoriolis(q_kdl_, qdot_kdl_, C_kdl_);
+    dyn_solver_->JntToGravity(q_kdl_, G_kdl_);
 
-    for (size_t i=0;i<n;++i) {
-      qdot_d_vec[i] = qdot_d(i);
-      desired_vel_vec[i] = qdot_d(i);
+    Eigen::VectorXd q_dot_error = q_dot_desired - qdot_kdl_.data;
+    Eigen::VectorXd p_term = Kp_joint_.cwiseProduct(q_dot_error);
+    Eigen::VectorXd d_term = Kd_joint_.cwiseProduct(qdot_kdl_.data);
+    Eigen::VectorXd q_ddot_ref = p_term - d_term;
+    tau_cmd = M_kdl_.data * q_ddot_ref + C_kdl_.data + G_kdl_.data;
+
+    } else {
+      dyn_solver_->JntToGravity(q_kdl_, G_kdl_);
+      tau_cmd = G_kdl_.data;
     }
     
-    Eigen::VectorXd qdot_eig(n);
-    for (size_t i=0;i<n;++i) qdot_eig(i) = kdl_qdot_(i);
-    Eigen::VectorXd e = qdot_d - qdot_eig;
-
-    kdl_dyn_->JntToMass(kdl_q_, mass_matrix_);
-    KDL::JntArray cori(n), grav(n);
-    kdl_dyn_->JntToCoriolis(kdl_q_, kdl_qdot_, cori);
-    kdl_dyn_->JntToGravity(kdl_q_, grav);
-
-    for (size_t i=0;i<n;++i) {
-      double kd = (i < kd_gains_.size()) ? kd_gains_[i] : 1.0;
-      double mii = 1.0;
-      if (mass_matrix_.rows() == (int)n) {
-        mii = mass_matrix_(i,i);
-        if (!(mii > 0.0)) mii = 1.0;
-      }
-      double vcmd = kd * e(i) / (mii + 1e-6);
-      out_vec[i] = vcmd;
-      err_vec[i] = e(i);
+    for (size_t i = 0; i < n_joints; i++) {
+        command_interfaces_[i].set_value(tau_cmd(i));
     }
 
-    if (s >= 1.0) {
-      goal_active_ = false;
-      RCLCPP_INFO(get_node()->get_logger(), "Cartesian goal reached");
-      RCLCPP_INFO(get_node()->get_logger(), "debug message : ee_current: x=%.3f y=%.3f z=%.3f",
-                  ee_current_.p.x(), ee_current_.p.y(), ee_current_.p.z());
-    }
-  } else {
-    for (size_t i=0;i<n;++i) {
-      desired_vel_vec[i] = 0.0;
-      err_vec[i] = 0.0;
-      out_vec[i] = 0.0;
-    }
-  }
+    geometry_msgs::msg::Point p_msg;
+    p_msg.x = x_current.p.x();
+    p_msg.y = x_current.p.y();
+    p_msg.z = x_current.p.z();
+    pub_end_effector_->publish(p_msg);
 
-  for (size_t i=0;i<velocity_command_handles_.size();++i) {
-    velocity_command_handles_[i].set_value(out_vec[i]);
-  }
-
-  auto pub_arr = [&](rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr p, const std::vector<double> &d){
-    std_msgs::msg::Float64MultiArray msg; msg.data = d; if (p) p->publish(msg);
-  };
-  pub_arr(pub_pos_, pos_vec);
-  pub_arr(pub_vel_, vel_vec);
-  pub_arr(pub_desired_vel_, desired_vel_vec);
-  pub_arr(pub_error_, err_vec);
-  pub_arr(pub_control_out_, out_vec);
-
-  // Publish end-effector position to plotjuggler
-  KDL::ChainFkSolverPos_recursive fk_solver(kdl_chain_);
-  fk_solver.JntToCart(kdl_q_, ee_current_);
-  geometry_msgs::msg::Point p_msg;
-  p_msg.x = ee_current_.p.x();
-  p_msg.y = ee_current_.p.y();
-  p_msg.z = ee_current_.p.z();
-  pub_end_effector_->publish(p_msg);
-
-
-  return controller_interface::return_type::OK;
-}
-
-bool VelocityController::init_kdl_from_urdf(const std::string & urdf_param)
-{
-  std::string urdf_xml;
-  if (!get_node()->get_parameter(urdf_param, urdf_xml)) {
-    rclcpp::Parameter p;
-    if (!get_node()->get_parameter(urdf_param, p)) {
-      RCLCPP_ERROR(get_node()->get_logger(), "URDF parameter '%s' not found", urdf_param.c_str());
-      return false;
-    } else {
-      urdf_xml = p.as_string();
-    }
-  }
-
-  if (!kdl_parser::treeFromString(urdf_xml, kdl_tree_)) {
-    RCLCPP_ERROR(get_node()->get_logger(), "Failed to parse URDF to KDL tree");
-    return false;
-  }
-  if (!kdl_tree_.getChain(root_link_, tip_link_, kdl_chain_)) {
-    RCLCPP_ERROR(get_node()->get_logger(), "Failed to get KDL chain from %s to %s", root_link_.c_str(), tip_link_.c_str());
-    return false;
-  }
-
-  KDL::Vector gravity(0.0, 0.0, -9.81);
-  kdl_dyn_.reset(new KDL::ChainDynParam(kdl_chain_, gravity));
-  kdl_q_ = KDL::JntArray(kdl_chain_.getNrOfJoints());
-  kdl_qdot_ = KDL::JntArray(kdl_chain_.getNrOfJoints());
-  coriolis_ = KDL::JntArray(kdl_chain_.getNrOfJoints());
-  mass_matrix_ = KDL::JntSpaceInertiaMatrix(kdl_chain_.getNrOfJoints());
-  return true;
+    return controller_interface::return_type::OK;
 }
 
 }
 
-PLUGINLIB_EXPORT_CLASS(arm_controllers::VelocityController, 
-    controller_interface::ControllerInterface)
+#include <pluginlib/class_list_macros.hpp>
+PLUGINLIB_EXPORT_CLASS(arm_controllers::VelocityController, controller_interface::ControllerInterface)
