@@ -55,4 +55,6 @@ moc_*
 .clang-format
 .clang-tidy
 
-
+#Exercise 4 specific
+exercise_4/edu-franka_vs_ws/src/franka_gazebo/models/panda/model.sdf
+exercise_4/edu-franka_vs_ws/src/franka_description/urdf/effort_panda_arm.urdf
