@@ -125,7 +125,7 @@ public:
     Eigen::MatrixXd J_pinv = JT * JJt_inv;                           // 7x6
 
     if (ctr_obj_ == 1) { // regulation
-      qd_.data = qd_old_.data + (JT * (K_regulation_ * ex_)) * dt;   // 7x1
+      qd_.data = qd_old_.data + (J_pinv * (K_regulation_ * ex_)) * dt;   // 7x1
     } else { // tracking
       if (ik_mode_ == 1) { // open-loop: qd += J^+ * xdot_d * dt
         qd_.data = qd_old_.data + (J_pinv * xd_dot_) * dt;
@@ -154,14 +154,6 @@ public:
     for (int i = 0; i < kNumJoints; ++i) {
       command_interfaces_[i].set_value(tau_d_(i));
     }
-
-    // (optional) publish debug
-    if (++print_counter_ >= 100) {
-      print_counter_ = 0;
-      RCLCPP_INFO(get_node()->get_logger(), "t=%.3f  |  ex[mm]=[%.1f %.1f %.1f]  er[deg]=[%.1f %.1f %.1f]",
-                  t_, 1000*ex_(0), 1000*ex_(1), 1000*ex_(2), R2D*ex_(3), R2D*ex_(4), R2D*ex_(5));
-    }
-
     // publish arrays
     publish_arrays();
 

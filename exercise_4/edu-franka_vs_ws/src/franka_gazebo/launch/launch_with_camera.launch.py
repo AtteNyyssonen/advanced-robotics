@@ -78,12 +78,12 @@ def generate_launch_description():
         output="screen",
     )
     # Replace 'computed_torque_controller' with your custom controller name(s) if different
-    #custom_controller = Node(
-        #package="controller_manager",
-        #executable="spawner",
-        #arguments=["computed_torque_clik_controller", "--controller-manager", "/controller_manager"],
-        #output="screen",
-    #)
+    custom_controller = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["computed_torque_clik_controller", "--controller-manager", "/controller_manager"],
+        output="screen",
+    )
 
     # -- bridge the camera image to ROS ---
     camera_bridge = Node(
@@ -125,7 +125,7 @@ def generate_launch_description():
         robot_state_publisher,     # publish TF from the URDF
         spawn_panda_with_cam,      # spawn the composed SDF model
         joint_state_broadcaster,   # controller spawners (plugin provides controller_manager)
-        # custom_controller,
+        custom_controller,
         camera_bridge,             # super necessary for pose estimation
         pose_estimate              # aruco marker pose estimation node    
     ])
