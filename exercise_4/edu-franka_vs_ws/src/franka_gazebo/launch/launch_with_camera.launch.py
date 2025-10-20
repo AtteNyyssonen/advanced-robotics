@@ -103,7 +103,15 @@ def generate_launch_description():
         executable='tri_wave.py',
         output='screen'
     )
-    
+
+    static_tf_cam = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_camera_mount',
+        arguments=['0', '0', '0.15', '-1.5708', '1.5708', '-1.5708',
+                   'panda_link7', 'panda_with_cam/rgb_camera/camera_link/rgb_camera']
+    )
+
     # Aruco marker pose estimation node
     pose_estimate = Node(
         package='franka_gazebo',
@@ -127,6 +135,7 @@ def generate_launch_description():
         joint_state_broadcaster,   # controller spawners (plugin provides controller_manager)
         custom_controller,
         camera_bridge,             # super necessary for pose estimation
+        static_tf_cam,
         pose_estimate              # aruco marker pose estimation node    
     ])
 
