@@ -43,6 +43,7 @@ controller_interface::CallbackReturn GravityPDController::on_init()
   auto_declare<std::string>("tip_link", "");
   auto_declare<std::vector<double>>("kp_cartesian_gains", std::vector<double>{});
   auto_declare<std::vector<double>>("kd_cartesian_gains", std::vector<double>{});
+  auto_declare<std::vector<double>>("kd_joint_gains", std::vector<double>{});
 
   return controller_interface::CallbackReturn::SUCCESS;
 }
@@ -108,6 +109,16 @@ controller_interface::CallbackReturn GravityPDController::on_configure(
   }
   Kd_cartesian_.resize(6);
   for (size_t i = 0; i < 6; ++i) Kd_cartesian_(i) = kd_gains[i];
+
+
+  auto kd_joint_gains = node->get_parameter("kd_joint_gains").as_double_array();
+  if (kd_joint_gains.size() != 7) {
+    RCLCPP_ERROR(node->get_logger(), "Parameter 'kd_joint_gains' must have 7 values.");
+    return controller_interface::CallbackReturn::ERROR;
+  }
+  Kd_joint_.resize(7);
+  for (size_t i = 0; i < 6; ++i) Kd_joint_(i) = kd_joint_gains[i];
+
 
   goal_subscriber_ = node->create_subscription<geometry_msgs::msg::Point>(
     "/cartesian_goal", rclcpp::SystemDefaultsQoS(),
@@ -208,14 +219,20 @@ controller_interface::return_type GravityPDController::update(
     x_dot_current_eigen << x_dot_current_kdl.vel.x(), x_dot_current_kdl.vel.y(), x_dot_current_kdl.vel.z(),
                            x_dot_current_kdl.rot.x(), x_dot_current_kdl.rot.y(), x_dot_current_kdl.rot.z();
 
-    // PD Control Law in Cartesian Space: F = Kp*error - Kd*velocity
-    Eigen::VectorXd F_cartesian = Kp_cartesian_.cwiseProduct(x_error) - Kd_cartesian_.cwiseProduct(x_dot_current_eigen);
 
-    // Map Cartesian force to joint torques using Jacobian Transpose: tau = J^T * F
+                  
+    // cmd_cartesian = Kp * x_error                   
+    Eigen::VectorXd cartesian_cmd = Kp_cartesian_.cwiseProduct(x_error);
+
+    // map to joint torques, jacobian transpose
     Eigen::MatrixXd J_eigen = J_kdl_.data;
-    Eigen::VectorXd tau_pd = J_eigen.transpose() * F_cartesian;
 
-    tau_cmd = tau_pd + tau_gravity;
+    Eigen::VectorXd q_dot_cmd = J_eigen.transpose() * cartesian_cmd;
+
+    // add feedback velocity term and multiply by Kd
+    Eigen::VectorXd tau_pd = Kd_joint_.cwiseProduct(q_dot_cmd - qdot);             
+
+    tau_cmd = tau_gravity + tau_pd ;
   }
 
   for (size_t i = 0; i < n_joints; i++) {

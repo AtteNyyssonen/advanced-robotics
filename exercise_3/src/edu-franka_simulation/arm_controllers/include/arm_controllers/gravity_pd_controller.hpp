@@ -62,6 +62,7 @@ private:
 
   Eigen::VectorXd Kd_cartesian_;
   Eigen::VectorXd Kp_cartesian_;
+  Eigen::VectorXd Kd_joint_;
   
   rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr goal_subscriber_;
   KDL::Frame ee_goal_;
