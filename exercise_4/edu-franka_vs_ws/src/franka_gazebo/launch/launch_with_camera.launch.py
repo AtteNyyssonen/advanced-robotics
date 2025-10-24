@@ -94,7 +94,7 @@ def generate_launch_description():
             "/rgb_camera/image@sensor_msgs/msg/Image@ignition.msgs.Image",
             "/rgb_camera/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo",
         ],
-        output="screen",
+        output="screen"
     )
     
     # Publish trajectroy command to inverse-kinematic controller
@@ -104,13 +104,16 @@ def generate_launch_description():
         output='screen'
     )
 
+    optical_frame_name = 'panda_camera_optical_frame'
+
     static_tf_cam = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='static_tf_camera_mount',
-        arguments=['0', '0', '0.15', '-1.5708', '1.5708', '-1.5708',
-                   'panda_link7', 'panda_with_cam/rgb_camera/camera_link/rgb_camera']
+        arguments=['0', '0', '0', '0', '0', '0',
+                   'panda_link8', optical_frame_name]
     )
+
 
     # Aruco marker pose estimation node
     pose_estimate = Node(
@@ -124,7 +127,8 @@ def generate_launch_description():
             '-p', 'dictionary:=DICT_4X4_50',
             '-p', 'marker_id:=0',
             '-p', 'marker_length_m:=0.15',
-        ],
+            '-p', 'camera_frame:=' + optical_frame_name
+        ]
     )
 
     return LaunchDescription([set_env,

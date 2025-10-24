@@ -100,7 +100,7 @@ public:
         xd_dot_.setZero();
         xd_ddot_.setZero();
       }
-    } else {            // simple tracking in Y
+    } else {
       const double A = 0.1, w = M_PI; // amplitude & frequency
       xd_.p = KDL::Vector(0.30, 0.20 + A * std::sin(w * (t_ - t_set_)), 0.40);
       xd_.M = KDL::Rotation::RPY(0, 0, 0);
@@ -125,7 +125,7 @@ public:
     Eigen::MatrixXd J_pinv = JT * JJt_inv;                           // 7x6
 
     if (ctr_obj_ == 1) { // regulation
-      qd_.data = qd_old_.data + (J_pinv * (K_regulation_ * ex_)) * dt;   // 7x1
+      qd_.data = qd_old_.data + (JT * (K_regulation_ * ex_)) * dt;   // 7x1
     } else { // tracking
       if (ik_mode_ == 1) { // open-loop: qd += J^+ * xdot_d * dt
         qd_.data = qd_old_.data + (J_pinv * xd_dot_) * dt;
@@ -171,7 +171,7 @@ public:
       auto_declare<std::string>("tip_link", "panda_link8");
       auto_declare<int>("ctr_obj", 1);        // 1: regulation, 2: tracking
       auto_declare<int>("ik_mode", 2);        // 1: open-loop, 2: closed-loop
-      auto_declare<double>("K_regulation", 2.0);
+      auto_declare<double>("K_regulation", 0.4);
       auto_declare<double>("K_tracking",  2.0);
       auto_declare<double>("damping",     1e-6); // for damped pinv
     } catch (const std::exception &e) {
@@ -363,7 +363,7 @@ private:
 
   int ctr_obj_{1};
   int ik_mode_{2};
-  double K_regulation_{2.0};
+  double K_regulation_{0.3};
   double K_tracking_{2.0};
   double lambda2_{1e-6};
   bool command_active_{false};
