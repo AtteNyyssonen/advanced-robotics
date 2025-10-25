@@ -155,7 +155,7 @@ class ArucoView(Node):
                     return
 
             T_target_marker = np.dot(T_target_camera, T_cam_marker)
-            T_marker_goal = create_offset_matrix(z=0.15, roll=3.14159, pitch=0.0, yaw=1.57079)
+            T_marker_goal = create_offset_matrix(z=0.05, roll=3.14159, pitch=0.0, yaw=1.57079)
             T_target_goal = np.dot(T_target_marker, T_marker_goal)
             t_target, rpy_target = matrix_to_t_rpy(T_target_goal)
 

@@ -171,7 +171,7 @@ public:
       auto_declare<std::string>("tip_link", "panda_link8");
       auto_declare<int>("ctr_obj", 1);        // 1: regulation, 2: tracking
       auto_declare<int>("ik_mode", 2);        // 1: open-loop, 2: closed-loop
-      auto_declare<double>("K_regulation", 0.4);
+      auto_declare<double>("K_regulation", 0.1);
       auto_declare<double>("K_tracking",  2.0);
       auto_declare<double>("damping",     1e-6); // for damped pinv
     } catch (const std::exception &e) {
@@ -363,7 +363,7 @@ private:
 
   int ctr_obj_{1};
   int ik_mode_{2};
-  double K_regulation_{0.3};
+  double K_regulation_{0.1};
   double K_tracking_{2.0};
   double lambda2_{1e-6};
   bool command_active_{false};
