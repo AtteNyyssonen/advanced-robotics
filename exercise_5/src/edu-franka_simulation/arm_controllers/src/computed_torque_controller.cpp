@@ -79,15 +79,13 @@ controller_interface::return_type ComputedTorqueController::update(
       q_(i) = position_interface_values_(i);
       qdot_(i) = velocity_interface_values_(i);
   }
-
-  // Calculate the desired Trajecoty in Joint Space
-  for (size_t i = 0; i < num_joints; i++)
-  {
-      qd_ddot_(i) = -M_PI * M_PI / 4 * 45 * KDL::deg2rad * sin(M_PI / 2 * t); 
-      qd_dot_(i) = M_PI / 2 * 45 * KDL::deg2rad * cos(M_PI / 2 * t);          
-      qd_(i) = 45 * KDL::deg2rad * sin(M_PI / 2 * t);
-  }
-
+  qd_(0) = 0.8;
+  qd_(1) = 1;
+  qd_(2) =  0.1;
+  qd_(3) = -1.5;
+  qd_(4) =  0.2;
+  qd_(5) =  2.1;
+  qd_(6) =  0;  
   // Motion Controller in Joint Space:
   // - Error Definition in Joint Space 
   e_.data = qd_.data - q_.data;
@@ -107,28 +105,6 @@ controller_interface::return_type ComputedTorqueController::update(
   Eigen::VectorXd e_eigen = e_.data;
   Eigen::VectorXd Kd_eigen = Kd_.data;
   Eigen::VectorXd e_dot_eigen = e_dot_.data;
-
-
-  // DEBUG: statements to print matrix dimensions
-
-  // RCLCPP_INFO(get_node()->get_logger(), "M_ dimensions: %ld x %ld", M_eigen.rows(), M_eigen.cols());
-  // RCLCPP_INFO(get_node()->get_logger(), "qd_ddot_ size: %ld", qd_ddot_eigen.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "Kp_ size: %ld", Kp_eigen.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "e_ size: %ld", e_eigen.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "Kd_ size: %ld", Kd_eigen.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "e_dot_ size: %ld", e_dot_eigen.size());
-
-  // RCLCPP_INFO(get_node()->get_logger(), "q_ size: %ld", q_.data.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "qdot_ size: %ld", qdot_.data.size());
-  // RCLCPP_INFO(get_node()->get_logger(), "qd_ size: %ld", qd_.data.size());
-
-  //RCLCPP_INFO(get_node()->get_logger(), "q_ data: %f, %f, %f, %f, %f, %f, %f, %f", q_.data[0], q_.data[1], q_.data[2], q_.data[3], q_.data[4], q_.data[5], q_.data[6], q_.data[7]);
-
-  // if (M_eigen.rows() != num_joints)
-  // {
-  //   RCLCPP_ERROR(get_node()->get_logger(), "CHECK DIMENSIONS");
-  //   return controller_interface::return_type::ERROR;
-  // }
 
   // Apply Torque Command to Actuator
   aux_d_.data = M_eigen * (qd_ddot_eigen + Kp_eigen.cwiseProduct(e_eigen) + Kd_eigen.cwiseProduct(e_dot_eigen));

@@ -23,6 +23,11 @@ Features:
 -->
 <sdf version="1.8">
   <world name="cam_scene">
+    <physics name="slow_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>0.1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
     <plugin
       filename="ignition-gazebo-physics-system"
       name="ignition::gazebo::systems::Physics">
@@ -311,7 +316,7 @@ Features:
       <collision name="wall_collision">
         <geometry>
           <box>
-            <size>0.1 2 3</size>
+            <size>0.1 0.1 0.1</size>
           </box>
         </geometry>
       </collision>

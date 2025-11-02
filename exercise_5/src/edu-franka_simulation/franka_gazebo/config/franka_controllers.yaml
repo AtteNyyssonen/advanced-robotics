@@ -23,7 +23,7 @@
 # controller_manager provides the necessary infrastructure to manage multiple controllers efficiently and robustly using ROS 2 Control.
 controller_manager:
   ros__parameters:
-    update_rate: 1000 # Hz
+    update_rate: 100 # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -98,13 +98,13 @@ computed_torque_controller:
       - panda_joint6
       - panda_joint7
     p_gains:
-      - 100.0
-      - 100.0
-      - 100.0
-      - 100.0
-      - 100.0
-      - 100.0
-      - 100.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
+      - 20.0
     i_gains:
       - 0.0
       - 0.0
@@ -114,12 +114,12 @@ computed_torque_controller:
       - 0.0
       - 0.0
     d_gains:
-      - 20.0
-      - 20.0
-      - 20.0
-      - 20.0
-      - 20.0
-      - 20.0
-      - 20.0
+      - 4.0
+      - 4.0
+      - 4.0
+      - 4.0
+      - 4.0
+      - 4.0
+      - 4.0
     tip_link: panda_link7
     root_link: base

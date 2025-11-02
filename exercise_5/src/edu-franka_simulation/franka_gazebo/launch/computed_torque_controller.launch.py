@@ -106,10 +106,10 @@ def generate_launch_description():
     nodes_to_start = [
         robot_state_publisher_node,
         controller_manager_node,
-        joint_state_broadcaster_spawner,
-        computed_torque_controller_spawner,
         gz_spawn_entity,
         gz_launch_description,
+        joint_state_broadcaster_spawner,
+        computed_torque_controller_spawner,
     ]
 
     return LaunchDescription(nodes_to_start)
