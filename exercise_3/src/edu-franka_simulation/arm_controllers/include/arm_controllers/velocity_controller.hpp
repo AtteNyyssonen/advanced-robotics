@@ -49,19 +49,20 @@ private:
   std::string root_link_;
   std::string tip_link_;
 
-  KDL::Chain kdl_chain_;
+  KDL::Chain chain_;
   std::unique_ptr<KDL::ChainFkSolverPos_recursive> fk_solver_;
   std::unique_ptr<KDL::ChainJntToJacSolver> jac_solver_;
   std::unique_ptr<KDL::ChainDynParam> dyn_solver_;
   KDL::JntArray q_kdl_;
   KDL::JntArray qdot_kdl_;
+  KDL::Jacobian J_kdl_;
   KDL::JntSpaceInertiaMatrix M_kdl_;
   KDL::JntArray C_kdl_; // Coriolis & Centrifugal
   KDL::JntArray G_kdl_; // Gravity
 
-  Eigen::VectorXd Kp_joint_; 
-  Eigen::VectorXd Kd_joint_; 
+  Eigen::VectorXd Kd_cartesian_;
   Eigen::VectorXd Kp_cartesian_;
+  Eigen::VectorXd Kd_joint_;
   
   rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr goal_subscriber_;
   KDL::Frame ee_goal_;
