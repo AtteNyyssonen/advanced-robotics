@@ -48,6 +48,9 @@
 #include <kdl/chain.hpp>
 #include <kdl/chaindynparam.hpp>
 #include <kdl_parser/kdl_parser.hpp>
+#include <kdl/chainjnttojacsolver.hpp>
+#include <kdl/chainfksolverpos_recursive.hpp>
+#include <kdl/jacobian.hpp>
 
 // Memory management (use standard C++ smart pointers)
 #include <memory>
@@ -84,7 +87,8 @@ class ComputedTorqueController : public controller_interface::ControllerInterfac
   Vector7d i_gains_;
   Vector7d d_gains_;
   void updateJointStates();
-
+  void computeJointLimitRepulsion(Eigen::VectorXd);
+  void computeEEWallRepulsion(Eigen::VectorXd);
   // joint handles
   std::vector<std::string> joint_names_;  // joint names
   // std::vector<hardware_interface::JointHandle> joints_;  // joint handles
@@ -102,6 +106,8 @@ class ComputedTorqueController : public controller_interface::ControllerInterfac
 
   // kdl solver (solver to compute the inverse dynamics)
   std::unique_ptr<KDL::ChainDynParam> id_solver_;
+  std::unique_ptr<KDL::ChainJntToJacSolver> jac_solver_;
+  std::unique_ptr<KDL::ChainFkSolverPos_recursive> fk_solver_;
 
   //Joint space state
   KDL::JntArray qd_, qd_dot_, qd_ddot_;
@@ -112,9 +118,22 @@ class ComputedTorqueController : public controller_interface::ControllerInterfac
   KDL::JntArray aux_d_;
   KDL::JntArray comp_d_;
   KDL::JntArray tau_d_;
-    
+  std::vector<double> joint_Qstar_; // influence distances for each joint (radians)
+  double joint_k_;                  // single gain for joint limits (could be per-joint)
+
+  KDL::Jacobian J_kdl_;
+  Eigen::MatrixXd J_eigen_;
+  Eigen::VectorXd tau_rep_joint_limits_; // repulsive torques from joint limits
+  Eigen::VectorXd tau_rep_ee_;           // repulsive torques from ee obstacle
+  
   // gains
   KDL::JntArray Kp_, Ki_, Kd_;
+
+  Eigen::Vector3d wall_point_;  // p0 from sdf e.g. (1.3, 0, 0)
+  Eigen::Vector3d wall_normal_; // e.g. (1,0,0)
+  double wall_Qstar_;           // influence distance for wall (meters)
+  double wall_k_;               // gain for wall repulsive potential
+
 
   // Other member variables...
   double t;

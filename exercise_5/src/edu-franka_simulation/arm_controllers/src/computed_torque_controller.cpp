@@ -79,7 +79,7 @@ controller_interface::return_type ComputedTorqueController::update(
       q_(i) = position_interface_values_(i);
       qdot_(i) = velocity_interface_values_(i);
   }
-  qd_(0) = 0.8;
+  qd_(0) = 1.3;
   qd_(1) = 1;
   qd_(2) =  0.1;
   qd_(3) = -1.5;
@@ -109,7 +109,166 @@ controller_interface::return_type ComputedTorqueController::update(
   // Apply Torque Command to Actuator
   aux_d_.data = M_eigen * (qd_ddot_eigen + Kp_eigen.cwiseProduct(e_eigen) + Kd_eigen.cwiseProduct(e_dot_eigen));
   comp_d_.data = C_.data + G_.data;
-  tau_d_.data = aux_d_.data + comp_d_.data;
+
+  // ARTIFICIAL JOINT LIMIT POTENTIAL
+  Eigen::VectorXd tau_rep_joint = Eigen::VectorXd::Zero(num_joints);
+  double k_j = joint_k_;
+  for (int i=0;i<num_joints - 1;++i) {
+    double q = q_(i);
+    double lower = joint_urdfs_[i]->limits->lower;
+    double upper = joint_urdfs_[i]->limits->upper;
+    if (std::abs(upper - lower) < 1e-6) { 
+        continue;
+    }
+    double Qstar = joint_Qstar_[i];
+    double Dlow = q - lower;
+    if (Dlow <= Qstar) {
+      if (Dlow <= 0.005) Dlow = 0.005;
+      double factor = k_j*(1.0/Dlow - 1.0/Qstar)/(Dlow*Dlow);
+      tau_rep_joint(i) += -factor;
+    }
+    double Dup = upper - q;
+    if (Dup <= Qstar) {
+      if (Dup <= 0.005) Dup = 0.005;
+      double factor = k_j*(1.0/Dup - 1.0/Qstar)/(Dup*Dup);
+      tau_rep_joint(i) += +factor;
+    }
+  }
+
+  Eigen::VectorXd tau_rep_ee = Eigen::VectorXd::Zero(num_joints);
+
+  //Wall Definition
+  Eigen::Vector3d wall_center(1.3, 0.0, 0.0);
+  double wall_yaw = 1.57079633; 
+  Eigen::Matrix3d R_world_wall = Eigen::AngleAxisd(wall_yaw, Eigen::Vector3d::UnitZ()).toRotationMatrix();
+
+  // Wall dimensions (from <size> 0.1 2 2.6)
+  double wall_thickness = 0.1;
+  double wall_width = 2.0;
+  double wall_height = 2.6;
+  double half_x = wall_thickness / 2.0;
+  double half_y = wall_width / 2.0;
+  double half_z = wall_height / 2.0;
+
+  double Q_star = 0.2; 
+  double k_rep = 0.01;
+  double B_damp = 0.005;
+
+  KDL::JntArray q_kdl(num_joints);
+  for (int i = 0; i < num_joints; ++i) q_kdl(i) = q_(i);
+
+  KDL::Frame ee_frame;
+  if (fk_solver_->JntToCart(q_kdl, ee_frame) >= 0)
+  {
+    Eigen::Vector3d ee_pos(ee_frame.p.x(), ee_frame.p.y(), ee_frame.p.z());
+    Eigen::Vector3d ee_vel = J_kdl_.data.topRows(3) * qdot_.data; // approx ee velocity
+
+    // Transform EE position into wall-local frame
+    Eigen::Matrix3d R_wall_world = R_world_wall.transpose();
+    Eigen::Vector3d p_local = R_wall_world * (ee_pos - wall_center);
+
+ 
+    Eigen::Vector3d n_local = Eigen::Vector3d::UnitY();
+
+   
+    double D = p_local.y() - half_y;
+    double D_safe = std::max(D, 0.005);
+
+    double z_above_wall = p_local.z() - half_z;
+    bool approaching_wall = (D > 0.0 && D < Q_star && z_above_wall < 0.1);
+    bool above_wall = (z_above_wall > 0.05);
+    bool too_close = (D < 0.0 && z_above_wall < half_z);
+    bool got_over = (D > 0.0 && z_above_wall < half_z);
+  
+    RCLCPP_INFO(get_node()->get_logger(),
+        "[WALL] center=(%.3f, %.3f, %.3f) yaw=%.2f rad | ee_world=(%.3f, %.3f, %.3f) | ee_local=(%.3f, %.3f, %.3f) | D=%.4f",
+        wall_center.x(), wall_center.y(), wall_center.z(), wall_yaw,
+        ee_pos.x(), ee_pos.y(), ee_pos.z(),
+        p_local.x(), p_local.y(), p_local.z(), D);
+
+    Eigen::Vector3d F_local = Eigen::Vector3d::Zero();
+
+    if (approaching_wall)
+    {
+    //  Approaching wall -> climb upward
+      double climb_gain = (Q_star - D) / Q_star;
+      double Fz = k_rep * climb_gain;
+      F_local.z() += Fz;
+
+      RCLCPP_INFO(get_node()->get_logger(),
+                "[STATE] Approaching wall | Climb gain: %.3f | Fz: %.4f", climb_gain, Fz);
+    }
+    else if (above_wall)
+    {
+    // Above wall -> normal control (no repulsion)
+      F_local.setZero();
+      RCLCPP_INFO(get_node()->get_logger(), "[STATE] Above wall | Normal motion");
+    }
+    else if (too_close)
+    {
+    
+    // Too close to wall -> push away
+      double F_mag = k_rep * (1.0 / D_safe - 1.0 / Q_star) / (D_safe * D_safe);
+      F_local = -F_mag * n_local;
+
+     RCLCPP_WARN(get_node()->get_logger(),
+                "[STATE] Too close to wall | Repelling | Fmag: %.4f", F_mag);
+    }
+    // Over the wall midpoint -> dont push away
+    else if (got_over)
+    {
+      double F_mag = k_rep * (1.0 / D_safe - 1.0 / Q_star) / (D_safe * D_safe);
+      F_local = +F_mag * n_local;
+    }
+    // default
+    else
+    {
+      F_local.setZero();
+      RCLCPP_INFO(get_node()->get_logger(), "[STATE] None matched, set force to zero.");
+    }
+
+        // Add damping (in local frame)
+      Eigen::Vector3d v_local = R_wall_world * ee_vel;
+      F_local -= B_damp * v_local;
+
+        // Convert to world frame
+      Eigen::Vector3d F_world = R_world_wall * F_local;
+
+        // Compute torque = J^T * F
+      if (jac_solver_->JntToJac(q_kdl, J_kdl_) >= 0)
+      {
+        Eigen::MatrixXd Jv(3, num_joints);
+        for (unsigned int c = 0; c < J_kdl_.columns(); ++c)
+        {
+          Jv(0, c) = J_kdl_(0, c);
+          Jv(1, c) = J_kdl_(1, c);
+          Jv(2, c) = J_kdl_(2, c);
+        }
+        tau_rep_ee = Jv.transpose() * F_world;
+      }
+
+      RCLCPP_INFO(get_node()->get_logger(),
+            "[REP FORCE] |F|=%.3f  F_local=(%.3f, %.3f, %.3f)  F_world=(%.3f, %.3f, %.3f)",
+            F_local.norm(), F_local.x(), F_local.y(), F_local.z(),
+            F_world.x(), F_world.y(), F_world.z());
+  }
+  else
+  {
+    RCLCPP_WARN(get_node()->get_logger(),"[FK] Failed to compute end-effector frame.");
+  }
+
+  Eigen::VectorXd tau_rep_total = tau_rep_joint + tau_rep_ee;
+  tau_d_.data = aux_d_.data + comp_d_.data + tau_rep_total;
+
+  std::stringstream ss_aux;
+  ss_aux << aux_d_.data.transpose() + comp_d_.data.transpose();
+  RCLCPP_INFO(get_node()->get_logger(), "aux_d: [%s]", ss_aux.str().c_str());
+  std::stringstream ss_rep;
+  ss_rep << tau_rep_total.transpose();
+  RCLCPP_INFO(get_node()->get_logger(), "tau_rep_total: [%s]", ss_rep.str().c_str());
+  std::stringstream ss_total;
+  ss_total << tau_d_.data.transpose();
+  RCLCPP_INFO(get_node()->get_logger(), ss_total.str().c_str());
 
   for (int i = 0; i < num_joints; i++)
   {
@@ -458,6 +617,16 @@ CallbackReturn ComputedTorqueController::on_configure(
 
   // Create the KDL chain dyn param solver
   id_solver_.reset(new KDL::ChainDynParam(kdl_chain_, gravity_));
+  fk_solver_.reset(new KDL::ChainFkSolverPos_recursive(kdl_chain_));
+  jac_solver_.reset(new KDL::ChainJntToJacSolver(kdl_chain_));
+  J_kdl_.resize(kdl_chain_.getNrOfJoints());
+  wall_point_  = Eigen::Vector3d(1.3, 0.05, 0.0);  // front face center
+  wall_normal_ = Eigen::Vector3d(0.0, -1.0, 0.0);
+  wall_Qstar_ = 0.5;  // 0.5 m influence zone - tune as needed
+  wall_k_ = 0.01;      // repulsive gain - tune
+  joint_k_ = 0.2;      // tune
+  joint_Qstar_.resize(num_joints);
+  for (int i=0; i<num_joints; ++i) joint_Qstar_[i] = 0.05;
 
   M_.resize(kdl_chain_.getNrOfJoints());
   C_.resize(kdl_chain_.getNrOfJoints());
