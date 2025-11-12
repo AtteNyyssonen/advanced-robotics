@@ -35,6 +35,8 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
+#include <geometry_msgs/msg/pose_stamped.hpp>
+
 namespace arm_controllers {
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
@@ -100,7 +102,7 @@ public:
         xd_dot_.setZero();
         xd_ddot_.setZero();
       }
-    } else {
+    } else {            // simple tracking in Y
       const double A = 0.1, w = M_PI; // amplitude & frequency
       xd_.p = KDL::Vector(0.30, 0.20 + A * std::sin(w * (t_ - t_set_)), 0.40);
       xd_.M = KDL::Rotation::RPY(0, 0, 0);
@@ -154,6 +156,14 @@ public:
     for (int i = 0; i < kNumJoints; ++i) {
       command_interfaces_[i].set_value(tau_d_(i));
     }
+
+    // (optional) publish debug
+    if (++print_counter_ >= 100) {
+      print_counter_ = 0;
+      RCLCPP_INFO(get_node()->get_logger(), "t=%.3f  |  ex[mm]=[%.1f %.1f %.1f]  er[deg]=[%.1f %.1f %.1f]",
+                  t_, 1000*ex_(0), 1000*ex_(1), 1000*ex_(2), R2D*ex_(3), R2D*ex_(4), R2D*ex_(5));
+    }
+
     // publish arrays
     publish_arrays();
 
@@ -171,7 +181,7 @@ public:
       auto_declare<std::string>("tip_link", "panda_link8");
       auto_declare<int>("ctr_obj", 1);        // 1: regulation, 2: tracking
       auto_declare<int>("ik_mode", 2);        // 1: open-loop, 2: closed-loop
-      auto_declare<double>("K_regulation", 0.1);
+      auto_declare<double>("K_regulation", 2.0);
       auto_declare<double>("K_tracking",  2.0);
       auto_declare<double>("damping",     1e-6); // for damped pinv
     } catch (const std::exception &e) {
@@ -186,7 +196,8 @@ public:
     pub_xd_  = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("xd", 10);
     pub_x_   = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("x", 10);
     pub_ex_  = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("ex", 10);
-
+    pub_ee_  = get_node()->create_publisher<std_msgs::msg::Float64MultiArray>("end_effector_pose", 10);
+    
     // subscriber for task-space commands [x y z r p y]
     sub_cmd_ = get_node()->create_subscription<std_msgs::msg::Float64MultiArray>(
       "command", 1,
@@ -303,6 +314,7 @@ public:
     pub_xd_->on_activate();
     pub_x_->on_activate();
     pub_ex_->on_activate();
+    pub_ee_ ->on_activate();
     return CallbackReturn::SUCCESS;
   }
 
@@ -313,6 +325,7 @@ public:
     pub_xd_->on_deactivate();
     pub_x_->on_deactivate();
     pub_ex_->on_deactivate();
+    pub_ee_ ->on_deactivate();
     return CallbackReturn::SUCCESS;
   }
 
@@ -354,6 +367,19 @@ private:
 
     // ex
     a.data.clear(); for (int i=0;i<kNumTask;++i) a.data.push_back(ex_(i)); pub_ex_->publish(a);
+
+    // end-effector pose as multiArray [x y z roll pitch yaw] (no quaternions)
+    a.data.clear();
+    {
+      double r,p,y; x_.M.GetRPY(r,p,y);
+      a.data.push_back(x_.p.x());
+      a.data.push_back(x_.p.y());
+      a.data.push_back(x_.p.z());
+      a.data.push_back(r);
+      a.data.push_back(p);
+      a.data.push_back(y);
+    }
+    pub_ee_->publish(a);
   }
 
   // parameters/state
@@ -363,7 +389,7 @@ private:
 
   int ctr_obj_{1};
   int ik_mode_{2};
-  double K_regulation_{0.1};
+  double K_regulation_{2.0};
   double K_tracking_{2.0};
   double lambda2_{1e-6};
   bool command_active_{false};
@@ -375,11 +401,13 @@ private:
   rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr
   pub_qd_, pub_q_, pub_e_, pub_xd_, pub_x_, pub_ex_;
   rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr sub_cmd_;
+  rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_ee_;
 
   // KDL structures
   KDL::Tree kdl_tree_;
   KDL::Chain kdl_chain_;
   KDL::Vector gravity_;
+  int link7_segment_index_{-1}; // index of "panda_link7" in the chain segments
 
   std::unique_ptr<KDL::ChainDynParam> id_solver_;
   std::unique_ptr<KDL::ChainFkSolverPos_recursive> fk_pos_solver_;
