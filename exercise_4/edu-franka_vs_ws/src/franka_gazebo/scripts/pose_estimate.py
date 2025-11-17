@@ -26,7 +26,7 @@ class ArucoView(Node):
         self.declare_parameter('dictionary', 'DICT_6X6_250')
         self.declare_parameter('marker_id', -1)
         self.declare_parameter('marker_length_m', 0.10)
-        self.declare_parameter('base_frame', 'world')
+        self.declare_parameter('base_frame', 'base')
         self.declare_parameter('marker_frame', 'marker')
         self.declare_parameter('goal_frame', 'goal')
         self.declare_parameter('ee_frame', 'end_effector_py')
@@ -40,8 +40,8 @@ class ArucoView(Node):
         # publishers for pose & detection state
         pose_topic = self.get_parameter('pose_topic').value
         state_topic = self.get_parameter('state_topic').value
-        self.pose_pub = self.create_publisher(Float64MultiArray, pose_topic, 10)
-        self.state_pub = self.create_publisher(Bool, state_topic, 10)
+        self.pose_pub = self.create_publisher(Float64MultiArray, pose_topic, 1)
+
         # visibility / publish state
         self.marker_visible = False
         self.last_seen_time = 0.0
@@ -59,19 +59,17 @@ class ArucoView(Node):
         self.goal_frame = self.get_parameter('goal_frame').value
         self.camera_frame = self.get_parameter('camera_frame').value
 
-        pt = self.get_parameter('pose_topic').value
+        self.state_pub = self.create_publisher(Bool, '/aruco_active', 1)
 
 
-        # camera frame from end effector
+        # camera_link pose in the SDF is: 0 0 0.15 0 -1.57079633 0  (roll=0, pitch=-pi/2, yaw=0)
+        # transformation matrix from end-effector to camera
         tx, ty, tz = 0.0, 0.0, 0.15
-        roll, pitch, yaw = 0.0, 0.0, 0.0
-        # build rotation matrix from rpy and place into 4x4 homogeneous matrix
-        T = euler_matrix(roll, pitch, yaw)  # returns 4x4
+        roll, pitch, yaw = 0.0, 0.0, -pi/2.0
+        T = euler_matrix(roll, pitch, yaw)  # 4x4
         T[0, 3] = tx
         T[1, 3] = ty
         T[2, 3] = tz
-        # store as T_ee_cam: maps points in camera frame -> points in ee frame if you choose that convention
-        # (use consistently when chaining transforms)
         self.T_ee_cam = T
 
         self.endEffector_pos = [0.0]*6
@@ -79,10 +77,7 @@ class ArucoView(Node):
         self.ee_sub = self.create_subscription(Float64MultiArray, '/end_effector_pose', self.on_end_effector, 10)
 
         self.T_base_ee = np.eye(4)
-        self.T_base_camera = np.eye(4)
 
-
-        self.camera_frame = self.get_parameter('camera_frame').value
         self.ee_frame = self.get_parameter('ee_frame').value
 
         # TF buffer & listener
@@ -152,10 +147,8 @@ class ArucoView(Node):
         return ts
 
 
-
     # callback for end_effector_pose subscriber
     # calculates the 4x4 homogeneous transform from base to end-effector
-    # NOT ideal – should get this from TF directly
     def on_end_effector(self, msg: Float64MultiArray):
         # expect [x y z roll pitch yaw]
         if msg.data and len(msg.data) >= 6:
@@ -185,15 +178,15 @@ class ArucoView(Node):
             T[:3, :3] = R
             T[0, 3] = x
             T[1, 3] = y
-            T[2, 3] = z -0.5
+            T[2, 3] = z
 
-            self.T_base_ee = T
-            self.T_base_camera = T @ self.T_ee_cam
+            # enclode a  transformation matrix from world to base
+            T_world_base = np.eye(4)
+            T_world_base[2,3] = 1.0 
+
+            self.T_base_ee = T_world_base @ T
         else:
             self.get_logger().warn('end_effector_pose message has <6 elements')
-
-
-        
 
 
     def on_info(self, msg: CameraInfo):
@@ -204,10 +197,6 @@ class ArucoView(Node):
         if self.K is None: return
         img = self.bridge.imgmsg_to_cv2(msg, 'bgr8')
 
-        # if camera_frame not provided as param, use image header frame
-        if not self.camera_frame:
-            self.camera_frame = msg.header.frame_id
-
         if self.use_new:
             corners, ids, _ = self.detector.detectMarkers(img)
         else:
@@ -217,60 +206,43 @@ class ArucoView(Node):
             ids = ids.flatten()
             idx = int(np.where(ids == self.want_id)[0][0]) if (self.want_id in ids and self.want_id >= 0) else 0
             mc = [corners[idx]]
-
+            
+            # estimate pose of the marker
             rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(mc, self.mlen, self.K, self.D)
             rvec, tvec = rvec[0][0], tvec[0][0]
 
-            # Convert rotation vector → rotation matrix
-            R, _ = cv2.Rodrigues(np.array(rvec).reshape(3,))
+            rotation_matrix, _ = cv2.Rodrigues(rvec)
+            transformation_matrix = np.eye(4)
+            transformation_matrix[0:3, 0:3] = rotation_matrix
+            transformation_matrix[0:3, 3] = tvec
 
-            # Ensure translation is column vector
-            t = np.array(tvec).reshape(3, 1)
+            T_cam_to_marker = transformation_matrix
 
-            # Build 4x4 matrix
-            T_cam_marker = np.eye(4)
-            T_cam_marker[:3, :3] = R
-            T_cam_marker[:3, 3:] = t
+            # compute base -> marker = (base->ee) * (ee->camera) * (camera->marker)
+            T_base_marker = self.T_base_ee @ self.T_ee_cam @ T_cam_to_marker
 
-            # to get the transformation from camera to marker, we need to invert T_cam_marker
-            T_cam_marker = np.linalg.inv(T_cam_marker)
-
-
-
-            # Compute T_base_marker = T_base_ee * T_ee_cam * T_cam_marker
-            # Assume T_ee_cam is identity (i.e., camera is at end-effector)
-            T_base_marker = self.T_base_ee @ T_cam_marker
-
-            #test
-            self.broadcast_matrix(self.T_base_camera, self.base_frame, self.camera_frame)
-            self.broadcast_matrix(self.T_base_ee, self.base_frame, self.ee_frame)
-
-            goal_offset_transform = euler_matrix(np.pi, 0.0, np.pi/2, 'sxyz')
+            # offset from marker to goal
+            goal_offset_transform = euler_matrix(np.pi, 0.0, 0.0, 'sxyz')
             goal_offset_transform[0,3] = 0.0
             goal_offset_transform[1,3] = 0.0
-            goal_offset_transform[2,3] = 0.7
+            goal_offset_transform[2,3] = 0.65
 
             T_base_goal = T_base_marker @ goal_offset_transform
 
-            # publish goal frame using helper
+            # broadcast marker and goal frames
+            self.broadcast_matrix(T_base_marker, self.base_frame, self.marker_frame)
             self.broadcast_matrix(T_base_goal, self.base_frame, self.goal_frame)
-
-
-            # compute target pose expressed in the marker frame (translation + rpy)
-            t_target, rpy_target = matrix_to_t_rpy(T_base_goal)
+   
 
             # compute target pose in marker frame
+            # improvement: pose needs to be from world frame not base frame (currently -1 on z axis quick fix)
+            t_target, rpy_target = matrix_to_t_rpy(T_base_goal)
             pose_msg = Float64MultiArray()
-            pose_msg.data = [float(t_target[0]), float(t_target[1]), float(t_target[2]),
+            pose_msg.data = [float(t_target[0]), float(t_target[1]), float(t_target[2]-1),
                              float(rpy_target[0]), float(rpy_target[1]), float(rpy_target[2])]
             self.get_logger().info(f"pose message {pose_msg.data}")
 
-
-
-
-
-            # for test do not bublish
-            """
+            # publish target pose
             self.pose_pub.publish(pose_msg)
 
             if not self.marker_visible:
@@ -278,7 +250,7 @@ class ArucoView(Node):
                 self.state_pub.publish(Bool(data=True))
                 self.marker_visible = True
                 self.last_seen_time = time.time()
-            """
+            
             cv2.aruco.drawDetectedMarkers(img, mc, np.array([[ids[idx]]]))
             cv2.drawFrameAxes(img, self.K, self.D, rvec, tvec, self.mlen * 0.5)
         else:
