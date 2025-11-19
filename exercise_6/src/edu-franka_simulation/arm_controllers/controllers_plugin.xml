@@ -42,4 +42,11 @@
           The joint impedance example controller moves joint 4 and 5 in a very compliant periodic movement.
       </description>
   </class>
+  <class name="arm_controllers/AdmittanceController"
+        type="arm_controllers::AdmittanceController"
+        base_class_type="controller_interface::ControllerInterface">
+      <description>
+          The joint admittance example controller moves joint 4 and 5 in a very compliant periodic movement.
+      </description>
+  </class>
 </library>

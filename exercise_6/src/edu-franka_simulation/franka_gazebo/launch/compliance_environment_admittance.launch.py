@@ -57,7 +57,7 @@ def generate_launch_description():
     joint_impedance_example_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["impedance_controller", "--controller-manager", "/controller_manager"],
+        arguments=["admittance_controller", "--controller-manager", "/controller_manager"],
     )
 
     # GZ nodes

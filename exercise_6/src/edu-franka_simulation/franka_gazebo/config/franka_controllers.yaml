@@ -46,6 +46,9 @@ controller_manager:
     impedance_controller:
       type: arm_controllers/ImpedanceController
     
+    admittance_controller:
+      type: arm_controllers/AdmittanceController
+    
 
 time_delay_controller:
   ros__parameters:
@@ -151,5 +154,31 @@ impedance_controller:
       - 0.1
       - 0.1
       - 0.1
+    tip_link: panda_link8
+    root_link: base
+
+admittance_controller:
+  ros__parameters:
+    M_t:
+      - 1.0
+      - 1.0
+      - 1.0
+      - 0.1
+      - 0.1
+      - 0.1
+    K_Dt:
+      - 20.0
+      - 20.0
+      - 20.0
+      - 4.0
+      - 4.0
+      - 4.0
+    K_Pt:
+      - 100.0
+      - 100.0
+      - 100.0
+      - 50.0
+      - 50.0
+      - 50.0
     tip_link: panda_link8
     root_link: base

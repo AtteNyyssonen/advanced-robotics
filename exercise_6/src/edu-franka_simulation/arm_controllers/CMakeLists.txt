@@ -23,6 +23,7 @@ add_library(${PROJECT_NAME} SHARED
   src/time_delay_controller.cpp
   src/computed_torque_controller.cpp
   src/impedance_controller.cpp
+  src/admittance_controller.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
