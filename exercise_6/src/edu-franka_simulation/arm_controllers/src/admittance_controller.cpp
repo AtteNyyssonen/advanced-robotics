@@ -15,7 +15,7 @@ AdmittanceController::command_interface_configuration() const {
   controller_interface::InterfaceConfiguration config;
   config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
   for (int i = 1; i <= num_joints; ++i) {
-    config.names.push_back("panda_joint" + std::to_string(i) + "/effort");
+    config.names.push_back("panda_joint" + std::to_string(i) + "/position");
   }
   return config;
 }
@@ -158,7 +158,7 @@ controller_interface::return_type AdmittanceController::update(
 
   Vector7d q_traj = initial_q_;
   double delta_angle = M_PI / 8.0 * (1 - std::cos(M_PI / 5 * elapsed_time_));
-  double delta_angle_r = M_PI / 4.0 * (1 - std::sin(M_PI / 10.0 * elapsed_time_));
+  double delta_angle_r = M_PI / 4.0 * std::sin(M_PI / 10.0 * elapsed_time_);
   q_traj(0) += delta_angle_r;
   q_traj(1) += delta_angle;
   q_traj(3) += delta_angle;
@@ -174,7 +174,6 @@ controller_interface::return_type AdmittanceController::update(
   Eigen::Vector3d F_S, T_S;
   F_S << ft_wrench_data_.force.x, ft_wrench_data_.force.y, ft_wrench_data_.force.z;
   T_S << ft_wrench_data_.torque.x, ft_wrench_data_.torque.y, ft_wrench_data_.torque.z;
-  
   // transform to end-effector frame
   Vector6d h_ed;
   h_ed.head<3>() = R_E_S_ * F_S;

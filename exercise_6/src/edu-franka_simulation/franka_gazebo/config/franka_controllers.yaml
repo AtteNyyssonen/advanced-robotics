@@ -182,3 +182,8 @@ admittance_controller:
       - 50.0
     tip_link: panda_link8
     root_link: base
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
