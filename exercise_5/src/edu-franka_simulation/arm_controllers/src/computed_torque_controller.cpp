@@ -79,13 +79,57 @@ controller_interface::return_type ComputedTorqueController::update(
       q_(i) = position_interface_values_(i);
       qdot_(i) = velocity_interface_values_(i);
   }
-  qd_(0) = 1.3;
-  qd_(1) = 1;
-  qd_(2) =  0.1;
-  qd_(3) = -1.5;
-  qd_(4) =  0.2;
-  qd_(5) =  2.1;
-  qd_(6) =  0;  
+
+  // Inverse Kinematics to compute desired joint positions qd_ from desired end-effector pose ee_goal_
+  
+  /*
+  int ik_ret = ik_pos_solver_->CartToJnt(q_, ee_goal_, qd_);
+  // for debug print qd_ values
+  RCLCPP_INFO(get_node()->get_logger(), "IK returned, qd_: %f, %f, %f, %f, %f, %f, %f", 
+    qd_(0), qd_(1), qd_(2), qd_(3), qd_(4), qd_(5), qd_(6));
+  */
+  KDL::JntArray goal_A(7), goal_B(7);
+
+  goal_A(0) = 0.8;
+  goal_A(1) = 1.0;
+  goal_A(2) = 0.1;
+  goal_A(3) = -1.5;
+  goal_A(4) = 0.2;
+  goal_A(5) = 2.1;
+  goal_A(6) = 0;
+
+  goal_B(0) = -0.8;
+  goal_B(1) = 0.4;
+  goal_B(2) = 0.1;
+  goal_B(3) = -1.5;
+  goal_B(4) = 0.2;
+  goal_B(5) = 2.1;
+  goal_B(6) = 0;
+
+
+  // Compute error to current goal
+  double err_A = (goal_A.data - q_.data).cwiseAbs().maxCoeff();
+  double err_B = (goal_B.data - q_.data).cwiseAbs().maxCoeff();
+  RCLCPP_INFO(get_node()->get_logger(), "error to goal A: %f", err_A);
+  RCLCPP_INFO(get_node()->get_logger(), "error to goal B: %f", err_B);
+
+
+  // New goal if close to current goal
+  if (err_A < 0.2 ) {
+      goal_switch_ = !goal_switch_;
+  }
+  if (err_B < 0.2 ) {
+      goal_switch_ = !goal_switch_;
+  }
+
+  if (goal_switch_) {
+      qd_.data = goal_A.data;
+  } else {
+      qd_.data = goal_B.data;
+  }
+  
+
+
   // Motion Controller in Joint Space:
   // - Error Definition in Joint Space 
   e_.data = qd_.data - q_.data;
@@ -367,6 +411,24 @@ tau_d_.data = aux_d_.data + comp_d_.data + tau_rep_total;
   pub_q_->publish(msg_q_);
   pub_e_->publish(msg_e_);
   pub_SaveData_->publish(msg_SaveData_);
+  tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(get_node());
+
+  if (tf_broadcaster_) {
+    geometry_msgs::msg::TransformStamped tr;
+    tr.header.stamp = get_node()->now();
+    tr.header.frame_id = root_link_.empty() ? "base" : root_link_;
+    tr.child_frame_id = "ee_goal_frame";
+    tr.transform.translation.x = ee_goal_.p.x();
+    tr.transform.translation.y = ee_goal_.p.y();
+    tr.transform.translation.z = ee_goal_.p.z();
+    double qx,qy,qz,qw;
+    ee_goal_.M.GetQuaternion(qx,qy,qz,qw);
+    tr.transform.rotation.x = qx;
+    tr.transform.rotation.y = qy;
+    tr.transform.rotation.z = qz;
+    tr.transform.rotation.w = qw;
+    tf_broadcaster_->sendTransform(tr);
+  }
 
   return controller_interface::return_type::OK;
 }
@@ -541,6 +603,8 @@ CallbackReturn ComputedTorqueController::on_configure(
   {
     root_name = get_node()->get_parameter("root_link").as_string();
     RCLCPP_INFO(get_node()->get_logger(), "Found root link name form yaml: %s", root_name.c_str());
+    // save for publishing frame_id
+    root_link_ = root_name;
   }
   else
   {
@@ -608,6 +672,7 @@ CallbackReturn ComputedTorqueController::on_configure(
   id_solver_.reset(new KDL::ChainDynParam(kdl_chain_, gravity_));
   fk_solver_.reset(new KDL::ChainFkSolverPos_recursive(kdl_chain_));
   jac_solver_.reset(new KDL::ChainJntToJacSolver(kdl_chain_));
+  ik_pos_solver_ = std::make_shared<KDL::ChainIkSolverPos_LMA>(kdl_chain_, 1e-5, 500, 1e-15);
   J_kdl_.resize(kdl_chain_.getNrOfJoints());
   joint_k_ = 0.2;
   joint_Qstar_.resize(num_joints);
@@ -626,6 +691,21 @@ CallbackReturn ComputedTorqueController::on_configure(
     fprintf(stderr, "%s ", joint_names_[i].c_str());
   }
   fprintf(stderr, "\n");
+
+
+  goal_subscriber_ = get_node()->create_subscription<geometry_msgs::msg::Point>(
+  "/cartesian_goal", rclcpp::SystemDefaultsQoS(),
+  [this](const geometry_msgs::msg::Point::SharedPtr msg) {
+    KDL::Frame new_goal(KDL::Vector(msg->x, msg->y, msg->z));
+    new_goal.M = ee_goal_.M; 
+    ee_goal_ = new_goal;
+    //goal_active_ = true;
+    RCLCPP_INFO(get_node()->get_logger(), "Received new Cartesian goal: [x: %.2f, y: %.2f, z: %.2f]",
+                msg->x, msg->y, msg->z);
+  });
+
+  // init goal frame
+  ee_goal_ = KDL::Frame(KDL::Rotation::RotY(M_PI)*KDL::Rotation::RotZ(M_PI/2) ,KDL::Vector(0.1, 0.7, 1.0));
 
   RCLCPP_INFO(get_node()->get_logger(), "Robot Configuration (on_configure) done");
 

@@ -22,6 +22,11 @@
   <depend>ros2_controllers</depend>
   <depend>joint_state_publisher_gui</depend>
 
+  <build_depend>tf2_ros</build_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
   <depend>effort_controllers</depend>
 
   <test_depend>ament_lint_auto</test_depend>

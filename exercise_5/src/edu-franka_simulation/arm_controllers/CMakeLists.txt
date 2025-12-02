@@ -14,6 +14,8 @@ find_package(kdl_parser REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(realtime_tools REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED
   src/joint_velocity_example_controller.cpp
@@ -29,6 +31,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 ament_target_dependencies(${PROJECT_NAME}
   controller_interface
+  tf2_ros
+  geometry_msgs
   rclcpp
   rclcpp_lifecycle
   realtime_tools

@@ -28,6 +28,7 @@
 #include <Eigen/Eigen>
 #include <controller_interface/controller_interface.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 
 // Real-time buffer (real-time utilities)
 #include <realtime_tools/realtime_buffer.hpp>
@@ -37,6 +38,9 @@
 
 // Messages
 #include "std_msgs/msg/float64_multi_array.hpp"
+#include "geometry_msgs/msg/point.hpp"
+#include <tf2_ros/transform_broadcaster.h>
+
 
 
 // URDF model parsing
@@ -51,6 +55,9 @@
 #include <kdl/chainjnttojacsolver.hpp>
 #include <kdl/chainfksolverpos_recursive.hpp>
 #include <kdl/jacobian.hpp>
+#include <kdl/chainiksolverpos_nr.hpp>
+#include <kdl/chainiksolvervel_pinv.hpp>
+#include <kdl/chainiksolverpos_lma.hpp> 
 
 // Memory management (use standard C++ smart pointers)
 #include <memory>
@@ -108,6 +115,7 @@ class ComputedTorqueController : public controller_interface::ControllerInterfac
   std::unique_ptr<KDL::ChainDynParam> id_solver_;
   std::unique_ptr<KDL::ChainJntToJacSolver> jac_solver_;
   std::unique_ptr<KDL::ChainFkSolverPos_recursive> fk_solver_;
+  std::shared_ptr<KDL::ChainIkSolverPos_LMA> ik_pos_solver_;
 
   //Joint space state
   KDL::JntArray qd_, qd_dot_, qd_ddot_;
@@ -139,17 +147,25 @@ class ComputedTorqueController : public controller_interface::ControllerInterfac
   double t;
   double SaveData_[SaveDataMax];
 
+  // goal
+  rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr goal_subscriber_;
+  KDL::Frame ee_goal_;
+
   // Publishers
   rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_qd_;
   rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_q_;
   rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_e_;
   rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_SaveData_;
+  
 
   // messages
   std_msgs::msg::Float64MultiArray msg_qd_;
   std_msgs::msg::Float64MultiArray msg_q_;  
   std_msgs::msg::Float64MultiArray msg_e_;
   std_msgs::msg::Float64MultiArray msg_SaveData_;
+  std::string root_link_;
+  std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+  bool goal_switch_ = false;
 
 };
 
